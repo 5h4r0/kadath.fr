@@ -1,0 +1,53 @@
+{
+  "common": {
+    "loading": "Chargement...",
+    "error": "Une erreur est survenue",
+    "retry": "Réessayer",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "back": "Retour",
+    "confirm": "Confirmer"
+  },
+  "nav": {
+    "home": "Accueil",
+    "about": "À propos",
+    "services": "Services",
+    "contact": "Contact"
+  },
+  "auth": {
+    "login": "Connexion",
+    "logout": "Déconnexion",
+    "email": "Email",
+    "password": "Mot de passe",
+    "forgotPassword": "Mot de passe oublié",
+    "setupPassword": "Définir mon mot de passe",
+    "confirmPasswordChange": "Confirmer le changement de mot de passe"
+  },
+  "admin": {
+    "dashboard": "Tableau de bord",
+    "pages": "Pages",
+    "products": "Produits",
+    "clients": "Clients",
+    "invoices": "Factures",
+    "payments": "Paiements"
+  },
+  "customer": {
+    "profile": "Mon profil",
+    "orders": "Mes commandes",
+    "invoices": "Mes factures",
+    "messages": "Messages"
+  },
+  "cms": {
+    "title": "Titre",
+    "slug": "Slug",
+    "content": "Contenu",
+    "status": "Statut",
+    "draft": "Brouillon",
+    "published": "Publié",
+    "archived": "Archivé",
+    "publish": "Publier",
+    "saveDraft": "Enregistrer le brouillon"
+  }
+}

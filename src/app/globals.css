@@ -1,0 +1,142 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ------------------------------------------------------------------ */
+/* Fonts                                                               */
+/* ------------------------------------------------------------------ */
+
+@font-face {
+  font-family: "Ferryman";
+  font-weight: 100;
+  font-display: swap;
+  src: url("/fonts/ferryman_thn.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Ferryman";
+  font-weight: 200;
+  font-display: swap;
+  src: url("/fonts/ferryman_xtrlght.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Ferryman";
+  font-weight: 300;
+  font-display: swap;
+  src: url("/fonts/ferryman_lght.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Ferryman";
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/ferryman_mdm.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Ferryman";
+  font-weight: 600;
+  font-display: swap;
+  src: url("/fonts/ferryman_smbld.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Ferryman";
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/ferryman_bld.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Ferryman";
+  font-weight: 800;
+  font-display: swap;
+  src: url("/fonts/ferryman_xtrbld.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Ferryman";
+  font-weight: 900;
+  font-display: swap;
+  src: url("/fonts/ferryman_blck.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Helvetica Condensed";
+  font-weight: 300;
+  font-display: swap;
+  src: url("/fonts/helvetica_condensed_light.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Helvetica Condensed";
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/helvetica_condensed.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Helvetica Condensed";
+  font-weight: 900;
+  font-display: swap;
+  src: url("/fonts/helvetica_condensed_black.woff2") format("woff2");
+}
+
+/* ------------------------------------------------------------------ */
+/* Design tokens — theme-light (default)                              */
+/* ------------------------------------------------------------------ */
+
+:root,
+.theme-light {
+  --color-primary: #c5205d;
+  --color-primary-hover: #ad1a17;
+  --color-accent: #53bbad;
+  --color-surface-dark: #425566;
+  --color-surface-light: #7a97aa;
+  --color-bg-light: #f8f8f8;
+  --color-bg-dark: #1a1f2e;
+  --color-text-primary: #1a1f2e;
+  --color-text-secondary: #425566;
+  --color-white: #ffffff;
+}
+
+/* ------------------------------------------------------------------ */
+/* theme-dark                                                          */
+/* ------------------------------------------------------------------ */
+
+.theme-dark {
+  --color-bg-light: #1a1f2e;
+  --color-bg-dark: #0d1117;
+  --color-text-primary: #f8f8f8;
+  --color-text-secondary: #7a97aa;
+  --color-surface-dark: #2a3444;
+  --color-surface-light: #425566;
+}
+
+/* ------------------------------------------------------------------ */
+/* theme-accessible                                                    */
+/* ------------------------------------------------------------------ */
+
+.theme-accessible {
+  --color-primary: #c5205d;
+  --color-primary-hover: #ad1a17;
+  --color-text-primary: #000000;
+  --color-text-secondary: #1a1f2e;
+  --color-bg-light: #ffffff;
+  --color-bg-dark: #f0f0f0;
+}
+
+/* ------------------------------------------------------------------ */
+/* Base                                                                */
+/* ------------------------------------------------------------------ */
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-bg-light);
+    color: var(--color-text-primary);
+    font-family: theme("fontFamily.condensed");
+    line-height: 1.6;
+  }
+}

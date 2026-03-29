@@ -1,0 +1,53 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Retry",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "back": "Back",
+    "confirm": "Confirm"
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "contact": "Contact"
+  },
+  "auth": {
+    "login": "Login",
+    "logout": "Logout",
+    "email": "Email",
+    "password": "Password",
+    "forgotPassword": "Forgot password",
+    "setupPassword": "Set my password",
+    "confirmPasswordChange": "Confirm password change"
+  },
+  "admin": {
+    "dashboard": "Dashboard",
+    "pages": "Pages",
+    "products": "Products",
+    "clients": "Clients",
+    "invoices": "Invoices",
+    "payments": "Payments"
+  },
+  "customer": {
+    "profile": "My profile",
+    "orders": "My orders",
+    "invoices": "My invoices",
+    "messages": "Messages"
+  },
+  "cms": {
+    "title": "Title",
+    "slug": "Slug",
+    "content": "Content",
+    "status": "Status",
+    "draft": "Draft",
+    "published": "Published",
+    "archived": "Archived",
+    "publish": "Publish",
+    "saveDraft": "Save draft"
+  }
+}
