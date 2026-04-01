@@ -74,32 +74,30 @@
 
 /* ------------------------------------------------------------------ */
 /* ThinkTwice — motif de points décoratifs                            */
-/* Reproduit le pattern SVG Figma (PNG 22×22 tuilé, opacity 20%)     */
+/* Tile SVG 12×12px, rect 2×2px au coin — background-size identique  */
+/* pour cohérence parfaite entre viewBox et rendu.                    */
 /* ------------------------------------------------------------------ */
 
-/*
- * SVG data URI — carré 3×3px sur grille 22×22px, fidèle au tile PNG Figma.
- * Avantage vs radial-gradient : forme carrée nette, pas de cercle antialiasé.
- */
 .motif-dots {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22'%3E%3Crect width='3' height='3' fill='rgba(255%2C255%2C255%2C0.3)'/%3E%3C/svg%3E");
-  background-size: 15px 15px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Crect width='2' height='2' fill='rgba(255%2C255%2C255%2C0.5)'/%3E%3C/svg%3E");
+  background-size: 10px 10px;
 }
 
 /* Motif derrière les boutons CTA — pseudo-élément ::after */
 .btn-cta {
   position: relative;
+  font-family: "Helvetica Condensed", Arial Narrow, sans-serif;
 }
 
 .btn-cta::after {
   content: '';
   position: absolute;
   inset: 0;
-  translate: 10px 10px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22'%3E%3Crect width='3' height='3' fill='rgba(255%2C255%2C255%2C0.3)'/%3E%3C/svg%3E");
-  background-size: 15px 15px;
+  translate: 20px 20px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Crect width='2' height='2' fill='rgba(255%2C255%2C255%2C0.5)'/%3E%3C/svg%3E");
+  background-size: 10px 10px;
   opacity: 0.3;
-  z-index: -1;
+  z-index: 0;
   pointer-events: none;
 }
 

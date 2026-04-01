@@ -46,7 +46,7 @@ export default function HomePage() {
             {/* Motif de points — fond droit/bas du cadre (OmbreMotif-001 Figma) */}
             <div
               aria-hidden="true"
-              className="motif-dots pointer-events-none absolute bottom-0 right-0 z-0 h-3/4 w-2/3 translate-x-6 translate-y-6 opacity-30"
+              className="motif-dots pointer-events-none absolute bottom-0 right-0 z-0 h-3/4 w-2/3 -translate-x-4 -translate-y-6 opacity-30"
             />
             {/* Ombre décalée derrière le cadre */}
             <div
@@ -60,13 +60,13 @@ export default function HomePage() {
       </section>
 
       {/* ── VALUE PROP ─────────────────────────────────────────────────── */}
-      <section className="mx-auto max-w-6xl px-6 pb-20">
-        <p className="font-light text-white text-4xl leading-snug lg:text-5xl">
+      <section className="mx-auto max-w-[60rem] px-6 pb-20">
+        <p className="font-light text-white text-4xl leading-snug lg:text-[2.6rem]">
           Conception de sites <span className="mark-teal">WordPress</span> performants, pensés pour
           votre image et votre business.
         </p>
 
-        <p className="mt-6 font-light text-tt-accent text-2xl leading-snug lg:text-3xl">
+        <p className="mt-12 mb-16 font-light text-tt-accent text-2xl leading-snug lg:text-3xl">
           Nous associons direction artistique et développement pour créer{' '}
           <span className="mark-gray">des sites sur mesure, clairs, rapides et durables.</span>
         </p>
@@ -78,13 +78,13 @@ export default function HomePage() {
         <div className="mt-8 flex flex-col gap-6 sm:flex-row">
           <a
             href="#contact"
-            className="btn-cta flex-1 bg-tt-accent px-8 py-5 text-center font-bold text-tt-bg text-2xl transition-opacity hover:opacity-90"
+            className="btn-cta flex-1 bg-tt-accent px-8 py-5 text-center font-light text-tt-bg text-[1.8rem] leading-[2rem] transition-opacity hover:opacity-90"
           >
             Demander un devis
           </a>
           <a
             href="#contact"
-            className="btn-cta flex-1 bg-tt-accent px-8 py-5 text-center font-bold text-tt-bg text-2xl transition-opacity hover:opacity-90"
+            className="btn-cta flex-1 bg-tt-accent px-8 py-5 text-center font-light text-tt-bg text-[1.8rem] leading-[2rem] transition-opacity hover:opacity-90"
           >
             Prendre rendez-vous
           </a>
@@ -98,7 +98,7 @@ export default function HomePage() {
           <div className="relative hidden w-36 flex-shrink-0 lg:block">
             <div
               aria-hidden="true"
-              className="motif-dots pointer-events-none absolute inset-0 -translate-x-4 opacity-30 [filter:drop-shadow(0px_4px_4px_rgba(0,0,0,0.25))]"
+              className="motif-dots pointer-events-none absolute left-0 right-0 top-0 h-[88%] translate-x-[1.9rem] -translate-y-[1.3rem] opacity-30 [filter:drop-shadow(0px_4px_4px_rgba(0,0,0,0.25))]"
             />
             <div
               aria-hidden="true"
@@ -113,23 +113,25 @@ export default function HomePage() {
           </div>
 
           {/* +20 / expérience */}
-          <div className="flex flex-1 flex-col items-center justify-center gap-6 text-center">
-            <div className="flex flex-wrap items-baseline justify-center gap-x-6">
+          <div className="flex flex-1 flex-col justify-center gap-6">
+            <div className="flex flex-wrap items-center gap-x-6">
               <span
                 className="font-bold leading-none text-white"
                 style={{ fontSize: 'clamp(4rem, 10vw, 9rem)' }}
               >
                 +20
               </span>
-              <span className="font-light leading-tight text-white text-4xl lg:text-6xl">
+              <span className="font-light leading-tight text-left text-white text-4xl lg:text-6xl">
                 ans
                 <br />
                 d'expérience
               </span>
             </div>
-            <p className="max-w-md font-light text-tt-accent text-lg leading-relaxed lg:text-xl">
-              En direction artistique et en développement — projets réalisés pour A1 Cloud Tech,
-              Michelin Europe, Nissan, Orsay Avocats, Systran…
+            <p className="ml-4 max-w-[40rem] font-light text-tt-accent text-lg leading-relaxed lg:ml-24 lg:text-xl">
+              En direction artistique et en développement.
+              <br />
+              Projets réalisés pour A1 Cloud Tech, Michelin Europe, Nissan, Orsay Avocats, Systran,
+              et plus.
             </p>
           </div>
 
@@ -137,7 +139,7 @@ export default function HomePage() {
           <div className="relative hidden w-36 flex-shrink-0 lg:block">
             <div
               aria-hidden="true"
-              className="motif-dots pointer-events-none absolute inset-0 translate-x-4 opacity-30 [filter:drop-shadow(0px_4px_4px_rgba(0,0,0,0.25))]"
+              className="motif-dots pointer-events-none absolute left-0 right-0 top-0 h-[88%] -translate-x-[1.8rem] -translate-y-[1.3rem] opacity-30 [filter:drop-shadow(0px_4px_4px_rgba(0,0,0,0.25))]"
             />
             <div
               aria-hidden="true"
