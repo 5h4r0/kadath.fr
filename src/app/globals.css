@@ -89,6 +89,10 @@
   --color-text-primary: #1a1f2e;
   --color-text-secondary: #425566;
   --color-white: #ffffff;
+
+  /* ThinkTwice vitrine */
+  --color-tt-bg: #333333;
+  --color-tt-accent: #26e1b0;
 }
 
 /* ------------------------------------------------------------------ */
@@ -136,7 +140,7 @@
   body {
     background-color: var(--color-bg-light);
     color: var(--color-text-primary);
-    font-family: theme("fontFamily.condensed");
+    font-family: theme("fontFamily.grotesk");
     line-height: 1.6;
   }
 }

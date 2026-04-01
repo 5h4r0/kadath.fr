@@ -6,6 +6,8 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
+        grotesk: ['var(--font-space-grotesk)', 'sans-serif'],
+        sans3: ['var(--font-source-sans-3)', 'sans-serif'],
         ferryman: ['Ferryman', 'serif'],
         condensed: ['Helvetica Condensed', 'Arial Narrow', 'sans-serif'],
       },
@@ -19,6 +21,8 @@ const config: Config = {
         'bg-dark': 'var(--color-bg-dark)',
         'text-primary': 'var(--color-text-primary)',
         'text-secondary': 'var(--color-text-secondary)',
+        'tt-bg': 'var(--color-tt-bg)',
+        'tt-accent': 'var(--color-tt-accent)',
       },
     },
   },

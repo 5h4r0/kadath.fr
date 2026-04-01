@@ -110,7 +110,7 @@ Obligatoire sur tout champ HTML riche avant stockage en DB.
 
 ### UI Strategy
 
-- **Site vitrine / portfolio** → Tailwind pur — design custom (Ferryman + Helvetica Condensed)
+- **Site vitrine / portfolio** → Tailwind pur — design custom ThinkTwice (**Space Grotesk** + **Source Sans 3** via `next/font/google`). Ferryman + Helvetica Condensed disponibles en woff2 dans `public/fonts/` pour usage ponctuel (logo, titres décoratifs).
 - **Backoffice + espace client** → shadcn/ui — composants Radix accessibles, personnalisés Tailwind
 - shadcn/ui n'est pas une dépendance externe — composants copiés dans `src/components/ui/`
 
