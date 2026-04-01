@@ -8,7 +8,7 @@ export default function GlobalError({
 }) {
   return (
     <main>
-      <h1>Une erreur est survenue</h1>
+      <h1>Une erreur est malheureusement survenue - mais c'est pas grave !</h1>
       <button type="button" onClick={reset}>
         Réessayer
       </button>
