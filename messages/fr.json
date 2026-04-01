@@ -49,5 +49,87 @@
     "archived": "Archivé",
     "publish": "Publier",
     "saveDraft": "Enregistrer le brouillon"
+  },
+  "home": {
+    "hero": {
+      "badge": "Développeur freelance",
+      "headline": "Des apps web sur mesure",
+      "sub": "Next.js · Supabase · TypeScript",
+      "cta_contact": "Discuter de votre projet",
+      "cta_work": "Voir mes réalisations"
+    },
+    "projects": {
+      "title": "Réalisations",
+      "subtitle": "Quelques projets récents"
+    },
+    "cta": {
+      "title": "Un projet en tête ?",
+      "text": "Discutons-en. Je réponds dans les 24h.",
+      "button": "Prendre contact"
+    }
+  },
+  "about": {
+    "hero": {
+      "title": "À propos",
+      "lead": "Je conçois et développe des applications web sur mesure — du prototype au déploiement."
+    },
+    "stack": {
+      "title": "Stack technique"
+    },
+    "approach": {
+      "title": "Ma façon de travailler",
+      "items": [
+        "Un interlocuteur unique du brief au déploiement.",
+        "Code livré propre, testé, documenté.",
+        "Itérations courtes avec feedback régulier.",
+        "Pas de dépendances inutiles. Pas de complexité gratuite."
+      ]
+    },
+    "cta": {
+      "title": "Travaillons ensemble",
+      "button": "Me contacter"
+    }
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Un projet ? Une question ? Je lis tout.",
+    "form": {
+      "name": "Nom",
+      "email": "Email",
+      "message": "Message",
+      "placeholder_name": "Votre nom",
+      "placeholder_email": "votre@email.fr",
+      "placeholder_message": "Décrivez votre projet ou votre question...",
+      "submit": "Envoyer",
+      "sending": "Envoi en cours...",
+      "success": "Message envoyé. Je vous réponds dans les 24h.",
+      "error_generic": "Une erreur est survenue. Réessayez.",
+      "error_turnstile": "Vérification anti-bot échouée. Réessayez.",
+      "error_rate_limit": "Trop de messages. Réessayez dans quelques minutes."
+    }
+  },
+  "legal": {
+    "title": "Mentions légales",
+    "editor": {
+      "title": "Éditeur",
+      "name": "Steph Dev",
+      "status": "Entrepreneur individuel",
+      "siret": "000 000 000 00000",
+      "address": "75000 Paris, France",
+      "email": "admin@kadath.fr"
+    },
+    "hosting": {
+      "title": "Hébergement",
+      "name": "Google Cloud / Firebase App Hosting",
+      "address": "8 rue de Londres, 75009 Paris"
+    },
+    "data": {
+      "title": "Données personnelles",
+      "text": "Les données collectées via le formulaire de contact (nom, email, message) sont utilisées uniquement pour répondre à votre demande. Elles ne sont ni vendues, ni cédées à des tiers. Conformément au RGPD, vous disposez d'un droit d'accès, de rectification et de suppression. Pour l'exercer : admin@kadath.fr"
+    },
+    "cookies": {
+      "title": "Cookies",
+      "text": "Ce site utilise Umami, une solution d'analyse d'audience respectueuse de la vie privée, sans cookie de traçage tiers."
+    }
   }
 }
