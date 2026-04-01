@@ -2,12 +2,10 @@
 // Revalidation toutes les 60s (page semi-dynamique, cf. CLAUDE.md)
 export const revalidate = 60
 
-// Figma assets — temporaires (expirent ~2026-04-08), remplacer par /public/images/
-const LOGO_SRC = 'https://www.figma.com/api/mcp/asset/5c418913-004b-4157-ba65-f0aad7c25886'
-const FRAME_SRC = 'https://www.figma.com/api/mcp/asset/5851d71d-8522-4181-8fa7-0b46d718d15f'
-const PORTRAIT_LEFT_SRC = 'https://www.figma.com/api/mcp/asset/64e21008-19fa-4fb1-bbc6-7e80be522268'
-const PORTRAIT_RIGHT_SRC =
-  'https://www.figma.com/api/mcp/asset/2aaaf90d-0444-499f-af25-02f9972c5661'
+const LOGO_SRC = '/images/hero-logo.svg'
+const FRAME_SRC = '/images/hero-cadre.png'
+const PORTRAIT_LEFT_SRC = '/images/hero-portrait-left.png'
+const PORTRAIT_RIGHT_SRC = '/images/hero-portrait-right.png'
 
 export default function HomePage() {
   return (
