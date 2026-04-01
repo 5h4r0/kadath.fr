@@ -128,7 +128,7 @@ export default function HomePage() {
               </span>
             </div>
             <p className="ml-4 max-w-[40rem] font-light text-tt-accent text-lg leading-relaxed lg:ml-24 lg:text-xl">
-              En direction artistique et en développement.
+              en direction artistique et en développement.
               <br />
               Projets réalisés pour A1 Cloud Tech, Michelin Europe, Nissan, Orsay Avocats, Systran,
               et plus.
