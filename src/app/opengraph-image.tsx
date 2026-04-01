@@ -20,7 +20,7 @@ export default function OgImage() {
         fontWeight: 700,
       }}
     >
-      kadath.fr
+      thinktwice
     </div>,
     { ...size },
   )

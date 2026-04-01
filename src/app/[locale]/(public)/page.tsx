@@ -12,10 +12,14 @@ export default function HomePage() {
     <main className="bg-tt-bg min-h-screen font-grotesk text-white">
       {/* ── HERO ───────────────────────────────────────────────────────── */}
       <section className="relative overflow-hidden">
-        {/* Motif gauche décoratif — partiellement hors-écran */}
+        {/*
+          Motif gauche — bord gauche de fenêtre jusqu'à ~20% de la largeur du SVG.
+          Visible sur tous les viewports.
+          Largeur = marge auto du container (max-w-6xl) + px-6 (1.5rem) + 20% du logo (33rem × 0.2)
+        */}
         <div
           aria-hidden="true"
-          className="motif-dots pointer-events-none absolute -left-24 top-0 hidden h-[640px] w-80 rounded-3xl opacity-20 [filter:drop-shadow(0px_4px_4px_rgba(0,0,0,0.25))] lg:block"
+          className="motif-dots pointer-events-none absolute left-0 top-0 h-[640px] opacity-30 [width:calc(max(0px,(100vw-72rem)/2)+8.5rem)]"
         />
 
         <div className="mx-auto grid max-w-6xl grid-cols-1 gap-12 px-6 pb-16 pt-20 lg:grid-cols-2 lg:items-center">
@@ -29,7 +33,8 @@ export default function HomePage() {
               height={91}
               className="w-[33rem] max-w-full"
             />
-            <div className="flex flex-col font-sans3 font-extralight leading-tight text-tt-accent text-4xl lg:text-5xl">
+            {/* Mobile : aligné à droite, sans marge gauche. Desktop : indenté à 7rem */}
+            <div className="flex flex-col font-sans3 font-extralight leading-tight text-tt-accent text-4xl text-right ml-0 lg:ml-28 lg:text-left lg:text-5xl">
               <span className="opacity-70">Design × code</span>
               <span className="opacity-50">Précision × exécution</span>
               <span className="opacity-30">Double exigence</span>
@@ -38,18 +43,18 @@ export default function HomePage() {
 
           {/* Portrait dans cadre baroque */}
           <div className="relative">
-            {/* Motif de points — fond droit/bas du cadre, fidèle Figma (OmbreMotif-001) */}
+            {/* Motif de points — fond droit/bas du cadre (OmbreMotif-001 Figma) */}
             <div
               aria-hidden="true"
-              className="motif-dots pointer-events-none absolute bottom-0 right-0 z-0 h-3/4 w-2/3 translate-x-6 translate-y-6 opacity-20"
+              className="motif-dots pointer-events-none absolute bottom-0 right-0 z-0 h-3/4 w-2/3 translate-x-6 translate-y-6 opacity-30"
             />
             {/* Ombre décalée derrière le cadre */}
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute inset-0 z-0 translate-x-5 translate-y-5 rounded-3xl [filter:drop-shadow(0px_4px_4px_rgba(0,0,0,0.25))]"
+              className="pointer-events-none absolute inset-0 z-0 translate-x-5 translate-y-5 [filter:drop-shadow(0px_4px_4px_rgba(0,0,0,0.25))]"
             />
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={FRAME_SRC} alt="" className="relative z-10 w-full rounded-3xl object-cover" />
+            <img src={FRAME_SRC} alt="" className="relative z-10 w-full object-cover" />
           </div>
         </div>
       </section>
@@ -66,20 +71,20 @@ export default function HomePage() {
           <span className="mark-gray">des sites sur mesure, clairs, rapides et durables.</span>
         </p>
 
-        {/* Séparateur */}
-        <div aria-hidden="true" className="mt-8 h-px bg-white/20" />
+        {/* Espaceur */}
+        <div aria-hidden="true" className="my-12" />
 
         {/* CTAs — TODO: remplacer href par les routes localisées (/[locale]/contact) */}
         <div className="mt-8 flex flex-col gap-6 sm:flex-row">
           <a
             href="#contact"
-            className="flex-1 rounded bg-tt-accent px-8 py-5 text-center font-medium text-tt-bg text-2xl [filter:drop-shadow(20px_20px_4px_rgba(0,0,0,0.25))] transition-opacity hover:opacity-90"
+            className="btn-cta flex-1 bg-tt-accent px-8 py-5 text-center font-bold text-tt-bg text-2xl transition-opacity hover:opacity-90"
           >
             Demander un devis
           </a>
           <a
             href="#contact"
-            className="flex-1 rounded bg-tt-accent px-8 py-5 text-center font-medium text-tt-bg text-2xl [filter:drop-shadow(20px_20px_4px_rgba(0,0,0,0.25))] transition-opacity hover:opacity-90"
+            className="btn-cta flex-1 bg-tt-accent px-8 py-5 text-center font-bold text-tt-bg text-2xl transition-opacity hover:opacity-90"
           >
             Prendre rendez-vous
           </a>
@@ -93,17 +98,17 @@ export default function HomePage() {
           <div className="relative hidden w-36 flex-shrink-0 lg:block">
             <div
               aria-hidden="true"
-              className="motif-dots pointer-events-none absolute inset-0 -translate-x-4 rounded-3xl opacity-20 [filter:drop-shadow(0px_4px_4px_rgba(0,0,0,0.25))]"
+              className="motif-dots pointer-events-none absolute inset-0 -translate-x-4 opacity-30 [filter:drop-shadow(0px_4px_4px_rgba(0,0,0,0.25))]"
             />
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute inset-0 translate-x-3 translate-y-3 rounded-3xl [filter:drop-shadow(0px_4px_4px_rgba(0,0,0,0.25))]"
+              className="pointer-events-none absolute inset-0 translate-x-3 translate-y-3 [filter:drop-shadow(0px_4px_4px_rgba(0,0,0,0.25))]"
             />
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={PORTRAIT_LEFT_SRC}
               alt=""
-              className="relative z-10 h-full w-full rounded-3xl object-cover"
+              className="relative z-10 h-full w-full object-cover"
             />
           </div>
 
@@ -132,17 +137,17 @@ export default function HomePage() {
           <div className="relative hidden w-36 flex-shrink-0 lg:block">
             <div
               aria-hidden="true"
-              className="motif-dots pointer-events-none absolute inset-0 translate-x-4 rounded-3xl opacity-20 [filter:drop-shadow(0px_4px_4px_rgba(0,0,0,0.25))]"
+              className="motif-dots pointer-events-none absolute inset-0 translate-x-4 opacity-30 [filter:drop-shadow(0px_4px_4px_rgba(0,0,0,0.25))]"
             />
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute inset-0 -translate-x-3 translate-y-3 rounded-3xl [filter:drop-shadow(0px_4px_4px_rgba(0,0,0,0.25))]"
+              className="pointer-events-none absolute inset-0 -translate-x-3 translate-y-3 [filter:drop-shadow(0px_4px_4px_rgba(0,0,0,0.25))]"
             />
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={PORTRAIT_RIGHT_SRC}
               alt=""
-              className="relative z-10 h-full w-full rounded-3xl object-cover"
+              className="relative z-10 h-full w-full object-cover"
             />
           </div>
         </div>

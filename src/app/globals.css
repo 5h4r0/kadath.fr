@@ -5,55 +5,6 @@
 /* ------------------------------------------------------------------ */
 /* Fonts                                                               */
 /* ------------------------------------------------------------------ */
-
-@font-face {
-  font-family: "Ferryman";
-  font-weight: 100;
-  font-display: swap;
-  src: url("/fonts/ferryman_thn.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Ferryman";
-  font-weight: 200;
-  font-display: swap;
-  src: url("/fonts/ferryman_xtrlght.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Ferryman";
-  font-weight: 300;
-  font-display: swap;
-  src: url("/fonts/ferryman_lght.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Ferryman";
-  font-weight: 400;
-  font-display: swap;
-  src: url("/fonts/ferryman_mdm.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Ferryman";
-  font-weight: 600;
-  font-display: swap;
-  src: url("/fonts/ferryman_smbld.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Ferryman";
-  font-weight: 700;
-  font-display: swap;
-  src: url("/fonts/ferryman_bld.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Ferryman";
-  font-weight: 800;
-  font-display: swap;
-  src: url("/fonts/ferryman_xtrbld.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Ferryman";
-  font-weight: 900;
-  font-display: swap;
-  src: url("/fonts/ferryman_blck.woff2") format("woff2");
-}
 @font-face {
   font-family: "Helvetica Condensed";
   font-weight: 300;
@@ -132,7 +83,24 @@
  */
 .motif-dots {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22'%3E%3Crect width='3' height='3' fill='rgba(255%2C255%2C255%2C0.3)'/%3E%3C/svg%3E");
-  background-size: 22px 22px;
+  background-size: 15px 15px;
+}
+
+/* Motif derrière les boutons CTA — pseudo-élément ::after */
+.btn-cta {
+  position: relative;
+}
+
+.btn-cta::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  translate: 10px 10px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22'%3E%3Crect width='3' height='3' fill='rgba(255%2C255%2C255%2C0.3)'/%3E%3C/svg%3E");
+  background-size: 15px 15px;
+  opacity: 0.3;
+  z-index: -1;
+  pointer-events: none;
 }
 
 /*
