@@ -12,10 +12,10 @@ export default function HomePage() {
     <main className="bg-tt-bg min-h-screen font-grotesk text-white">
       {/* ── HERO ───────────────────────────────────────────────────────── */}
       <section className="relative overflow-hidden">
-        {/* Motif gauche décoratif — partiellement hors-écran */}
+        {/* Motif gauche décoratif — partiellement hors-écran, drop-shadow suit l'alpha du motif */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute -left-24 top-0 hidden h-[640px] w-80 rounded-3xl shadow-[0_4px_4px_rgba(0,0,0,0.25)] lg:block"
+          className="motif-dots pointer-events-none absolute -left-24 top-0 hidden h-[640px] w-80 rounded-3xl opacity-20 [filter:drop-shadow(0px_4px_4px_rgba(0,0,0,0.25))] lg:block"
         />
 
         <div className="mx-auto grid max-w-6xl grid-cols-1 gap-12 px-6 pb-16 pt-20 lg:grid-cols-2 lg:items-center">
@@ -41,7 +41,7 @@ export default function HomePage() {
             {/* Ombre décalée derrière le cadre */}
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute inset-0 translate-x-5 translate-y-5 rounded-3xl shadow-[0_4px_4px_rgba(0,0,0,0.25)]"
+              className="pointer-events-none absolute inset-0 translate-x-5 translate-y-5 rounded-3xl [filter:drop-shadow(0px_4px_4px_rgba(0,0,0,0.25))]"
             />
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={FRAME_SRC} alt="" className="relative z-10 w-full rounded-3xl object-cover" />
@@ -86,11 +86,17 @@ export default function HomePage() {
       {/* ── SOCIAL PROOF ───────────────────────────────────────────────── */}
       <section className="mx-auto max-w-6xl px-6 pb-24">
         <div className="flex items-stretch gap-8">
-          {/* Portrait gauche */}
+          {/* Portrait gauche + motif derrière */}
           <div className="relative hidden w-36 flex-shrink-0 lg:block">
+            {/* Motif de points en fond */}
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute inset-0 translate-x-3 translate-y-3 rounded-3xl shadow-[0_4px_4px_rgba(0,0,0,0.25)]"
+              className="motif-dots pointer-events-none absolute inset-0 -translate-x-4 rounded-3xl opacity-20 [filter:drop-shadow(0px_4px_4px_rgba(0,0,0,0.25))]"
+            />
+            {/* Ombre décalée */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 translate-x-3 translate-y-3 rounded-3xl [filter:drop-shadow(0px_4px_4px_rgba(0,0,0,0.25))]"
             />
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -121,11 +127,17 @@ export default function HomePage() {
             </p>
           </div>
 
-          {/* Portrait droit */}
+          {/* Portrait droit + motif derrière */}
           <div className="relative hidden w-36 flex-shrink-0 lg:block">
+            {/* Motif de points en fond */}
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute inset-0 -translate-x-3 translate-y-3 rounded-3xl shadow-[0_4px_4px_rgba(0,0,0,0.25)]"
+              className="motif-dots pointer-events-none absolute inset-0 translate-x-4 rounded-3xl opacity-20 [filter:drop-shadow(0px_4px_4px_rgba(0,0,0,0.25))]"
+            />
+            {/* Ombre décalée */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 -translate-x-3 translate-y-3 rounded-3xl [filter:drop-shadow(0px_4px_4px_rgba(0,0,0,0.25))]"
             />
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
