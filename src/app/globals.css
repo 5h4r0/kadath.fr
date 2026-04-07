@@ -144,3 +144,8 @@
     color: var(--color-tt-accent);
   }
 }
+
+/* Turnstile widget */
+.cf-turnstile {
+  margin-bottom: 1rem;
+}
