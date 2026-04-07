@@ -16,8 +16,8 @@ export default async function ContactPage({
 }: {
   params: Promise<{ locale: string }>
 }) {
-  await params
-  const t = await getTranslations('contact')
+  const { locale } = await params
+  const t = await getTranslations({ locale, namespace: 'contact' })
 
   return (
     <main className="min-h-screen bg-tt-bg">
