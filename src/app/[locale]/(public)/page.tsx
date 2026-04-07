@@ -782,7 +782,7 @@ export default function HomePage() {
 
       {/* ── CONTACT ────────────────────────────────────────────────────── */}
       <section id="contact" className="border-t border-[#444444]">
-        <div className="mx-auto max-w-2xl px-6 py-24">
+        <div className="mx-auto max-w-2xl px-6 pt-24 pb-32">
           <h2 className="mb-3 font-bold text-2xl text-tt-accent tracking-tight">Contact</h2>
           <p className="mb-10 text-[#cccccc]">Un projet ? Une question ? Je lis tout.</p>
           <ContactForm />
