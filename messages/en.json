@@ -49,5 +49,89 @@
     "archived": "Archived",
     "publish": "Publish",
     "saveDraft": "Save draft"
+  },
+  "home": {
+    "hero": {
+      "badge": "Freelance developer",
+      "headline": "Custom web apps",
+      "sub": "Next.js · Supabase · TypeScript",
+      "cta_contact": "Discuss your project",
+      "cta_work": "See my work"
+    },
+    "projects": {
+      "title": "Projects",
+      "subtitle": "Some recent work"
+    },
+    "cta": {
+      "title": "Have a project in mind?",
+      "text": "Let's talk. I reply within 24h.",
+      "button": "Get in touch"
+    }
+  },
+  "about": {
+    "hero": {
+      "title": "About",
+      "lead": "I design and develop custom web applications — from prototype to deployment."
+    },
+    "stack": {
+      "title": "Tech stack"
+    },
+    "approach": {
+      "title": "How I work",
+      "items": [
+        "One point of contact from brief to deployment.",
+        "Clean, tested, documented code.",
+        "Short iterations with regular feedback.",
+        "No unnecessary dependencies. No gratuitous complexity."
+      ]
+    },
+    "cta": {
+      "title": "Let's work together",
+      "button": "Contact me"
+    }
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "A project? A question? I read everything.",
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "subject": "Subject",
+      "message": "Message",
+      "placeholder_name": "Your name",
+      "placeholder_email": "your@email.com",
+      "placeholder_subject": "What's this about?",
+      "placeholder_message": "Describe your project or question...",
+      "submit": "Send",
+      "sending": "Sending...",
+      "success": "Message sent. I'll reply within 24h.",
+      "error_generic": "An error occurred. Please try again.",
+      "error_turnstile": "Anti-bot check failed. Please try again.",
+      "error_rate_limit": "Too many messages. Try again in a few minutes."
+    }
+  },
+  "legal": {
+    "title": "Legal notice",
+    "editor": {
+      "title": "Publisher",
+      "name": "Steph Dev",
+      "status": "Sole trader",
+      "siret": "000 000 000 00000",
+      "address": "75000 Paris, France",
+      "email": "admin@kadath.fr"
+    },
+    "hosting": {
+      "title": "Hosting",
+      "name": "Google Cloud / Firebase App Hosting",
+      "address": "8 rue de Londres, 75009 Paris"
+    },
+    "data": {
+      "title": "Personal data",
+      "text": "Data collected via the contact form (name, email, message) is used solely to respond to your request. It is not sold or shared with third parties. Under GDPR, you have the right to access, correct and delete your data. To exercise this right: admin@kadath.fr"
+    },
+    "cookies": {
+      "title": "Cookies",
+      "text": "This site uses Umami, a privacy-friendly analytics solution with no third-party tracking cookies."
+    }
   }
 }

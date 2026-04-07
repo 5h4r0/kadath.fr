@@ -3,7 +3,10 @@ import { z } from 'zod'
 export const contactSchema = z.object({
   name: z.string().min(2).max(100),
   email: z.string().email(),
+  subject: z.string().min(2).max(200),
   message: z.string().min(10).max(2000),
+  turnstile_token: z.string().min(1),
+  locale: z.enum(['fr', 'en']),
 })
 
 export const passwordSchema = z

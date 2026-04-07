@@ -13,12 +13,12 @@ const securityHeaders = [
     key: 'Content-Security-Policy',
     value: [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-eval' 'unsafe-inline'",
+      "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://challenges.cloudflare.com",
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: blob: https://*.supabase.co",
       "font-src 'self'",
       "connect-src 'self' https://*.supabase.co https://api.stripe.com",
-      'frame-src https://js.stripe.com',
+      'frame-src https://js.stripe.com https://challenges.cloudflare.com',
     ].join('; '),
   },
 ]
