@@ -113,6 +113,7 @@ export default function ContactForm() {
 
       <Turnstile
         siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? ''}
+        options={{ theme: 'dark' }}
         onSuccess={setTurnstileToken}
         onError={() => setTurnstileToken('')}
         onExpire={() => setTurnstileToken('')}

@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(printf 'https://trusty-grizzly-81970.upstash.io')"
+    ]
+  }
+}
