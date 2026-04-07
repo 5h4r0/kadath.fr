@@ -1,14 +1,12 @@
-import { readFile } from 'node:fs/promises'
-import path from 'node:path'
+import { headers } from 'next/headers'
 import { NextResponse } from 'next/server'
 
 export async function GET() {
-  const filePath = path.join(process.cwd(), 'public', 'favicon.ico')
-  const file = await readFile(filePath)
-  return new NextResponse(file, {
-    headers: {
-      'Content-Type': 'image/x-icon',
-      'Cache-Control': 'public, max-age=86400',
-    },
+  const headerStore = await headers()
+  const host = headerStore.get('host') ?? 'kadath.fr'
+  const proto = headerStore.get('x-forwarded-proto') ?? 'https'
+  return NextResponse.redirect(`${proto}://${host}/icon.png`, {
+    status: 301,
+    headers: { 'Cache-Control': 'public, max-age=604800' },
   })
 }
