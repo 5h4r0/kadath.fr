@@ -2,12 +2,13 @@
 
 import ContactConfirmation from '@/emails/ContactConfirmation'
 import ContactNotification from '@/emails/ContactNotification'
-import { ratelimit } from '@/lib/ratelimit'
 import { resend } from '@/lib/resend'
 import { verifyTurnstile } from '@/lib/turnstile'
 import { contactSchema } from '@/lib/utils/schemas'
 import { render } from '@react-email/render'
 import { createClient } from '@supabase/supabase-js'
+import { Ratelimit } from '@upstash/ratelimit'
+import { Redis } from '@upstash/redis'
 import { headers } from 'next/headers'
 import { createElement } from 'react'
 
@@ -22,7 +23,15 @@ export async function sendContactMessage(formData: unknown): Promise<ContactResu
 
     const { name, email, subject, message, turnstile_token, locale } = parsed.data
 
-    // Rate limit by IP
+    // Rate limit by IP — instancié ici pour éviter le crash module-level si Redis n'est pas dispo
+    const ratelimit = new Ratelimit({
+      redis: new Redis({
+        url: process.env.UPSTASH_REDIS_REST_URL ?? '',
+        token: process.env.UPSTASH_REDIS_REST_TOKEN ?? '',
+      }),
+      limiter: Ratelimit.slidingWindow(5, '10 m'),
+    })
+
     const headerStore = await headers()
     const ip = headerStore.get('x-forwarded-for') ?? 'unknown'
     const { success: rateLimitOk } = await ratelimit.limit(ip)
@@ -61,7 +70,7 @@ export async function sendContactMessage(formData: unknown): Promise<ContactResu
     )
     const confirmationHtml = await render(createElement(ContactConfirmation, { name, locale }))
 
-    // Send emails in parallel — failure does not block success response
+    // Send emails in parallel
     await Promise.all([
       resend.emails.send({
         from: 'kadath.fr <contact@kadath.fr>',
