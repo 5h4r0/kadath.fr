@@ -145,7 +145,11 @@
   }
 }
 
-/* Turnstile widget */
-.cf-turnstile {
-  margin-bottom: 1rem;
+/* Turnstile widget.
+   #cf-turnstile est l'id posé par Cloudflare sur le conteneur (pas une classe).
+   L'iframe est dans un #shadow-root (closed) — inatteignable par CSS extérieur.
+   translateZ(0) crée un GPU compositing layer : l'OOPIF est composité sur une
+   frontière de pixel entier, corrigeant le sub-pixel offset sur les longues pages. */
+#cf-turnstile {
+  transform: translateZ(0);
 }
