@@ -1,6 +1,6 @@
 # ARCH.md — Architecture kadath.fr
 > Référence technique complète — décisions de conception et rationale
-> Dernière mise à jour : 28/03/2026
+> Dernière mise à jour : 07/04/2026
 
 ---
 
@@ -14,22 +14,23 @@
 6. [Server vs Client Components](#6-server-vs-client-components)
 7. [I18n](#7-i18n)
 8. [Authentification & Sécurité](#8-authentification--sécurité)
-9. [Modèle de données — 20 tables](#9-modèle-de-données--20-tables)
+9. [Modèle de données — 21 tables](#9-modèle-de-données--21-tables)
 10. [Full-text search](#10-full-text-search)
 11. [Storage Supabase](#11-storage-supabase)
 12. [Backoffice manage.kadath.fr](#12-backoffice-managekadathfr)
 13. [Espace client](#13-espace-client)
-14. [Paiement Stripe](#14-paiement-stripe)
-15. [PDF — react-pdf](#15-pdf--react-pdf)
-16. [Emails — Resend](#16-emails--resend)
-17. [Cache & Revalidation](#17-cache--revalidation)
-18. [Rate Limiting](#18-rate-limiting)
-19. [Logs & Monitoring](#19-logs--monitoring)
-20. [Tests](#20-tests)
-21. [Qualité code & CI/CD](#21-qualité-code--cicd)
-22. [Environnements](#22-environnements)
-23. [Coûts estimés](#23-coûts-estimés)
-24. [Décisions écartées](#24-décisions-écartées)
+14. [Formulaire de contact](#14-formulaire-de-contact)
+15. [Paiement Stripe](#15-paiement-stripe)
+16. [PDF — react-pdf](#16-pdf--react-pdf)
+17. [Emails — Resend](#17-emails--resend)
+18. [Cache & Revalidation](#18-cache--revalidation)
+19. [Rate Limiting](#19-rate-limiting)
+20. [Logs & Monitoring](#20-logs--monitoring)
+21. [Tests](#21-tests)
+22. [Qualité code & CI/CD](#22-qualité-code--cicd)
+23. [Environnements](#23-environnements)
+24. [Coûts estimés](#24-coûts-estimés)
+25. [Décisions écartées](#25-décisions-écartées)
 
 ---
 
@@ -126,21 +127,22 @@ TXT   manage  → firebase-site-verification=...
 | Outil | Rôle |
 |---|---|
 | **Zod** | Validation schémas — types inférés |
-| **Cloudflare Turnstile** | Anti-bot inscription clients |
+| **Cloudflare Turnstile** | Anti-bot inscription clients + formulaire contact |
+| **@marsidev/react-turnstile** | Widget React Turnstile |
 
 ### Transactionnel
 
 | Outil | Rôle |
 |---|---|
 | **Resend** | Emails transactionnels |
-| **react-email** | Templates React |
+| **@react-email/render** | Rendu HTML emails (dépendance explicite requise pour Firebase build) |
 | **@react-pdf/renderer** | Génération PDF devis/factures |
 
 ### Infrastructure
 
 | Outil | Rôle |
 |---|---|
-| **@upstash/ratelimit + Redis** | Rate limiting (slidingWindow 5/10min) |
+| **@upstash/ratelimit + Redis** | Rate limiting (slidingWindow 5/10min) — DB `kadath.fr`, eu-west-1, free tier |
 | **next-intl** | I18n — fr + en |
 | **@vercel/og** | OG image dynamique (Edge) |
 | **Umami** | Analytics (zone publique uniquement) |
@@ -253,7 +255,7 @@ kadath.fr/
 - Segment App Router : `src/app/[locale]/`
 - Config : `src/i18n/request.ts`
 - Messages : `messages/fr.json` + `messages/en.json`
-- Clés : `common`, `nav`, `auth`, `admin`, `customer`, `cms`
+- Clés : `common`, `nav`, `home`, `about`, `contact`, `legal`, `auth`, `admin`, `customer`, `cms`
 - Middleware next-intl gère la détection et le routage des locales
 
 ---
@@ -335,7 +337,7 @@ Activé sur toutes les tables. Politiques :
 
 ---
 
-## 9. Modèle de données — 20 tables
+## 9. Modèle de données — 21 tables
 
 ### Authentification / Profils
 
@@ -374,6 +376,12 @@ Activé sur toutes les tables. Politiques :
 | `messages` | Messagerie par projet (admin ↔ client) |
 | `attachments` | Pièces jointes messages (Storage URI ou URL externe) |
 | `message_reads` | Statut de lecture M-N messages ↔ utilisateurs |
+
+### Contact
+
+| Table | Description |
+|---|---|
+| `contact_messages` | Messages formulaire public. `turnstile_verified`, `ip_address`, `read_at`. RLS : pas de SELECT public. Migration 20260101000019 |
 
 ### Paramètres / Numérotation
 
@@ -498,7 +506,65 @@ Server Action → génération → upload `documents/` → signed URL 1h à la d
 
 ---
 
-## 14. Paiement Stripe
+## 14. Formulaire de contact
+
+### Table `contact_messages`
+
+Migration `20260101000019_contact_messages.sql` — RLS activé, pas de SELECT public.
+
+```sql
+id uuid primary key default gen_random_uuid()
+name text not null
+email text not null
+subject text not null
+message text not null
+ip_address text
+turnstile_verified boolean default false
+sent_at timestamptz default now()
+read_at timestamptz
+```
+
+### Pipeline
+
+```
+ContactForm (CC)
+  → Server Action src/app/actions/contact.ts
+      1. contactSchema.safeParse()        (Zod)
+      2. ratelimit.limit(ip)              (Upstash Redis — 5 req/10 min)
+      3. verifyTurnstile(token)           (Cloudflare Turnstile server-side)
+      4. supabase.from('contact_messages').insert()  (service role)
+      5. Promise.all([resend notification, resend confirmation])
+  → { success: true } | { success: false; error: string }
+```
+
+### Turnstile
+
+- Widget React : `@marsidev/react-turnstile`, `theme: 'dark'`
+- Vérification serveur : `src/lib/turnstile/index.ts` — POST `challenges.cloudflare.com/turnstile/v0/siteverify`
+- CSP : `challenges.cloudflare.com` dans `script-src` et `frame-src`
+
+### Rate limiting
+
+`Ratelimit` et `Redis` instanciés **à l'intérieur** du Server Action (pas au niveau module).
+Raison : module-level init crashe le module entier si les env vars sont absentes au build time.
+
+### Emails contact
+
+| Template | Destinataire |
+|---|---|
+| `ContactNotification.tsx` | `contact@kadath.fr` — nom, email, sujet, message |
+| `ContactConfirmation.tsx` | Expéditeur — accusé de réception bilingue fr/en |
+
+Rendu : `@react-email/render` + `createElement()` (pas d'appel JSX direct en Server Action).
+
+### shadcn/ui — exception vitrine
+
+Les composants `button`, `input`, `textarea`, `label` de `src/components/ui/` sont utilisés dans le formulaire contact (vitrine) par exception, car la page contact est isolée et non-stylée ThinkTwice pure.
+Tokens : `bg-tt-accent`, `text-[#333333]`, `bg-[#444444]`, `border-tt-accent`.
+
+---
+
+## 15. Paiement Stripe
 
 ```
 CC → Server Action POST /api/checkout
@@ -514,7 +580,7 @@ CC → Server Action POST /api/checkout
 
 ---
 
-## 15. PDF — react-pdf
+## 16. PDF — react-pdf
 
 ```ts
 // Server Action
@@ -532,7 +598,7 @@ const { data: url } = await supabase.storage
 
 ---
 
-## 16. Emails — Resend
+## 17. Emails — Resend
 
 | Email | Déclencheur |
 |---|---|
@@ -544,11 +610,11 @@ const { data: url } = await supabase.storage
 | Nouveau message (admin ↔ client) | INSERT messages |
 | Nouveau devis / facture | Changement statut sent |
 | Facture en retard | Scheduled (cron) |
-| Formulaire contact | Formulaire public → Resend direct, pas de DB |
+| Formulaire contact | Formulaire public → INSERT `contact_messages` → Resend notification + confirmation |
 
 ---
 
-## 17. Cache & Revalidation
+## 18. Cache & Revalidation
 
 ```ts
 // Pages CMS — revalidation à la publication
@@ -566,7 +632,7 @@ revalidate: 60     // catalogue (si ajouté)
 
 ---
 
-## 18. Rate Limiting
+## 19. Rate Limiting
 
 `src/lib/ratelimit/index.ts` — Upstash Redis, `slidingWindow(5, '10 m')`.
 
@@ -582,16 +648,18 @@ const { success } = await ratelimit.limit(ip)
 if (!success) return { error: 'Trop de tentatives' }
 ```
 
+> ⚠️ **Ne jamais instancier `Redis` ou `Ratelimit` au niveau module** — si les env vars sont absentes au build time, cela crashe le module entier avant le `try/catch`. Toujours instancier à l'intérieur du corps de la fonction.
+
 ---
 
-## 19. Logs & Monitoring
+## 20. Logs & Monitoring
 
 - **Pino** — logs JSON structurés (dev : pino-pretty colorisé, prod : JSON brut)
 - **Sentry** — erreurs runtime front + back (à configurer)
 
 ---
 
-## 20. Tests
+## 21. Tests
 
 ```
 Vitest + Testing Library → unitaires, composants, Server Actions
@@ -601,7 +669,7 @@ Config : `vitest.config.ts` — jsdom + globals.
 
 ---
 
-## 21. Qualité code & CI/CD
+## 22. Qualité code & CI/CD
 
 ### Pipeline (GitHub Actions — à créer)
 
@@ -628,7 +696,7 @@ pnpm lint-staged   # Biome sur *.ts *.tsx
 
 ---
 
-## 22. Environnements
+## 23. Environnements
 
 ```
 .env.local        → dev local (gitignored)
@@ -639,9 +707,24 @@ Deux projets Firebase distincts : dev/test + prod.
 
 Variables requises : voir `.env.local` (template versionné avec clés vides).
 
+### Firebase App Hosting — secrets
+
+Variables publiques (`NEXT_PUBLIC_*`) déclarées inline dans `apphosting.yaml`.
+Secrets serveur dans Google Cloud Secret Manager, référencés par nom dans `apphosting.yaml` :
+
+| Secret | Rôle |
+|---|---|
+| `RESEND_API_KEY` | Emails transactionnels |
+| `TURNSTILE_SECRET_KEY` | Vérification Turnstile server-side |
+| `SUPABASE_SERVICE_ROLE_KEY` | Accès Supabase service role |
+| `UPSTASH_REDIS_REST_URL` | Upstash Redis URL |
+| `UPSTASH_REDIS_REST_TOKEN` | Upstash Redis token |
+
+> ⚠️ Utiliser `printf 'valeur'` (pas `echo`) pour stocker les secrets — `echo` ajoute un `\n` qui corrompt les URLs Upstash.
+
 ---
 
-## 23. Coûts estimés
+## 24. Coûts estimés
 
 | Service | Coût |
 |---|---|
@@ -655,7 +738,7 @@ Variables requises : voir `.env.local` (template versionné avec clés vides).
 
 ---
 
-## 24. Décisions écartées
+## 25. Décisions écartées
 
 | Technologie | Raison |
 |---|---|
