@@ -7,17 +7,18 @@ interface Props {
   searchParams: Promise<{ redirect?: string }>
 }
 
-export default async function LoginPage({ searchParams }: Props) {
+export default async function AdminLoginPage({ searchParams }: Props) {
   const cookieStore = await cookies()
   const supabase = createClient(cookieStore)
   const {
     data: { user },
   } = await supabase.auth.getUser()
 
-  if (user) {
-    redirect('/fr/customer')
+  const role = user?.app_metadata?.role as string | undefined
+  if (user && (role === 'admin' || role === 'editor')) {
+    redirect('/fr')
   }
 
   const { redirect: redirectTo } = await searchParams
-  return <AuthForm redirectTo={redirectTo ?? '/fr/customer'} />
+  return <AuthForm redirectTo={redirectTo ?? '/fr'} />
 }

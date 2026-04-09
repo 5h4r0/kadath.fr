@@ -73,7 +73,7 @@ INSERT INTO cms_pages (
   sections, galerie, published, published_at,
   show_in_menu, menu_order, robots
 ) VALUES
-  ('00000020-0000-0000-0000-000000000001','501f1bd9-127e-4515-9434-269ce3ae8bb7','accueil','Accueil','Développeur freelance Next.js & Supabase','landing','fr','[]','[]',true,now(),true,1,'index,follow'),
+  ('00000020-0000-0000-0000-000000000001','501f1bd9-127e-4515-9434-269ce3ae8bb7','homepage','Accueil','Développeur freelance Next.js & Supabase','landing','fr','[]','[]',true,now(),true,1,'index,follow'),
   ('00000020-0000-0000-0000-000000000002','501f1bd9-127e-4515-9434-269ce3ae8bb7','services','Services','Mes prestations de développement web','default','fr','[]','[]',true,now(),true,2,'index,follow'),
   ('00000020-0000-0000-0000-000000000003','501f1bd9-127e-4515-9434-269ce3ae8bb7','contact','Contact','Parlons de votre projet','contact','fr','[]','[]',true,now(),true,3,'index,follow'),
   ('00000020-0000-0000-0000-000000000004','501f1bd9-127e-4515-9434-269ce3ae8bb7','mentions-legales','Mentions légales',null,'default','fr','[]','[]',true,now(),false,0,'noindex,nofollow')

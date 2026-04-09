@@ -5,21 +5,21 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY
 
 export const createClient = (request: NextRequest) => {
-  let supabaseResponse = NextResponse.next({ request: { headers: request.headers } })
+  let response = NextResponse.next({ request: { headers: request.headers } })
 
-  const _supabase = createServerClient(supabaseUrl ?? '', supabaseKey ?? '', {
+  const supabase = createServerClient(supabaseUrl ?? '', supabaseKey ?? '', {
     cookies: {
       getAll() {
         return request.cookies.getAll()
       },
       setAll(cookiesToSet: { name: string; value: string; options: CookieOptions }[]) {
         for (const { name, value } of cookiesToSet) request.cookies.set(name, value)
-        supabaseResponse = NextResponse.next({ request })
+        response = NextResponse.next({ request })
         for (const { name, value, options } of cookiesToSet)
-          supabaseResponse.cookies.set(name, value, options)
+          response.cookies.set(name, value, options)
       },
     },
   })
 
-  return supabaseResponse
+  return { supabase, response }
 }
