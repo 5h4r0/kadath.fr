@@ -13,24 +13,42 @@
 -- Inséré directement ici car supabase start exécute seed.sql avant
 -- que scripts/seed-auth.ts ait pu créer les utilisateurs via l'API.
 -- Mots de passe en clair dans scripts/seed-auth.ts — même valeurs.
+-- GoTrue requires several string columns to be '' (not NULL) and instance_id
+-- to be the default '00000000-0000-0000-0000-000000000000'. Use cost factor 10
+-- for bcrypt (gen_salt default is 6, which GoTrue local rejects).
 INSERT INTO auth.users (
-  id, aud, role, email, encrypted_password,
-  email_confirmed_at, created_at, updated_at,
+  id, instance_id, aud, role, email, encrypted_password,
+  email_confirmed_at, confirmation_token, recovery_token,
+  email_change, email_change_token_new, email_change_token_current,
+  phone_change, phone_change_token, reauthentication_token,
+  created_at, updated_at,
   raw_app_meta_data, raw_user_meta_data,
   is_super_admin, is_sso_user, is_anonymous
 ) VALUES
-  ('501f1bd9-127e-4515-9434-269ce3ae8bb7', 'authenticated', 'authenticated',
-   'admin@kadath.fr', crypt('Admin0000!', gen_salt('bf')),
-   now(), now(), now(), '{}', '{}', false, false, false),
-  ('d859c080-d0b3-407d-8efd-22ac5528beed', 'authenticated', 'authenticated',
-   'editor@kadath.fr', crypt('Editor1111!', gen_salt('bf')),
-   now(), now(), now(), '{}', '{}', false, false, false),
-  ('9472471e-bc06-4992-93c3-b31065347fdb', 'authenticated', 'authenticated',
-   'client1@test.fr', crypt('Client3333!', gen_salt('bf')),
-   now(), now(), now(), '{}', '{}', false, false, false),
-  ('c09430c1-c1e8-4676-b1d7-e6b6c7c850a2', 'authenticated', 'authenticated',
-   'client2@test.fr', crypt('Client4444!', gen_salt('bf')),
-   now(), now(), now(), '{}', '{}', false, false, false)
+  ('501f1bd9-127e-4515-9434-269ce3ae8bb7',
+   '00000000-0000-0000-0000-000000000000',
+   'authenticated', 'authenticated',
+   'admin@kadath.fr', crypt('Admin0000!', gen_salt('bf', 10)),
+   now(), '', '', '', '', '', '', '', '',
+   now(), now(), '{}', '{}', false, false, false),
+  ('d859c080-d0b3-407d-8efd-22ac5528beed',
+   '00000000-0000-0000-0000-000000000000',
+   'authenticated', 'authenticated',
+   'editor@kadath.fr', crypt('Editor1111!', gen_salt('bf', 10)),
+   now(), '', '', '', '', '', '', '', '',
+   now(), now(), '{}', '{}', false, false, false),
+  ('9472471e-bc06-4992-93c3-b31065347fdb',
+   '00000000-0000-0000-0000-000000000000',
+   'authenticated', 'authenticated',
+   'client1@test.fr', crypt('Client3333!', gen_salt('bf', 10)),
+   now(), '', '', '', '', '', '', '', '',
+   now(), now(), '{}', '{}', false, false, false),
+  ('c09430c1-c1e8-4676-b1d7-e6b6c7c850a2',
+   '00000000-0000-0000-0000-000000000000',
+   'authenticated', 'authenticated',
+   'client2@test.fr', crypt('Client4444!', gen_salt('bf', 10)),
+   now(), '', '', '', '', '', '', '', '',
+   now(), now(), '{}', '{}', false, false, false)
 ON CONFLICT (id) DO NOTHING;
 
 -- ─── Settings globaux ────────────────────────────────────────────────────

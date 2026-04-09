@@ -3,6 +3,11 @@ import createNextIntlPlugin from 'next-intl/plugin'
 
 const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts')
 
+const isDev = process.env.NODE_ENV === 'development'
+const supabaseConnectSrc = isDev
+  ? 'https://*.supabase.co http://127.0.0.1:54321'
+  : 'https://*.supabase.co'
+
 const securityHeaders = [
   { key: 'X-DNS-Prefetch-Control', value: 'on' },
   { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
@@ -17,7 +22,7 @@ const securityHeaders = [
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: blob: https://*.supabase.co",
       "font-src 'self'",
-      "connect-src 'self' https://*.supabase.co https://api.stripe.com",
+      `connect-src 'self' ${supabaseConnectSrc} https://api.stripe.com`,
       'frame-src https://js.stripe.com https://challenges.cloudflare.com',
     ].join('; '),
   },
