@@ -1,0 +1,100 @@
+'use client'
+
+import { toggleSectionVisibility, updateSection } from '@/app/actions/sections'
+import { useState, useTransition } from 'react'
+
+interface Section {
+  id: string
+  type: string
+  order_index: number
+  is_visible: boolean
+  content: Record<string, unknown>
+}
+
+export function SectionEditor({ section }: { section: Section }) {
+  const [json, setJson] = useState(JSON.stringify(section.content, null, 2))
+  const [jsonError, setJsonError] = useState<string | null>(null)
+  const [saveError, setSaveError] = useState<string | null>(null)
+  const [saved, setSaved] = useState(false)
+  const [isPending, startTransition] = useTransition()
+
+  function handleSave() {
+    let parsed: Record<string, unknown>
+    try {
+      parsed = JSON.parse(json) as Record<string, unknown>
+      setJsonError(null)
+    } catch {
+      setJsonError('JSON invalide')
+      return
+    }
+
+    setSaved(false)
+    setSaveError(null)
+    startTransition(async () => {
+      const result = await updateSection(section.id, parsed)
+      if (result.error) {
+        setSaveError(result.error)
+      } else {
+        setSaved(true)
+      }
+    })
+  }
+
+  function handleToggle() {
+    startTransition(async () => {
+      await toggleSectionVisibility(section.id, !section.is_visible)
+    })
+  }
+
+  return (
+    <div className="rounded border border-[#333333] p-4 space-y-3">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <span className="text-xs font-mono text-[#888888]">#{section.order_index}</span>
+          <span className="text-sm font-medium text-white">{section.type}</span>
+          <span
+            className={`inline-block rounded px-2 py-0.5 text-xs font-medium ${
+              section.is_visible ? 'bg-[#1a3a2a] text-[#4caf82]' : 'bg-[#2a2a2a] text-[#666666]'
+            }`}
+          >
+            {section.is_visible ? 'visible' : 'masqué'}
+          </span>
+        </div>
+        <button
+          type="button"
+          onClick={handleToggle}
+          disabled={isPending}
+          className="text-xs text-[#666666] hover:text-[#cccccc] disabled:opacity-50"
+        >
+          {section.is_visible ? 'Masquer' : 'Afficher'}
+        </button>
+      </div>
+
+      <textarea
+        value={json}
+        onChange={(e) => {
+          setJson(e.target.value)
+          setSaved(false)
+          setJsonError(null)
+        }}
+        rows={Math.min(20, json.split('\n').length + 2)}
+        className="w-full rounded border border-[#333333] bg-[#111111] px-3 py-2 font-mono text-xs text-[#cccccc] focus:border-tt-accent focus:outline-none"
+        spellCheck={false}
+      />
+
+      <div className="flex items-center gap-4">
+        <button
+          type="button"
+          onClick={handleSave}
+          disabled={isPending}
+          className="rounded bg-tt-accent px-3 py-1.5 text-xs font-medium text-white hover:opacity-90 disabled:opacity-50"
+        >
+          {isPending ? 'Sauvegarde…' : 'Sauvegarder'}
+        </button>
+        {jsonError && <span className="text-xs text-red-400">{jsonError}</span>}
+        {saveError && <span className="text-xs text-red-400">{saveError}</span>}
+        {saved && <span className="text-xs text-[#4caf82]">Sauvegardé ✓</span>}
+      </div>
+    </div>
+  )
+}

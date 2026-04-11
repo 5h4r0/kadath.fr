@@ -6,6 +6,7 @@ export const metadata: Metadata = {
 }
 
 const NAV = [
+  { label: 'CMS', href: '/fr/cms' },
   { label: 'Clients', href: '/fr/clients' },
   { label: 'Projets', href: '/fr/projects' },
   { label: 'Factures', href: '/fr/invoices' },
