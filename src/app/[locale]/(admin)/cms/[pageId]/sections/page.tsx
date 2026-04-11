@@ -16,12 +16,7 @@ export default async function SectionsPage({ params }: Props) {
   const supabase = createClient(cookieStore)
 
   const [pageResult, sectionsResult] = await Promise.all([
-    supabase
-      .from('cms_pages')
-      .select('id, slug, title')
-      .eq('id', pageId)
-      .is('deleted_at', null)
-      .single(),
+    supabase.from('cms_pages').select('id, slug, title').eq('id', pageId).single(),
     supabase
       .from('page_sections')
       .select('id, type, order_index, is_visible, content')

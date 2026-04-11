@@ -1,4 +1,4 @@
-import { type CookieOptions, createServerClient } from '@supabase/ssr'
+import { type CookieOptionsWithName, createServerClient } from '@supabase/ssr'
 import type { cookies } from 'next/headers'
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
@@ -10,7 +10,7 @@ export const createClient = (cookieStore: Awaited<ReturnType<typeof cookies>>) =
       getAll() {
         return cookieStore.getAll()
       },
-      setAll(cookiesToSet: { name: string; value: string; options: CookieOptions }[]) {
+      setAll(cookiesToSet: { name: string; value: string; options: CookieOptionsWithName }[]) {
         try {
           for (const { name, value, options } of cookiesToSet) cookieStore.set(name, value, options)
         } catch {}
