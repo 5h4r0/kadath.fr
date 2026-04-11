@@ -26,7 +26,15 @@ export default async function CmsPage({
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-light text-white">Pages CMS</h1>
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-light text-white">Pages CMS</h1>
+        <Link
+          href={`/${locale}/cms/new`}
+          className="rounded bg-tt-accent px-3 py-1.5 text-sm font-medium text-white hover:opacity-90"
+        >
+          + Nouvelle page
+        </Link>
+      </div>
 
       <div className="space-y-2">
         {pages?.length === 0 && <p className="text-sm text-[#666666]">Aucune page.</p>}
@@ -49,6 +57,12 @@ export default async function CmsPage({
               >
                 {page.published ? 'publié' : 'brouillon'}
               </span>
+              <Link
+                href={`/${locale}/cms/${page.id}/edit`}
+                className="text-sm text-[#666666] hover:text-tt-accent"
+              >
+                Éditer →
+              </Link>
               <Link
                 href={`/${locale}/cms/${page.id}/sections`}
                 className="text-sm text-[#666666] hover:text-tt-accent"
