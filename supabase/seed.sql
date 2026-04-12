@@ -77,6 +77,12 @@ INSERT INTO admin_users (id, role, first_name, last_name, email) VALUES
   ('d859c080-d0b3-407d-8efd-22ac5528beed', 'editor', 'Éditeur', 'Test',    'editor@kadath.fr')
 ON CONFLICT (id) DO NOTHING;
 
+-- ─── Sync app_metadata role → auth.users ─────────────────────────────────
+UPDATE auth.users
+SET raw_app_meta_data = jsonb_build_object('role', au.role)
+FROM public.admin_users au
+WHERE auth.users.id = au.id;
+
 -- ─── Tags CMS ────────────────────────────────────────────────────────────
 INSERT INTO tags (id, name, slug) VALUES
   ('00000010-0000-0000-0000-000000000001', 'Next.js',    'nextjs'),

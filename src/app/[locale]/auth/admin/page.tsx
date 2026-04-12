@@ -16,9 +16,9 @@ export default async function AdminLoginPage({ searchParams }: Props) {
 
   const role = user?.app_metadata?.role as string | undefined
   if (user && (role === 'admin' || role === 'editor')) {
-    redirect('/fr')
+    redirect('/fr/cms')
   }
 
   const { redirect: redirectTo } = await searchParams
-  return <AuthForm redirectTo={redirectTo ?? '/fr'} />
+  return <AuthForm redirectTo={redirectTo ?? '/fr/cms'} />
 }

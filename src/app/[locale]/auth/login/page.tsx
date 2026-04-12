@@ -1,6 +1,6 @@
 import AuthForm from '@/components/auth/AuthForm'
 import { createClient } from '@/lib/supabase/server'
-import { cookies } from 'next/headers'
+import { cookies, headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 interface Props {
@@ -14,10 +14,14 @@ export default async function LoginPage({ searchParams }: Props) {
     data: { user },
   } = await supabase.auth.getUser()
 
+  const host = (await headers()).get('host') ?? ''
+  const isAdminDomain = host.startsWith('manage.')
+  const defaultRedirect = isAdminDomain ? '/fr/cms' : '/fr/customer'
+
   if (user) {
-    redirect('/fr/customer')
+    redirect(defaultRedirect)
   }
 
   const { redirect: redirectTo } = await searchParams
-  return <AuthForm redirectTo={redirectTo ?? '/fr/customer'} />
+  return <AuthForm redirectTo={redirectTo ?? defaultRedirect} />
 }

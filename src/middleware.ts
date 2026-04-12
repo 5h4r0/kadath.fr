@@ -10,6 +10,7 @@ const intlMiddleware = createIntlMiddleware({ locales, defaultLocale })
 const ADMIN_ROLES = ['admin', 'editor'] as const
 const CUSTOMER_PATTERN = /^\/(?:fr|en)\/customer(?:\/|$)/
 const AUTH_PATTERN = /^\/(?:fr|en)\/auth(?:\/|$)/
+const ADMIN_PATH_PATTERN = /^\/(?:fr|en)\/(?:cms|clients|invoices|projects)(?:\/|$)/
 
 function extractLocale(pathname: string): string {
   const match = pathname.match(/^\/(fr|en)(?:\/|$)/)
@@ -18,7 +19,8 @@ function extractLocale(pathname: string): string {
 
 export async function middleware(request: NextRequest) {
   const hostname = request.headers.get('host') ?? ''
-  const isAdminDomain = hostname.startsWith('manage.')
+  const isManageDomain = hostname.startsWith('manage.')
+  const isAdminDomain = isManageDomain || process.env.FORCE_ADMIN_HOST === 'true'
   const pathname = request.nextUrl.pathname
 
   // 1. Init Supabase client (refreshes session via cookie setAll)
@@ -35,8 +37,14 @@ export async function middleware(request: NextRequest) {
     return res
   }
 
-  // 3. Admin domain guard — require admin or editor role
-  if (isAdminDomain) {
+  // 3. Block admin paths on non-manage hostnames
+  if (!isAdminDomain && ADMIN_PATH_PATTERN.test(pathname)) {
+    const locale = extractLocale(pathname)
+    return NextResponse.redirect(new URL(`/${locale}`, request.url))
+  }
+
+  // 4. Admin domain guard — require admin or editor role
+  if (isAdminDomain && (isManageDomain || ADMIN_PATH_PATTERN.test(pathname))) {
     // Auth routes on admin domain are always public
     if (!AUTH_PATTERN.test(pathname)) {
       const {
@@ -57,7 +65,7 @@ export async function middleware(request: NextRequest) {
     return withCookies(intlResponse)
   }
 
-  // 4. Customer routes guard — require any authenticated session
+  // 5. Customer routes guard — require any authenticated session
   if (CUSTOMER_PATTERN.test(pathname)) {
     const {
       data: { user },
@@ -71,7 +79,7 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  // 5. Public routes — merge cookies and proceed
+  // 6. Public routes — merge cookies and proceed
   return withCookies(intlResponse)
 }
 

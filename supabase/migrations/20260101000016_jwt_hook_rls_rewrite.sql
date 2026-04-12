@@ -31,8 +31,8 @@ BEGIN
   IF v_role IS NOT NULL THEN
     event := jsonb_set(
       event,
-      '{claims,app_metadata,role}',
-      to_jsonb(v_role)
+      '{claims,app_metadata}',
+      COALESCE(event #> '{claims,app_metadata}', '{}'::jsonb) || jsonb_build_object('role', v_role)
     );
   END IF;
 
