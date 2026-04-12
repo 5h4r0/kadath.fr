@@ -68,7 +68,10 @@ export async function deletePage(id: string) {
   const cookieStore = await cookies()
   const supabase = createClient(cookieStore)
 
-  const { error } = await supabase.from('cms_pages').update({ published: false }).eq('id', id)
+  const { error } = await supabase
+    .from('cms_pages')
+    .update({ deleted_at: new Date().toISOString(), published: false })
+    .eq('id', id)
 
   if (error) return { error: error.message }
 

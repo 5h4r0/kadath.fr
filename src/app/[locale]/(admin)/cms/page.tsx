@@ -16,6 +16,7 @@ export default async function CmsPage({
   const { data: pages, error } = await supabase
     .from('cms_pages')
     .select('id, slug, title, template, published, updated_at')
+    .is('deleted_at', null)
     .order('menu_order', { ascending: true })
 
   if (error) {

@@ -209,6 +209,7 @@ export type Database = {
           author_id: string | null
           canonical_url: string | null
           created_at: string
+          deleted_at: string | null
           excerpt: string | null
           fts_en: unknown
           fts_fr: unknown
@@ -239,6 +240,7 @@ export type Database = {
           author_id?: string | null
           canonical_url?: string | null
           created_at?: string
+          deleted_at?: string | null
           excerpt?: string | null
           fts_en?: unknown
           fts_fr?: unknown
@@ -269,6 +271,7 @@ export type Database = {
           author_id?: string | null
           canonical_url?: string | null
           created_at?: string
+          deleted_at?: string | null
           excerpt?: string | null
           fts_en?: unknown
           fts_fr?: unknown
@@ -973,6 +976,7 @@ export type Database = {
           author_id: string | null
           canonical_url: string | null
           created_at: string
+          deleted_at: string | null
           excerpt: string | null
           fts_en: unknown
           fts_fr: unknown

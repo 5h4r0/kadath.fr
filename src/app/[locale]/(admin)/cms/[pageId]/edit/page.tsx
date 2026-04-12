@@ -22,6 +22,7 @@ export default async function EditCmsPage({ params }: Props) {
     .from('cms_pages')
     .select('id, slug, title, template, lang, robots, resume, sections, published, updated_at')
     .eq('id', pageId)
+    .is('deleted_at', null)
     .single()
 
   if (error || !page) notFound()
