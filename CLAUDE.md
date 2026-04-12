@@ -78,7 +78,7 @@ Email+password / magic link / Google OAuth / GitHub OAuth
 - 2FA optionnel (TOTP)
 
 ### Data Layer
-
+- "Use `src/types/supabase.ts` as the source of truth for schema context. Do not read `supabase/migrations/*.sql` unless explicitly asked for a schema change."
 - **Supabase (PostgreSQL)** — toutes les données. RLS activé. Jamais `SELECT *`.
 - Schéma `public` — 20 tables. Voir `docs/ARCH.md` pour le modèle complet.
 - **Supabase Storage** — 4 buckets : `media` (public), `projects`, `attachments`, `documents` (privés, signed URLs 1h).

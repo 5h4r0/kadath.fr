@@ -1,4 +1,25 @@
+# Claude.ai \ Claude Code / processus
 
+**Moi (Sonnet 4.6 / Claude.ai) vs Claude Code pour la suite :**
+
+|                                   | Claude.ai (moi)         | Claude Code                                |
+|-----------------------------------|-------------------------|--------------------------------------------|
+| Décisions d'architecture          | ✅ idéal                | ⚠️ possible mais moins fluide             |
+| Écrire/modifier du code           | ⚠️ je génère, tu copies | ✅ il écrit directement dans les fichiers |
+| Débugger une erreur               | ✅ bon                  | ✅ meilleur (il voit les fichiers)        |
+| Réfléchir / concevoir             | ✅ idéal                | ⚠️ orienté action                         |
+| Contexte long (comme aujourd'hui) | ✅                      | ✅ via CLAUDE.md                          |
+
+
+**Ressources :**
+Claude Code consomme des tokens à chaque action fichier — sur des tâches longues ça monte vite.
+Pour les décisions et specs → ici c'est plus économique. Pour l'implémentation → Claude Code directement.
+
+**Workflow optimal :**
+- **Ici** → specs, décisions, révisions d'architecture
+- **Claude Code** → implémentation, debug, migrations
+
+---
 
 Voici exactement ce que tu tapes dans Claude Code :
 
@@ -17,10 +38,6 @@ Ensuite dans l'ordre :
 - pnpm dev → localhost:3000
 
 Bonne chance — et reviens ici pour les specs vitrine ou si Claude Code bloque sur quelque chose 🚀
-
-
-
-
 
 ---
 
@@ -97,33 +114,8 @@ Dashboard Supabase → SQL Editor → coller le contenu du seed.sql → Run
 
 ---
 
-
-
-
-Beau scaffold — tout est là. 👍
-
-**Moi (Sonnet 4.6 / Claude.ai) vs Claude Code pour la suite :**
-
-| | Claude.ai (moi) | Claude Code |
-|---|---|---|
-| Décisions d'architecture | ✅ idéal | ⚠️ possible mais moins fluide |
-| Écrire/modifier du code | ⚠️ je génère, tu copies | ✅ il écrit directement dans les fichiers |
-| Débugger une erreur | ✅ bon | ✅ meilleur (il voit les fichiers) |
-| Réfléchir / concevoir | ✅ idéal | ⚠️ orienté action |
-| Contexte long (comme aujourd'hui) | ✅ | ✅ via CLAUDE.md |
-
-**Ressources :**
-Claude Code consomme des tokens à chaque action fichier — sur des tâches longues ça monte vite. Pour les décisions et specs → ici c'est plus économique. Pour l'implémentation → Claude Code directement.
-
-**Workflow optimal :**
-- **Ici** → specs, décisions, révisions d'architecture
-- **Claude Code** → implémentation, debug, migrations
-
-
-
----
-
-https://console.cloud.google.com/iam-admin/iam?authuser=0&project=kadath-fr&hl=fr c'est utile, google cloud, pour firebase ?12:26Oui, directement utile. Firebase tourne sur Google Cloud — ton projet kadath-fr est déjà lié.
+https://console.cloud.google.com/iam-admin/iam?authuser=0&project=kadath-fr&hl=fr c'est utile, google cloud, pour firebase ?
+Oui, directement utile. Firebase tourne sur Google Cloud — ton projet kadath-fr est déjà lié.
 Ce que tu peux y faire de pertinent pour ton projet :
 
 IAM — gérer les permissions des comptes de service (Firebase Admin SDK, GitHub Actions CI/CD)
@@ -132,4 +124,3 @@ Billing — surveiller les coûts Firebase App Hosting + éventuellement Data Co
 Cloud Storage — accès avancé aux buckets Firebase Storage si besoin
 
 Pour ton usage quotidien, la Firebase Console suffit. Google Cloud Console devient utile quand tu attaques le CI/CD (clé de service account pour GitHub Actions) ou si tu as besoin de permissions fines.
-
