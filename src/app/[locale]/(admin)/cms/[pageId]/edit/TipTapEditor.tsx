@@ -3,6 +3,7 @@
 import { updatePage } from '@/app/actions/cms'
 import { EditorContent, useEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
+import { useState } from 'react'
 
 interface Props {
   pageId: string
@@ -10,6 +11,8 @@ interface Props {
 }
 
 export function TipTapEditor({ pageId, initialContent }: Props) {
+  const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle')
+
   const editor = useEditor({
     extensions: [StarterKit],
     content: (initialContent as object | undefined) ?? '',
@@ -20,7 +23,16 @@ export function TipTapEditor({ pageId, initialContent }: Props) {
       },
     },
     onBlur({ editor: e }) {
-      updatePage(pageId, { sections: e.getJSON() })
+      setSaveStatus('saving')
+      updatePage(pageId, { sections: e.getJSON() }).then((res) => {
+        if (res?.error) {
+          setSaveStatus('error')
+          console.error('[TipTapEditor] save error:', res.error)
+        } else {
+          setSaveStatus('saved')
+          setTimeout(() => setSaveStatus('idle'), 2000)
+        }
+      })
     },
   })
 
@@ -29,7 +41,7 @@ export function TipTapEditor({ pageId, initialContent }: Props) {
   return (
     <div className="rounded border border-[#333333] bg-tt-bg">
       {/* Toolbar */}
-      <div className="flex flex-wrap gap-1 border-b border-[#333333] px-3 py-2">
+      <div className="flex flex-wrap items-center gap-1 border-b border-[#333333] px-3 py-2">
         <ToolbarBtn
           onClick={() => editor.chain().focus().toggleBold().run()}
           active={editor.isActive('bold')}
@@ -68,6 +80,13 @@ export function TipTapEditor({ pageId, initialContent }: Props) {
           label="1. Liste"
           title="Liste numérotée"
         />
+
+        {/* Save status */}
+        <span className="ml-auto text-xs">
+          {saveStatus === 'saving' && <span className="text-[#666666]">Enregistrement…</span>}
+          {saveStatus === 'saved' && <span className="text-[#4caf82]">Enregistré ✓</span>}
+          {saveStatus === 'error' && <span className="text-red-400">Erreur d'enregistrement</span>}
+        </span>
       </div>
 
       <EditorContent editor={editor} />
