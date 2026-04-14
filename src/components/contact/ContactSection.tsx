@@ -82,9 +82,10 @@ export default async function ContactSection({
           {/* Colonne gauche — Accroche */}
           <div className="flex flex-col justify-start">
             <h2 className="text-xl font-bold leading-snug lg:text-2xl">
-              <span className="mark-teal text-light text-white">{t('form_heading')}</span>
-              <span className="mark-teal text-light text-white">{t('form_heading_phone')}</span>
+              <span className="mark-teal font-light text-white">{t('form_heading')}</span>
             </h2>
+            <hr className="border-white/10 my-4" />
+            <p className="font-light text-white">{t('form_heading_phone')}</p>
           </div>
 
           {/* Colonne droite — Formulaire */}
