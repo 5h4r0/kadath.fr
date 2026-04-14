@@ -18,6 +18,7 @@ export async function sendContactMessage(formData: unknown): Promise<ContactResu
   try {
     const parsed = contactSchema.safeParse(formData)
     if (!parsed.success) {
+      console.error('[contact action] Zod validation failed', parsed.error.flatten())
       return { success: false, error: 'error_generic' }
     }
 
@@ -34,9 +35,14 @@ export async function sendContactMessage(formData: unknown): Promise<ContactResu
 
     const headerStore = await headers()
     const ip = headerStore.get('x-forwarded-for') ?? 'unknown'
-    const { success: rateLimitOk } = await ratelimit.limit(ip)
-    if (!rateLimitOk) {
-      return { success: false, error: 'error_rate_limit' }
+    try {
+      const { success: rateLimitOk } = await ratelimit.limit(ip)
+      if (!rateLimitOk) {
+        return { success: false, error: 'error_rate_limit' }
+      }
+    } catch (e) {
+      // Redis injoignable (dev local, réseau, credentials) — on laisse passer
+      console.warn('[contact action] rate-limit skipped:', e)
     }
 
     // Verify Turnstile
@@ -62,6 +68,7 @@ export async function sendContactMessage(formData: unknown): Promise<ContactResu
     })
 
     if (dbError) {
+      console.error('[contact action] DB insert failed', dbError)
       return { success: false, error: 'error_generic' }
     }
 
@@ -91,7 +98,8 @@ export async function sendContactMessage(formData: unknown): Promise<ContactResu
     ])
 
     return { success: true }
-  } catch {
+  } catch (e) {
+    console.error('[contact action]', e)
     return { success: false, error: 'error_generic' }
   }
 }

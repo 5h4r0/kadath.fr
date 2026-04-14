@@ -18,11 +18,11 @@ const securityHeaders = [
     key: 'Content-Security-Policy',
     value: [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://challenges.cloudflare.com",
+      "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://challenges.cloudflare.com https://cdn-cookieyes.com",
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: blob: https://*.supabase.co",
       "font-src 'self'",
-      `connect-src 'self' ${supabaseConnectSrc} https://api.stripe.com`,
+      `connect-src 'self' ${supabaseConnectSrc} https://api.stripe.com https://cdn-cookieyes.com`,
       'frame-src https://js.stripe.com https://challenges.cloudflare.com',
     ].join('; '),
   },

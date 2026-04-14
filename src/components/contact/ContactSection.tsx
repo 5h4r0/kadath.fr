@@ -22,7 +22,7 @@ export default async function ContactSection({
       {/* ── TITRE ────────────────────────────────────────────────────── */}
       <section className="mx-auto max-w-[60rem] px-6 pt-24 pb-16 text-center">
         <Tag className="text-[1.875rem] font-light tracking-tight text-white">
-          <span className="mark-gray">{t('heading')}</span>
+          <span className="mark-teal">{t('heading')}</span>
         </Tag>
       </section>
 

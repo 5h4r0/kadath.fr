@@ -152,4 +152,6 @@
    frontière de pixel entier, corrigeant le sub-pixel offset sur les longues pages. */
 #cf-turnstile {
   transform: translateZ(0);
+  overflow: visible;
+  padding-bottom: 2px;
 }
