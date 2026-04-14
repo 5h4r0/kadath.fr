@@ -1,4 +1,5 @@
 import ContactForm from '@/components/contact/ContactForm'
+import { getTranslations } from 'next-intl/server'
 
 interface ContactSectionProps {
   /**
@@ -10,16 +11,18 @@ interface ContactSectionProps {
   autoFocus?: boolean
 }
 
-export default function ContactSection({
+export default async function ContactSection({
   headingLevel: Tag = 'h2',
   autoFocus,
 }: ContactSectionProps) {
+  const t = await getTranslations('contact')
+
   return (
     <>
       {/* ── TITRE ────────────────────────────────────────────────────── */}
       <section className="mx-auto max-w-[60rem] px-6 pt-24 pb-16 text-center">
         <Tag className="text-[1.875rem] font-light tracking-tight text-white">
-          <span className="mark-gray">Contactez-nous</span>
+          <span className="mark-gray">{t('heading')}</span>
         </Tag>
       </section>
 
@@ -29,21 +32,21 @@ export default function ContactSection({
           {/* Colonne gauche — Adresses */}
           <div className="border-l border-tt-accent pl-6 flex flex-col gap-4 text-base leading-relaxed">
             <div>
-              <p className="text-tt-accent font-bold text-lg">Paris</p>
-              <p className="text-white/80">37 quater avenue du Maréchal Foch</p>
-              <p className="text-white/80">77370 Nangis</p>
+              <p className="text-tt-accent font-bold text-lg">{t('paris_title')}</p>
+              <p className="text-white/80">{t('paris_address_1')}</p>
+              <p className="text-white/80">{t('paris_address_2')}</p>
             </div>
             <hr className="border-white/10" />
             <div>
-              <p className="text-tt-accent font-bold text-lg">Nîmes</p>
-              <p className="text-white/80">6 rue Massillon</p>
-              <p className="text-white/80">30000 Nîmes</p>
+              <p className="text-tt-accent font-bold text-lg">{t('nimes_title')}</p>
+              <p className="text-white/80">{t('nimes_address_1')}</p>
+              <p className="text-white/80">{t('nimes_address_2')}</p>
             </div>
             <hr className="border-white/10" />
             <p className="text-white/80">
-              E-mail :{' '}
-              <a href="mailto:thinktwice@sokol.fr" className="text-tt-accent hover:underline">
-                thinktwice@sokol.fr
+              {t('email_label')}{' '}
+              <a href={`mailto:${t('email')}`} className="text-tt-accent hover:underline">
+                {t('email')}
               </a>
             </p>
           </div>
@@ -51,7 +54,7 @@ export default function ContactSection({
           {/* Colonne droite — Contacts directs */}
           <div className="border-l border-tt-accent pl-6 flex flex-col gap-4">
             <div>
-              <p className="text-sm text-white/60 mb-1">Contactez Stéphane Sokol directement</p>
+              <p className="text-sm text-white/60 mb-1">{t('ss_contact_label')}</p>
               <a
                 href="tel:+33687434294"
                 className="text-tt-accent text-2xl font-bold tracking-tight hover:underline lg:text-3xl"
@@ -61,7 +64,7 @@ export default function ContactSection({
             </div>
             <hr className="border-white/10" />
             <div>
-              <p className="text-sm text-white/60 mb-1">Contactez Stéphane Rochard directement</p>
+              <p className="text-sm text-white/60 mb-1">{t('sr_contact_label')}</p>
               <a
                 href="tel:+33623711812"
                 className="text-tt-accent text-2xl font-bold tracking-tight hover:underline lg:text-3xl"
@@ -79,7 +82,7 @@ export default function ContactSection({
           {/* Colonne gauche — Accroche */}
           <div className="flex flex-col justify-start">
             <h2 className="text-xl font-bold leading-snug lg:text-2xl">
-              <span className="mark-teal">Besoin d'informations supplémentaires</span>
+              <span className="mark-teal">{t('form_heading')}</span>
             </h2>
           </div>
 

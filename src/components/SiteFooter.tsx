@@ -1,10 +1,13 @@
+import { getTranslations } from 'next-intl/server'
 import Link from 'next/link'
 
 interface SiteFooterProps {
   locale: string
 }
 
-export default function SiteFooter({ locale }: SiteFooterProps) {
+export default async function SiteFooter({ locale }: SiteFooterProps) {
+  const t = await getTranslations('footer')
+
   return (
     <footer className="border-t border-white/10 bg-tt-bg font-grotesk font-light">
       <div className="mx-auto max-w-[60rem] px-6 py-10">
@@ -190,7 +193,7 @@ export default function SiteFooter({ locale }: SiteFooterProps) {
 
           {/* Copyright + liens légaux */}
           <div className="flex flex-col items-start gap-1 text-sm text-white/50 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-4 sm:gap-y-1 lg:items-end lg:flex-col lg:gap-y-1">
-            <p className="shrink-0">©2026 thinktwice. Tous droits réservés.</p>
+            <p className="shrink-0">{t('copyright')}</p>
             <nav
               aria-label="Liens légaux"
               className="flex flex-col items-start gap-1 sm:flex-row sm:flex-nowrap sm:gap-x-4 lg:flex-row lg:gap-x-4"
@@ -199,19 +202,19 @@ export default function SiteFooter({ locale }: SiteFooterProps) {
                 href={`/${locale}/mentions-legales`}
                 className="hover:text-tt-accent transition-colors whitespace-nowrap"
               >
-                Mentions légales
+                {t('legal')}
               </Link>
               <Link
                 href={`/${locale}/conditions-utilisation`}
                 className="hover:text-tt-accent transition-colors whitespace-nowrap"
               >
-                Conditions d'utilisation
+                {t('terms')}
               </Link>
               <Link
                 href={`/${locale}/politique-confidentialite`}
                 className="hover:text-tt-accent transition-colors whitespace-nowrap"
               >
-                Politique de confidentialité
+                {t('privacy')}
               </Link>
             </nav>
           </div>
