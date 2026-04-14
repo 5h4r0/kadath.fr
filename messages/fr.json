@@ -212,7 +212,8 @@
     "email": "thinktwice@sokol.fr",
     "ss_contact_label": "Contactez Stéphane Sokol directement",
     "sr_contact_label": "Contactez Stéphane Rochard directement",
-    "form_heading": "Décrivez-nous brièvement votre besoin. Laissez votre numéro de téléphone dans le champ de texte libre si vous désirez être contacté.e",
+    "form_heading": "Décrivez-nous brièvement votre besoin.",
+    "form_heading_phone": "Laissez votre numéro de téléphone dans le champ de texte libre si vous désirez être contacté.e",
     "form": {
       "first_name": "Prénom",
       "name": "Nom",
