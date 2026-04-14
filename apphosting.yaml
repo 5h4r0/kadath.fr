@@ -52,3 +52,7 @@ env:
 
   - variable: UPSTASH_REDIS_REST_TOKEN
     secret: UPSTASH_REDIS_REST_TOKEN
+
+  - variable: NEXT_PUBLIC_COOKIEYES_ENABLED
+    secret: NEXT_PUBLIC_COOKIEYES_ENABLED
+    version: latest

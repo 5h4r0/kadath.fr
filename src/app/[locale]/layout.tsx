@@ -41,11 +41,13 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} className={`${spaceGrotesk.variable} ${sourceSans3.variable}`}>
       <body>
-        <Script
-          id="cookieyes"
-          src="https://cdn-cookieyes.com/client_data/ef1fc7682b16315dca7139faf311fc93/script.js"
-          strategy="beforeInteractive"
-        />
+        {process.env.NEXT_PUBLIC_COOKIEYES_ENABLED === 'true' && (
+          <Script
+            id="cookieyes"
+            src="https://cdn-cookieyes.com/client_data/ef1fc7682b16315dca7139faf311fc93/script.js"
+            strategy="beforeInteractive"
+          />
+        )}
         <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
       </body>
     </html>
