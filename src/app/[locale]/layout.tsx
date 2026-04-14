@@ -2,6 +2,7 @@ import { NextIntlClientProvider } from 'next-intl'
 import { getMessages } from 'next-intl/server'
 import { Source_Sans_3, Space_Grotesk } from 'next/font/google'
 import { notFound } from 'next/navigation'
+import Script from 'next/script'
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -40,6 +41,11 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} className={`${spaceGrotesk.variable} ${sourceSans3.variable}`}>
       <body>
+        <Script
+          id="cookieyes"
+          src="https://cdn-cookieyes.com/client_data/ef1fc7682b16315dca7139faf311fc93/script.js"
+          strategy="beforeInteractive"
+        />
         <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
       </body>
     </html>

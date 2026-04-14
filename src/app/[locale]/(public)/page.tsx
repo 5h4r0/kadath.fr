@@ -1,5 +1,6 @@
-import ContactForm from '@/components/contact/ContactForm'
+import ContactSection from '@/components/contact/ContactSection'
 import { HeroSection } from '@/components/sections/HeroSection'
+import { MethodologySection } from '@/components/sections/MethodologySection'
 import { ProblemSolutionSection } from '@/components/sections/ProblemSolutionSection'
 import { SocialProofSection } from '@/components/sections/SocialProofSection'
 import { ValuePropSection } from '@/components/sections/ValuePropSection'
@@ -44,78 +45,7 @@ export default async function HomePage() {
         />
       )}
       {/* ── MÉTHODOLOGIE / POUR QUI ────────────────────────────────────── */}
-      <section className="mx-auto max-w-[60rem] px-6 pb-24">
-        <div className="grid grid-cols-1 gap-16 lg:grid-cols-2">
-          {/* Colonne gauche — Méthodologie */}
-          <div className="flex flex-col gap-8 font-light text-white text-lg leading-relaxed lg:text-xl">
-            <h2 className="text-2xl">
-              <span className="mark-teal">Méthodologie</span>
-            </h2>
-            <ol className="flex flex-col gap-6">
-              <li>
-                <p className="font-bold">
-                  <span className="text-tt-accent">1.</span> Cadrage
-                </p>
-                <p className="mt-1 text-base text-white/70">
-                  Compréhension de votre activité, objectifs, cibles
-                </p>
-              </li>
-              <li>
-                <p className="font-bold">
-                  <span className="text-tt-accent">2.</span> UX &amp; structure
-                </p>
-                <p className="mt-1 text-base text-white/70">Arborescence, parcours utilisateur</p>
-              </li>
-              <li>
-                <p className="font-bold">
-                  <span className="text-tt-accent">3.</span> Design
-                </p>
-                <p className="mt-1 text-base text-white/70">Maquettes sur mesure (PSD/Figma)</p>
-              </li>
-              <li>
-                <p className="font-bold">
-                  <span className="text-tt-accent">4.</span> Développement
-                </p>
-                <p className="mt-1 text-base text-white/70">
-                  Intégration WordPress propre et performante
-                </p>
-              </li>
-              <li>
-                <p className="font-bold">
-                  <span className="text-tt-accent">5.</span> Mise en ligne
-                </p>
-                <p className="mt-1 text-base text-white/70">Tests, SEO de base, accompagnement</p>
-              </li>
-            </ol>
-          </div>
-
-          {/* Colonne droite — Pour qui ? */}
-          <div className="flex flex-col gap-6 font-light text-white text-lg leading-relaxed lg:text-xl">
-            <h2 className="text-2xl">
-              <span className="mark-teal">Pour qui ?</span>
-            </h2>
-            <p>Nous travaillons principalement avec :</p>
-            <ul className="flex flex-col gap-3 pl-2">
-              <li>
-                <span className="text-tt-accent">•</span>{' '}
-                <span className="mark-teal">cabinets</span> (avocats, conseil, IT)
-              </li>
-              <li>
-                <span className="text-tt-accent">•</span>{' '}
-                <span className="mark-teal">PME / ETI</span>
-              </li>
-              <li>
-                <span className="text-tt-accent">•</span>{' '}
-                <span className="mark-teal">indépendants exigeants</span>
-              </li>
-              <li>
-                <span className="text-tt-accent">•</span>{' '}
-                <span className="mark-teal">startups</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </section>
+      <MethodologySection />
 
       {/* ── CE QUE VOUS OBTENEZ ────────────────────────────────────────── */}
       <section className="relative w-full pb-24 text-center">
@@ -131,8 +61,8 @@ export default async function HomePage() {
         />
 
         <div className="relative mx-auto max-w-[40rem] px-6 flex flex-col gap-8 font-light text-white text-lg leading-relaxed lg:text-xl">
-          <h2 className="font-bold text-2xl">
-            <span className="mark-teal">Ce que vous obtenez</span>
+          <h2 className="text-2xl font-light text-tt-accent">
+            <span className="mark-gray">Ce que vous obtenez</span>
           </h2>
 
           {/* Site WordPress sur mesure */}
@@ -204,8 +134,8 @@ export default async function HomePage() {
               Nous concevons des identités digitales qui transforment la perception d'une marque
             </span>
           </p>
-          <h2 className="inline font-bold text-3xl">
-            <span className="mark-teal">Nos offres</span>
+          <h2 className="inline text-3xl font-light text-tt-accent">
+            <span className="mark-gray">Nos offres</span>
           </h2>
         </div>
 
@@ -412,8 +342,8 @@ export default async function HomePage() {
         <div className="flex items-start gap-8">
           {/* Contenu ~60% */}
           <div className="flex-[3] flex flex-col gap-6 font-light text-white text-lg leading-relaxed lg:text-xl">
-            <h2 className="text-2xl">
-              <span className="mark-teal">Pour aller plus loin / options</span>
+            <h2 className="text-2xl font-light text-tt-accent">
+              <span className="mark-gray">Pour aller plus loin / options</span>
             </h2>
             <ul className="flex flex-col gap-3">
               <li>
@@ -461,18 +391,18 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ── QUI SOMMES-NOUS ────────────────────────────────────────────── */}
+      {/* ── QUI NOUS SOMMES ────────────────────────────────────────────── */}
       <section className="mx-auto max-w-[60rem] px-6 pb-24">
-        <h2 className="mb-16 text-center text-3xl font-bold">
-          <span className="mark-teal">Qui sommes-nous ?</span>
+        <h2 className="mb-16 text-center text-3xl font-light text-tt-accent">
+          <span className="mark-gray">Qui nous sommes</span>
         </h2>
 
-        <div className="grid grid-cols-1 gap-16 lg:grid-cols-2">
+        <div className="mx-auto max-w-[40rem] grid grid-cols-1 gap-16 lg:grid-cols-2 lg:gap-8">
           {/* ── Stéphane S. ── */}
           <div className="flex flex-col gap-6">
             {/* Portrait */}
             {/* TODO: remplacer par assets cadre teal + portrait Stéphane S. */}
-            <div className="relative self-start">
+            <div className="relative self-start lg:-ml-4">
               <div
                 aria-hidden="true"
                 className="motif-dots pointer-events-none absolute bottom-0 right-0 h-3/4 w-3/4 translate-x-3 translate-y-3 opacity-30"
@@ -485,33 +415,53 @@ export default async function HomePage() {
               />
             </div>
 
-            {/* Nom */}
-            <p className="font-bold text-tt-accent text-xl">SOKOL</p>
+            <div className="flex flex-col gap-6 w-4/5 max-w-[80%] ml-8 sm:w-[90%] sm:max-w-[90%] lg:w-[90%] lg:max-w-[90%] lg:ml-0 lg:pl-4">
+              {/* Nom */}
+              <p className="font-light text-tt-accent text-xl">Stéphane S.</p>
 
-            {/* Bio */}
-            <div className="flex flex-col gap-4 font-light text-white text-base leading-relaxed">
-              <p>
-                Directeur artistique digital senior et auteur. Fort de près de trente ans
-                d'expérience, dont quinze en agences et quatorze en indépendant, il conçoit{' '}
-                <strong>des identités et des expériences digitales exigeantes.</strong>
-              </p>
-              <p>
-                Son approche privilégie la cohérence, la lisibilité et l'impact, en alignant image,
-                discours et usage.
-              </p>
-              <p>
-                <strong>Spécialiste du branding et du design d'interfaces,</strong> il intervient
-                sur des projets variés, de la refonte stratégique au lancement de marque.
-              </p>
-              <p>
-                En parallèle, son travail d'écriture nourrit{' '}
-                <strong>une vision sensible et rigoureuse.</strong>
-              </p>
-            </div>
+              {/* Bio */}
+              <div className="flex flex-col gap-4 font-light text-white text-base leading-relaxed">
+                <p>
+                  Directeur artistique digital senior et auteur. Fort de près de trente ans
+                  d'expérience, dont quinze en agences et quatorze en indépendant, il conçoit{' '}
+                  <strong>des identités et des expériences digitales exigeantes.</strong>
+                </p>
+                <p>
+                  Son approche privilégie la cohérence, la lisibilité et l'impact, en alignant
+                  image, discours et usage.
+                </p>
+                <p>
+                  <strong>Spécialiste du branding et du design d'interfaces,</strong> il intervient
+                  sur des projets variés, de la refonte stratégique au lancement de marque.
+                </p>
+                <p>
+                  En parallèle, son travail d'écriture nourrit{' '}
+                  <strong>une vision sensible et rigoureuse.</strong>
+                </p>
+              </div>
 
-            {/* Réseaux sociaux */}
-            <div className="flex items-center gap-4 text-tt-accent">
-              <a href="#contact" className="hover:opacity-70">
+              {/* Réseaux sociaux */}
+              <div className="flex items-center justify-end gap-4 text-tt-accent">
+                <a
+                  href="https://www.linkedin.com/in/stephanesokol/details/recommendations/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:opacity-70 transition-opacity"
+                >
+                  <span className="sr-only">LinkedIn</span>
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z" />
+                    <circle cx="4" cy="4" r="2" />
+                  </svg>
+                </a>
+
+                {/* <a href="#contact" className="hover:opacity-70">
                 <span className="sr-only">Facebook</span>
                 <svg
                   width="20"
@@ -523,19 +473,7 @@ export default async function HomePage() {
                   <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
                 </svg>
               </a>
-              <a href="#contact" className="hover:opacity-70">
-                <span className="sr-only">LinkedIn</span>
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z" />
-                  <circle cx="4" cy="4" r="2" />
-                </svg>
-              </a>
+            
               <a href="#contact" className="hover:opacity-70">
                 <span className="sr-only">Instagram</span>
                 <svg
@@ -553,15 +491,17 @@ export default async function HomePage() {
                   <circle cx="12" cy="12" r="4" />
                   <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
                 </svg>
-              </a>
+              </a> */}
+              </div>
             </div>
+            {/* /wrapper texte S. */}
           </div>
 
           {/* ── Stéphane R. ── */}
           <div className="flex flex-col gap-6">
             {/* Portrait */}
             {/* TODO: remplacer par assets cadre teal + portrait Stéphane R. */}
-            <div className="relative self-start">
+            <div className="relative self-start lg:-ml-4">
               <div
                 aria-hidden="true"
                 className="motif-dots pointer-events-none absolute bottom-0 right-0 h-3/4 w-3/4 translate-x-3 translate-y-3 opacity-30"
@@ -574,47 +514,61 @@ export default async function HomePage() {
               />
             </div>
 
-            {/* Nom */}
-            <p className="font-bold text-tt-accent text-xl">ROCHARD</p>
+            <div className="flex flex-col gap-6 w-4/5 max-w-[80%] ml-8 sm:w-[90%] sm:max-w-[90%] lg:w-[90%] lg:max-w-[90%] lg:ml-0 lg:pl-4">
+              {/* Nom */}
+              <p className="font-light text-tt-accent text-xl">Stéphane R.</p>
 
-            {/* Bio */}
-            <div className="flex flex-col gap-4 font-light text-white text-base leading-relaxed">
-              <p>
-                Concepteur développeur web fort de plus de vingt ans d'expérience, il conjugue{' '}
-                <strong>développement, pilotage de projets</strong> et expertise WordPress, PHP,
-                NodeJS et architectures web.
-              </p>
-              <p>
-                Il conçoit des plateformes robustes, optimise l'existant et intervient sur des
-                environnements sensibles, du front au back, avec une attention particulière portée à{' '}
-                <strong>
-                  la performance, la qualité, la fiabilité et la maintenabilité des systèmes.
-                </strong>
-              </p>
-              <p>
-                Il évolue avec grâce dans des contextes techniques exigeants et sait concevoir des
-                solutions <strong>aux besoins et aux contraintes métier.</strong>
-              </p>
-            </div>
+              {/* Bio */}
+              <div className="flex flex-col gap-4 font-light text-white text-base leading-relaxed">
+                <p>
+                  Concepteur développeur web fort de plus de vingt ans d'expérience, il conjugue{' '}
+                  <strong>développement, pilotage de projets</strong> et expertise WordPress, PHP,
+                  NodeJS et architectures web.
+                </p>
+                <p>
+                  Il conçoit des plateformes robustes, optimise l'existant et intervient sur des
+                  environnements sensibles, du front au back, avec une attention particulière portée
+                  à{' '}
+                  <strong>
+                    la performance, la qualité, la fiabilité et la maintenabilité des systèmes.
+                  </strong>
+                </p>
+                <p>
+                  Il évolue avec grâce dans des contextes techniques exigeants et sait concevoir des
+                  solutions <strong>aux besoins et aux contraintes métier.</strong>
+                </p>
+              </div>
 
-            {/* Réseaux sociaux */}
-            <div className="flex items-center gap-4 text-tt-accent">
-              {/* <a href="#contact" className="hover:opacity-70">
-                <span className="sr-only">LinkedIn</span>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
-              </a> */}
+              {/* Réseaux sociaux */}
+              <div className="flex items-center justify-end gap-4 text-tt-accent">
+                <a
+                  href="https://www.linkedin.com/in/rochard/details/recommendations/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:opacity-70 transition-opacity"
+                >
+                  <span className="sr-only">LinkedIn</span>
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z" />
+                    <circle cx="4" cy="4" r="2" />
+                  </svg>
+                </a>
+              </div>
             </div>
+            {/* /wrapper texte R. */}
           </div>
         </div>
       </section>
 
       {/* ── CONTACT ────────────────────────────────────────────────────── */}
       <section id="contact" className="border-t border-[#444444]">
-        <div className="mx-auto max-w-2xl px-6 pt-24 pb-32">
-          <h2 className="mb-3 font-bold text-2xl text-tt-accent tracking-tight">Contact</h2>
-          <p className="mb-10 text-[#cccccc]">Un projet ? Une question ? Je lis tout.</p>
-          <ContactForm />
-        </div>
+        <ContactSection />
       </section>
     </main>
   )

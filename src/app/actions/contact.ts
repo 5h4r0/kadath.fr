@@ -21,7 +21,7 @@ export async function sendContactMessage(formData: unknown): Promise<ContactResu
       return { success: false, error: 'error_generic' }
     }
 
-    const { name, email, subject, message, turnstile_token, locale } = parsed.data
+    const { first_name, name, email, subject, message, turnstile_token, locale } = parsed.data
 
     // Rate limit by IP — instancié ici pour éviter le crash module-level si Redis n'est pas dispo
     const ratelimit = new Ratelimit({
@@ -52,6 +52,7 @@ export async function sendContactMessage(formData: unknown): Promise<ContactResu
     )
 
     const { error: dbError } = await supabase.from('contact_messages').insert({
+      first_name,
       name,
       email,
       subject,
@@ -66,9 +67,11 @@ export async function sendContactMessage(formData: unknown): Promise<ContactResu
 
     // Render email templates
     const notificationHtml = await render(
-      createElement(ContactNotification, { name, email, subject, message }),
+      createElement(ContactNotification, { firstName: first_name, name, email, subject, message }),
     )
-    const confirmationHtml = await render(createElement(ContactConfirmation, { name, locale }))
+    const confirmationHtml = await render(
+      createElement(ContactConfirmation, { firstName: first_name, name, locale }),
+    )
 
     // Send emails in parallel
     await Promise.all([

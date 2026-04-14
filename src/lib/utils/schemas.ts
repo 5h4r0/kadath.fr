@@ -1,6 +1,7 @@
 import { z } from 'zod'
 
 export const contactSchema = z.object({
+  first_name: z.string().min(2).max(100),
   name: z.string().min(2).max(100),
   email: z.string().email(),
   subject: z.string().min(2).max(200),

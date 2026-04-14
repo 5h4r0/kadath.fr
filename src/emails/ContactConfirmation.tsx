@@ -1,4 +1,5 @@
 interface ContactConfirmationProps {
+  firstName: string
   name: string
   locale: 'fr' | 'en'
 }
@@ -6,17 +7,17 @@ interface ContactConfirmationProps {
 const copy = {
   fr: {
     title: 'Message reçu',
-    greeting: (name: string) => `Bonjour ${name},`,
-    body: 'Bonjour et merci pour votre message, nous reprenons contact très rapidement avec vous.',
+    greeting: (firstName: string, name: string) => `Bonjour ${firstName} ${name},`,
+    body: 'Merci pour votre message, nous reprenons contact très rapidement avec vous.',
   },
   en: {
     title: 'Message received',
-    greeting: (name: string) => `Hello ${name},`,
-    body: 'Hello and thank you for your message, we will get back to you very shortly.',
+    greeting: (firstName: string, name: string) => `Hello ${firstName} ${name},`,
+    body: 'Thank you for your message, we will get back to you very shortly.',
   },
 }
 
-export default function ContactConfirmation({ name, locale }: ContactConfirmationProps) {
+export default function ContactConfirmation({ firstName, name, locale }: ContactConfirmationProps) {
   const t = copy[locale]
 
   return (
@@ -50,7 +51,7 @@ export default function ContactConfirmation({ name, locale }: ContactConfirmatio
 
           <div style={{ padding: '32px' }}>
             <p style={{ color: '#ffffff', fontSize: '16px', margin: '0 0 16px' }}>
-              {t.greeting(name)}
+              {t.greeting(firstName, name)}
             </p>
             <p style={{ color: '#dddddd', fontSize: '15px', lineHeight: '1.7', margin: 0 }}>
               {t.body}

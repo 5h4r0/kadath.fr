@@ -1,4 +1,5 @@
 interface ContactNotificationProps {
+  firstName: string
   name: string
   email: string
   subject: string
@@ -6,6 +7,7 @@ interface ContactNotificationProps {
 }
 
 export default function ContactNotification({
+  firstName,
   name,
   email,
   subject,
@@ -52,7 +54,9 @@ export default function ContactNotification({
             >
               Nom
             </p>
-            <p style={{ color: '#ffffff', margin: '0 0 20px', fontSize: '16px' }}>{name}</p>
+            <p style={{ color: '#ffffff', margin: '0 0 20px', fontSize: '16px' }}>
+              {firstName} {name}
+            </p>
 
             <p
               style={{
