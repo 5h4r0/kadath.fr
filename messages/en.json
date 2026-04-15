@@ -228,7 +228,7 @@
       "required_fields": "All fields required",
       "submit": "Send",
       "sending": "Sending...",
-      "success": "Message sent. I'll reply within 24h.",
+      "success": "Message sent, thank you! We'll contact you within 24h.",
       "error_generic": "An error occurred. Please try again.",
       "error_turnstile": "Anti-bot check failed. Please try again.",
       "error_rate_limit": "Too many messages. Try again in a few minutes."

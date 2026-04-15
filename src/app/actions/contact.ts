@@ -83,17 +83,19 @@ export async function sendContactMessage(formData: unknown): Promise<ContactResu
     // Send emails in parallel
     await Promise.all([
       resend.emails.send({
-        from: 'thinktwice <thinktwice@sokol.fr>',
-        to: 'contact@kadath.fr, thinktwice@sokol.fr',
+        from: 'thinktwice <thinktwice@thinktwice.sokol.fr>',
+        to: 'thinktwice@sokol.fr',
         subject: `[Contact] ${subject}`,
         html: notificationHtml,
       }),
       resend.emails.send({
-        from: 'thinktwice <thinktwice@sokol.fr>',
+        from: 'thinktwice <thinktwice@thinktwice.sokol.fr>',
         replyTo: 'thinktwice <thinktwice@sokol.fr>',
         to: email,
         subject:
-          locale === 'fr' ? 'Votre message a bien été reçu' : 'Your message has been received',
+          locale === 'fr'
+            ? 'thinktwice | Votre message a bien été reçu'
+            : 'thinktwice | Your message has been received',
         html: confirmationHtml,
       }),
     ])

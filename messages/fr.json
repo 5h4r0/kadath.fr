@@ -228,7 +228,7 @@
       "required_fields": "Tous les champs sont obligatoires",
       "submit": "Envoyer",
       "sending": "Envoi en cours...",
-      "success": "Message envoyé. Je vous réponds dans les 24h.",
+      "success": "Message envoyé, merci ! On vous contacte dans les 24h.",
       "error_generic": "Une erreur est survenue. Réessayez.",
       "error_turnstile": "Vérification anti-bot échouée. Réessayez.",
       "error_rate_limit": "Trop de messages. Réessayez dans quelques minutes."
