@@ -45,7 +45,7 @@ export default async function LocaleLayout({
           <Script
             id="cookieyes"
             src="https://cdn-cookieyes.com/client_data/ef1fc7682b16315dca7139faf311fc93/script.js"
-            strategy="beforeInteractive"
+            strategy="afterInteractive"
           />
         )}
         <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
