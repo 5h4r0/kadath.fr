@@ -112,7 +112,7 @@ export default function ContactNotification({
 
           <div style={{ padding: '16px 32px', borderTop: '1px solid #444444' }}>
             <p style={{ color: '#666666', margin: 0, fontSize: '12px' }}>
-              kadath.fr — formulaire de contact
+              thinktwice — Formulaire de contact
             </p>
           </div>
         </div>

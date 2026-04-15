@@ -1,4 +1,4 @@
-# REF.md — Référence technique kadath.fr
+# REF.md — Référence technique kadath.fr | thinktwice
 > Patterns, snippets et conventions à réutiliser systématiquement
 
 ---
@@ -186,7 +186,7 @@ export async function contactAction(formData: FormData) {
 import { resend } from '@/lib/resend'
 
 await resend.emails.send({
-  from: 'kadath.fr <no-reply@kadath.fr>',
+  from: 'thinktwice <thinktwice@thinktwice.sokol.fr>',
   to: [client.email],
   subject: 'Nouvelle facture disponible',
   react: InvoiceEmail({ invoice, url: signedUrl }),

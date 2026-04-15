@@ -2,7 +2,7 @@ import type { MetadataRoute } from 'next'
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'kadath.fr',
+    name: 'thinktwice.sokol.fr',
     short_name: 'kadath',
     description: 'Développeur web freelance',
     start_url: '/',

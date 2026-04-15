@@ -54,8 +54,8 @@ const nextConfig: NextConfig = {
     return [
       {
         source: '/:path*',
-        has: [{ type: 'host', value: 'www.kadath.fr' }],
-        destination: 'https://kadath.fr/:path*',
+        has: [{ type: 'host', value: 'thinktwice.sokol.fr' }],
+        destination: 'https://thinktwice.sokol.fr/:path*',
         permanent: true,
       },
     ]

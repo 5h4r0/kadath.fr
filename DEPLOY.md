@@ -1,4 +1,4 @@
-# DEPLOY.md — kadath.fr
+# DEPLOY.md — thinktwice
 
 Procédure de déploiement et pièges connus.
 
@@ -6,11 +6,11 @@ Procédure de déploiement et pièges connus.
 
 ## Environnements
 
-| Domaine | Rôle | Supabase |
-|---|---|---|
-| `localhost:3000` | Dev local | Instance locale `127.0.0.1:54321` |
-| `kadath.fr` | Préprod | Projet distant `jxgwjpoqbqgdvpoldmzs` |
-| `thinktwice.sokol.fr` | Prod | Projet distant `jxgwjpoqbqgdvpoldmzs` |
+| Domaine               | Rôle      | Supabase                              |
+|-----------------------|-----------|---------------------------------------|
+| `localhost:3000`      | Dev local | Instance locale `127.0.0.1:54321`     |
+| `kadath.fr`           | Préprod   | Projet distant `jxgwjpoqbqgdvpoldmzs` |
+| `thinktwice.sokol.fr` | Prod      | Projet distant `jxgwjpoqbqgdvpoldmzs` |
 
 ---
 

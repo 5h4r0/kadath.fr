@@ -45,7 +45,7 @@ export default function ContactConfirmation({ firstName, name, locale }: Contact
         >
           <div style={{ padding: '24px 32px', borderBottom: '2px solid #26e1b0' }}>
             <h1 style={{ color: '#26e1b0', margin: 0, fontSize: '20px', fontWeight: 700 }}>
-              kadath.fr
+              thinktwice
             </h1>
           </div>
 
@@ -59,7 +59,7 @@ export default function ContactConfirmation({ firstName, name, locale }: Contact
           </div>
 
           <div style={{ padding: '16px 32px', borderTop: '1px solid #444444' }}>
-            <p style={{ color: '#666666', margin: 0, fontSize: '12px' }}>kadath.fr</p>
+            <p style={{ color: '#666666', margin: 0, fontSize: '12px' }}>thinktwice</p>
           </div>
         </div>
       </body>

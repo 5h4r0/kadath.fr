@@ -3,7 +3,7 @@
 
 ---
 
-## Project Overview
+## thinktwice Project Overview
 
 **kadath.fr** est une plateforme fullstack Next.js 15 (App Router) — portfolio développeur freelance avec boutique et backoffice CMS.
 
@@ -111,7 +111,7 @@ Obligatoire sur tout champ HTML riche avant stockage en DB.
 
 ### UI Strategy
 
-- **Site vitrine / portfolio** → Tailwind pur — design custom ThinkTwice (**Space Grotesk** + **Source Sans 3** via `next/font/google`). Ferryman + Helvetica Condensed disponibles en woff2 dans `public/fonts/` pour usage ponctuel (logo, titres décoratifs).
+- **Site vitrine / portfolio** → Tailwind pur — design custom ThinkTwice (**Space Grotesk** + **Source Sans 3** via `next/font/google`). Helvetica Condensed disponible en woff2 dans `public/fonts/` pour élément ui & formulaires.
 - **Backoffice + espace client** → shadcn/ui — composants Radix accessibles, personnalisés Tailwind
 - shadcn/ui n'est pas une dépendance externe — composants copiés dans `src/components/ui/`
 - Composants existants : `button`, `input`, `textarea`, `label` — stylés avec tokens `tt-bg` / `tt-accent`
@@ -174,7 +174,6 @@ Sur : contact, login, inscription, magic link, changement mot de passe.
 - **Soft delete** partout sur données financières
 - **shadcn/ui** pour backoffice + espace client — Tailwind pur pour vitrine
 - **TipTap** — pas Lexical
-- **ticketing-store** — repo séparé, pas intégré à kadath.fr
 
 ---
 
@@ -240,7 +239,6 @@ Upstash Redis : DB `kadath.fr` — région `eu-west-1`, free tier — rate limit
 
 ### Known issues / pending (2026-04-07)
 
-- `contact@kadath.fr` bounce — mailbox non créée sur Ionos, forwarding à configurer
 - `robots.ts` : disallow bots agressifs ✅ fait — disallow attack paths (`/.env`, `/.git`, `/api/`) ✅ fait
 
 ---

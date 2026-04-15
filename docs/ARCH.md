@@ -1,4 +1,4 @@
-# ARCH.md — Architecture kadath.fr
+# ARCH.md — Architecture kadath.fr | thinktwice
 > Référence technique complète — décisions de conception et rationale
 > Dernière mise à jour : 07/04/2026
 
@@ -54,9 +54,10 @@ S'applique à : `clients`, `projects`, `quotes`, `invoices`.
 ## 2. Domaines & DNS
 
 ```
-https://kadath.fr              → site vitrine + espace client
+https://thinktwice.sokol.fr    → PROD / site vitrine
+https://kadath.fr              → preprod site vitrine + PROD espace client
 https://www.kadath.fr          → redirect → kadath.fr
-https://manage.kadath.fr       → backoffice admin
+https://manage.kadath.fr       → PROD backoffice admin
 ```
 
 ### Choix architecture domaines

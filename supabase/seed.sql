@@ -1,12 +1,12 @@
 -- ============================================================
--- seed.sql — Données de test kadath.fr
+-- seed.sql — Données de test thinktwice
 -- ============================================================
 -- UUIDs de référence
--- admin@kadath.fr     → 501f1bd9-127e-4515-9434-269ce3ae8bb7
--- editor@kadath.fr    → d859c080-d0b3-407d-8efd-22ac5528beed
--- client1@test.fr     → 9472471e-bc06-4992-93c3-b31065347fdb
--- client2@test.fr     → c09430c1-c1e8-4676-b1d7-e6b6c7c850a2
--- client3@test.fr     → (pas de compte auth)
+-- thinktwice@kadath.fr   → 501f1bd9-127e-4515-9434-269ce3ae8bb7
+-- thinktwice@sokol.fr    → d859c080-d0b3-407d-8efd-22ac5528beed
+-- client1@test.fr        → 9472471e-bc06-4992-93c3-b31065347fdb
+-- client2@test.fr        → c09430c1-c1e8-4676-b1d7-e6b6c7c850a2
+-- client3@test.fr        → (pas de compte auth)
 -- ============================================================
 
 -- ─── Auth users (requis avant admin_users et clients — FK auth.users) ─────

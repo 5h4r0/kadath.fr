@@ -1,4 +1,4 @@
-# Migrations — kadath.fr
+# Migrations — thinktwice
 
 Schéma PostgreSQL / Supabase pour le backoffice `manage.kadath.fr`.
 
