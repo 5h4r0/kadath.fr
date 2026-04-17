@@ -7,8 +7,8 @@ export default function manifest(): MetadataRoute.Manifest {
     description: 'Développeur web freelance',
     start_url: '/',
     display: 'standalone',
-    background_color: '#1A1F2E',
-    theme_color: '#C5205D',
+    background_color: '#333333',
+    theme_color: '#26e1b0',
     icons: [{ src: '/favicon.ico', sizes: '48x48', type: 'image/x-icon' }],
   }
 }
