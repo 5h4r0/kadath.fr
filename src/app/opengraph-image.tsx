@@ -1,6 +1,6 @@
 import { ImageResponse } from '@vercel/og'
 
-export const runtime = 'edge'
+export const runtime = 'nodejs'
 export const alt = 'thinktwice — Développement Web'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
