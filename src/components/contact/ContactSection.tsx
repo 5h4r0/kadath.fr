@@ -30,7 +30,7 @@ export default async function ContactSection({
       <section className="mx-auto max-w-[60rem] px-6 pb-20">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
           {/* Colonne gauche — Adresses */}
-          <div className="border-l border-tt-accent pl-6 flex flex-col gap-4 text-base leading-relaxed">
+          <div className="border-tt-accent pl-6 flex flex-col gap-4 text-base leading-relaxed">
             <div>
               <p className="text-tt-accent font-bold text-lg">{t('paris_title')}</p>
               <p className="text-white/80">{t('paris_address_1')}</p>
@@ -52,7 +52,7 @@ export default async function ContactSection({
           </div>
 
           {/* Colonne droite — Contacts directs */}
-          <div className="border-l border-tt-accent pl-6 flex flex-col gap-4">
+          <div className="border-tt-accent pl-6 flex flex-col gap-4">
             <div>
               <p className="text-sm text-white/60 mb-1">{t('ss_contact_label')}</p>
               <a
@@ -84,8 +84,7 @@ export default async function ContactSection({
             <h2 className="text-xl font-bold leading-snug lg:text-2xl">
               <span className="mark-teal font-light text-white">{t('form_heading')}</span>
             </h2>
-            <hr className="border-white/10 my-4" />
-            <p className="font-light text-white">{t('form_heading_phone')}</p>
+            <p className="pt-8 font-light text-white">{t('form_heading_txt')}</p>
           </div>
 
           {/* Colonne droite — Formulaire */}

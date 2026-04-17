@@ -212,8 +212,8 @@
     "email": "thinktwice@sokol.fr",
     "ss_contact_label": "Contact Stéphane Sokol directly",
     "sr_contact_label": "Contact Stéphane Rochard directly",
-    "form_heading": "Briefly describe your need.",
-    "form_heading_phone": "Leave your phone number in the message field if you would like to be contacted.",
+    "form_heading": "Tell us about your project",
+    "form_heading_txt": "Describe your project, and include your phone number if you'd prefer to be reached by phone",
     "form": {
       "first_name": "First name",
       "name": "Last name",
