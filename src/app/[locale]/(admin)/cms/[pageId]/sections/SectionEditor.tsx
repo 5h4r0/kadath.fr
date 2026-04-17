@@ -13,6 +13,7 @@ interface Section {
 
 export function SectionEditor({ section }: { section: Section }) {
   const [json, setJson] = useState(JSON.stringify(section.content, null, 2))
+  const [isVisible, setIsVisible] = useState<boolean>(section.is_visible)
   const [jsonError, setJsonError] = useState<string | null>(null)
   const [saveError, setSaveError] = useState<string | null>(null)
   const [saved, setSaved] = useState(false)
@@ -42,7 +43,8 @@ export function SectionEditor({ section }: { section: Section }) {
 
   function handleToggle() {
     startTransition(async () => {
-      await toggleSectionVisibility(section.id, !section.is_visible)
+      await toggleSectionVisibility(section.id, !isVisible)
+      setIsVisible((v: boolean) => !v)
     })
   }
 
@@ -54,10 +56,10 @@ export function SectionEditor({ section }: { section: Section }) {
           <span className="text-sm font-medium text-white">{section.type}</span>
           <span
             className={`inline-block rounded px-2 py-0.5 text-xs font-medium ${
-              section.is_visible ? 'bg-[#1a3a2a] text-[#4caf82]' : 'bg-[#2a2a2a] text-[#666666]'
+              isVisible ? 'bg-[#1a3a2a] text-[#4caf82]' : 'bg-[#2a2a2a] text-[#666666]'
             }`}
           >
-            {section.is_visible ? 'visible' : 'masqué'}
+            {isVisible ? 'visible' : 'masqué'}
           </span>
         </div>
         <button
@@ -66,7 +68,7 @@ export function SectionEditor({ section }: { section: Section }) {
           disabled={isPending}
           className="text-xs text-[#666666] hover:text-[#cccccc] disabled:opacity-50"
         >
-          {section.is_visible ? 'Masquer' : 'Afficher'}
+          {isVisible ? 'Masquer' : 'Afficher'}
         </button>
       </div>
 
