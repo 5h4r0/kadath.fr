@@ -11,7 +11,12 @@ import { cookies } from 'next/headers'
 
 export const dynamic = 'force-dynamic'
 
-export default async function ClientsPage() {
+interface Props {
+  params: Promise<{ locale: string }>
+}
+
+export default async function ClientsPage({ params }: Props) {
+  const { locale } = await params
   const cookieStore = await cookies()
   const supabase = createClient(cookieStore)
 
@@ -31,7 +36,15 @@ export default async function ClientsPage() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-light text-white">Clients</h1>
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-light text-white">Clients</h1>
+        <a
+          href={`/${locale}/clients/new`}
+          className="rounded bg-tt-accent px-3 py-1.5 text-sm font-medium text-white hover:opacity-90"
+        >
+          Nouveau client
+        </a>
+      </div>
 
       <Table>
         <TableHeader>
@@ -40,12 +53,13 @@ export default async function ClientsPage() {
             <TableHead>Email</TableHead>
             <TableHead>Statut</TableHead>
             <TableHead>Créé le</TableHead>
+            <TableHead />
           </TableRow>
         </TableHeader>
         <TableBody>
           {clients?.length === 0 && (
             <TableRow>
-              <TableCell colSpan={4} className="text-center text-[#666666]">
+              <TableCell colSpan={5} className="text-center text-[#666666]">
                 Aucun client
               </TableCell>
             </TableRow>
@@ -61,6 +75,14 @@ export default async function ClientsPage() {
               </TableCell>
               <TableCell className="text-[#999999]">
                 {new Date(client.created_at).toLocaleDateString('fr-FR')}
+              </TableCell>
+              <TableCell className="text-right">
+                <a
+                  href={`/${locale}/clients/${client.id}/edit`}
+                  className="text-xs text-[#666666] hover:text-tt-accent"
+                >
+                  Éditer
+                </a>
               </TableCell>
             </TableRow>
           ))}
