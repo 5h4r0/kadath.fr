@@ -4,10 +4,12 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 interface Props {
-  searchParams: Promise<{ redirect?: string }>
+  params: Promise<{ locale: string }>
+  searchParams: Promise<{ redirect?: string; error?: string }>
 }
 
-export default async function AdminLoginPage({ searchParams }: Props) {
+export default async function AdminLoginPage({ params, searchParams }: Props) {
+  const { locale } = await params
   const cookieStore = await cookies()
   const supabase = createClient(cookieStore)
   const {
@@ -16,9 +18,9 @@ export default async function AdminLoginPage({ searchParams }: Props) {
 
   const role = user?.app_metadata?.role as string | undefined
   if (user && (role === 'admin' || role === 'editor')) {
-    redirect('/fr/cms')
+    redirect(`/${locale}/cms`)
   }
 
-  const { redirect: redirectTo } = await searchParams
-  return <AuthForm redirectTo={redirectTo ?? '/fr/cms'} />
+  const { redirect: redirectTo, error } = await searchParams
+  return <AuthForm redirectTo={redirectTo ?? `/${locale}/cms`} error={error} />
 }

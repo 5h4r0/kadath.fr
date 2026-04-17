@@ -9,9 +9,10 @@ import { useState } from 'react'
 
 interface AuthFormProps {
   redirectTo: string
+  error?: string
 }
 
-export default function AuthForm({ redirectTo }: AuthFormProps) {
+export default function AuthForm({ redirectTo, error: propError }: AuthFormProps) {
   const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -70,6 +71,11 @@ export default function AuthForm({ redirectTo }: AuthFormProps) {
         </Button>
 
         {error && <p className="text-center text-sm text-red-400">{error}</p>}
+        {propError === 'link_expired' && (
+          <p className="text-center text-sm text-red-400">
+            Ce lien a expiré. Contactez votre administrateur.
+          </p>
+        )}
       </div>
     </div>
   )

@@ -4,10 +4,12 @@ import { cookies, headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 interface Props {
-  searchParams: Promise<{ redirect?: string }>
+  params: Promise<{ locale: string }>
+  searchParams: Promise<{ redirect?: string; error?: string }>
 }
 
-export default async function LoginPage({ searchParams }: Props) {
+export default async function LoginPage({ params, searchParams }: Props) {
+  const { locale } = await params
   const cookieStore = await cookies()
   const supabase = createClient(cookieStore)
   const {
@@ -16,12 +18,12 @@ export default async function LoginPage({ searchParams }: Props) {
 
   const host = (await headers()).get('host') ?? ''
   const isAdminDomain = host.startsWith('manage.')
-  const defaultRedirect = isAdminDomain ? '/fr/cms' : '/fr/customer'
+  const defaultRedirect = isAdminDomain ? `/${locale}/cms` : `/${locale}/customer/dashboard`
 
   if (user) {
     redirect(defaultRedirect)
   }
 
-  const { redirect: redirectTo } = await searchParams
-  return <AuthForm redirectTo={redirectTo ?? defaultRedirect} />
+  const { redirect: redirectTo, error } = await searchParams
+  return <AuthForm redirectTo={redirectTo ?? defaultRedirect} error={error} />
 }
