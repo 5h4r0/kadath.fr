@@ -50,16 +50,6 @@ const nextConfig: NextConfig = {
       },
     ]
   },
-  async redirects() {
-    return [
-      {
-        source: '/:path*',
-        has: [{ type: 'host', value: 'thinktwice.sokol.fr' }],
-        destination: 'https://thinktwice.sokol.fr/:path*',
-        permanent: true,
-      },
-    ]
-  },
 }
 
 export default withNextIntl(nextConfig)
