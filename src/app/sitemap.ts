@@ -1,4 +1,6 @@
+import { createClient } from '@/lib/supabase/server'
 import type { MetadataRoute } from 'next'
+import { cookies } from 'next/headers'
 
 const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://thinktwice.sokol.fr'
 
@@ -21,6 +23,21 @@ function staticRoutes(): MetadataRoute.Sitemap {
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  // TODO: fetch published CMS pages from Supabase and include them
-  return [...staticRoutes()]
+  const cookieStore = await cookies()
+  const supabase = createClient(cookieStore)
+
+  const { data: pages } = await supabase
+    .from('cms_pages')
+    .select('slug, updated_at, lang')
+    .eq('published', true)
+    .is('deleted_at', null)
+
+  const cmsRoutes: MetadataRoute.Sitemap = (pages ?? []).map((page) => ({
+    url: `${baseUrl}/${page.lang}/${page.slug}`,
+    lastModified: page.updated_at ? new Date(page.updated_at) : new Date(),
+    changeFrequency: 'weekly' as const,
+    priority: 0.8,
+  }))
+
+  return [...staticRoutes(), ...cmsRoutes]
 }
