@@ -5,14 +5,22 @@ export const metadata: Metadata = {
   robots: 'noindex, nofollow',
 }
 
-const NAV = [
-  { label: 'CMS', href: '/fr/cms' },
-  { label: 'Clients', href: '/fr/clients' },
-  { label: 'Projets', href: '/fr/projects' },
-  { label: 'Factures', href: '/fr/invoices' },
-]
+export default async function AdminLayout({
+  children,
+  params,
+}: {
+  children: React.ReactNode
+  params: Promise<{ locale: string }>
+}) {
+  const { locale } = await params
 
-export default function AdminLayout({ children }: { children: React.ReactNode }) {
+  const NAV = [
+    { label: 'CMS', href: `/${locale}/cms` },
+    { label: 'Clients', href: `/${locale}/clients` },
+    { label: 'Projets', href: `/${locale}/projects` },
+    { label: 'Factures', href: `/${locale}/invoices` },
+  ]
+
   return (
     <div className="flex min-h-screen bg-tt-bg font-grotesk text-white">
       {/* Sidebar */}
