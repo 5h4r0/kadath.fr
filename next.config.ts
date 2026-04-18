@@ -5,7 +5,7 @@ const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts')
 
 const isDev = process.env.NODE_ENV === 'development'
 const supabaseConnectSrc = isDev
-  ? 'https://*.supabase.co http://127.0.0.1:54321'
+  ? 'https://*.supabase.co http://localhost:54321'
   : 'https://*.supabase.co'
 
 const securityHeaders = [
@@ -29,6 +29,7 @@ const securityHeaders = [
 ]
 
 const nextConfig: NextConfig = {
+  serverExternalPackages: ['@react-pdf/renderer', 'isomorphic-dompurify', 'jsdom'],
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: '*.supabase.co', pathname: '/storage/v1/object/**' },
