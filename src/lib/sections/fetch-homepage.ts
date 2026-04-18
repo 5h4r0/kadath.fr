@@ -1,12 +1,13 @@
 import { HOMEPAGE_FALLBACK } from '@/lib/homepage-fallback'
-import { createClient } from '@/lib/supabase/server'
 import type { PageSection } from '@/types/page-sections'
-import { cookies } from 'next/headers'
+import { createClient } from '@supabase/supabase-js'
 
 export async function fetchHomepageSections(): Promise<PageSection[]> {
   try {
-    const cookieStore = await cookies()
-    const supabase = createClient(cookieStore)
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL ?? '',
+      process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY ?? '',
+    )
     // .single() throw PGRST116 si 0 ou >1 lignes — catchée ci-dessous → fallback
     const { data, error } = await supabase
       .from('cms_pages')
