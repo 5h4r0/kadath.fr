@@ -155,3 +155,51 @@
   overflow: visible;
   padding-bottom: 2px;
 }
+
+/* ------------------------------------------------------------------ */
+/* CookieYes — surcharges visuelles ThinkTwice                        */
+/* ------------------------------------------------------------------ */
+
+.cky-consent-bar,
+.cky-consent-bar *,
+[data-cky-tag] {
+  font-family: "Helvetica Condensed", "Arial Narrow", Arial, sans-serif !important;
+  font-weight: 300 !important;
+}
+
+.cky-consent-bar {
+  background-color: #333 !important;
+}
+
+.cky-title {
+  color: #fff !important;
+}
+
+.cky-notice-des,
+.cky-notice-des p {
+  color: #26e1b0 !important;
+}
+
+.cky-btn {
+  font-family: "Helvetica Condensed", "Arial Narrow", Arial, sans-serif !important;
+  font-weight: 300 !important;
+}
+
+.cky-btn-customize {
+  color: #26e1b0 !important;
+  border-color: #26e1b0 !important;
+  background-color: transparent !important;
+}
+
+.cky-btn-reject,
+.cky-btn-accept {
+  color: #000 !important;
+  border-color: #26e1b0 !important;
+  background-color: #26e1b0 !important;
+}
+
+[data-cky-tag="powered-by"],
+[data-cky-tag="powered-by"] * {
+  color: #fff !important;
+  background-color: transparent !important;
+}
