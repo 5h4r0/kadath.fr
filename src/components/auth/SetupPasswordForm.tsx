@@ -8,10 +8,10 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 interface SetupPasswordFormProps {
-  locale: string
+  successRedirect: string
 }
 
-export function SetupPasswordForm({ locale }: SetupPasswordFormProps) {
+export function SetupPasswordForm({ successRedirect }: SetupPasswordFormProps) {
   const router = useRouter()
   const [password, setPassword] = useState('')
   const [confirm, setConfirm] = useState('')
@@ -40,7 +40,7 @@ export function SetupPasswordForm({ locale }: SetupPasswordFormProps) {
       return
     }
 
-    router.push(`/${locale}/customer/dashboard`)
+    router.push(successRedirect)
   }
 
   return (

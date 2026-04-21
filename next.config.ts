@@ -5,7 +5,7 @@ const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts')
 
 const isDev = process.env.NODE_ENV === 'development'
 const supabaseConnectSrc = isDev
-  ? 'https://*.supabase.co http://localhost:54321'
+  ? 'https://*.supabase.co http://localhost:54321 ws://localhost:54321 http://127.0.0.1:54321 ws://127.0.0.1:54321 http://172.20.37.255:54321 ws://172.20.37.255:54321'
   : 'https://*.supabase.co'
 
 const securityHeaders = [

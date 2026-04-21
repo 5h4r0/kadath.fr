@@ -22,6 +22,7 @@ export default function AuthForm({ redirectTo, error: propError }: AuthFormProps
   const handleSignIn = async () => {
     setError(null)
     setLoading(true)
+    console.log('handleSignIn called', { email, password: password.length })
 
     const supabase = createClient()
     const { error: signInError } = await supabase.auth.signInWithPassword({ email, password })

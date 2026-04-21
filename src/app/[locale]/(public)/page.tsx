@@ -8,65 +8,85 @@ import { ProblemSolutionSection } from '@/components/sections/ProblemSolutionSec
 import { SocialProofSection } from '@/components/sections/SocialProofSection'
 import { TeamSection } from '@/components/sections/TeamSection'
 import { ValuePropSection } from '@/components/sections/ValuePropSection'
+import {
+  ContactContentSchema,
+  DeliverablesContentSchema,
+  HeroContentSchema,
+  MethodologyContentSchema,
+  OffersContentSchema,
+  OptionsContentSchema,
+  ProblemSolutionContentSchema,
+  SocialProofContentSchema,
+  TeamContentSchema,
+  ValuePropContentSchema,
+} from '@/lib/cms/schemas'
 import { fetchHomepageSections } from '@/lib/sections/fetch-homepage'
-import type {
-  HeroContent,
-  ProblemSolutionContent,
-  SocialProofContent,
-  ValuePropContent,
-} from '@/types/page-sections'
 
 // Vitrine ThinkTwice — Hero section
 // Revalidation toutes les 60s (page semi-dynamique, cf. CLAUDE.md)
 export const revalidate = 60
 
-export default async function HomePage() {
+export default async function HomePage({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}) {
+  const { locale } = await params
   const sections = await fetchHomepageSections()
-
-  const heroSection = sections.find((s) => s.type === 'hero')
-  const valuePropSection = sections.find((s) => s.type === 'value_prop')
-  const socialProofSection = sections.find((s) => s.type === 'social_proof')
-  const problemSolutionSection = sections.find((s) => s.type === 'problem_solution')
 
   return (
     <main className="bg-tt-bg min-h-screen font-grotesk text-white">
-      {/* ── HERO ───────────────────────────────────────────────────────── */}
-      {heroSection && <HeroSection content={heroSection.content as unknown as HeroContent} />}
-
-      {/* ── VALUE PROP ─────────────────────────────────────────────────── */}
-      {valuePropSection && (
-        <ValuePropSection content={valuePropSection.content as unknown as ValuePropContent} />
-      )}
-
-      {/* ── SOCIAL PROOF ───────────────────────────────────────────────── */}
-      {socialProofSection && (
-        <SocialProofSection content={socialProofSection.content as unknown as SocialProofContent} />
-      )}
-      {/* ── PROBLÈME / SOLUTION ────────────────────────────────────────── */}
-      {problemSolutionSection && (
-        <ProblemSolutionSection
-          content={problemSolutionSection.content as unknown as ProblemSolutionContent}
-        />
-      )}
-      {/* ── MÉTHODOLOGIE / POUR QUI ────────────────────────────────────── */}
-      <MethodologySection />
-
-      {/* ── CE QUE VOUS OBTENEZ ────────────────────────────────────────── */}
-      <DeliverablesSection />
-
-      {/* ── NOS OFFRES ─────────────────────────────────────────────────── */}
-      <OffersSection />
-
-      {/* ── OPTIONS / CTA PRINCIPAL ────────────────────────────────────── */}
-      <OptionsSection />
-
-      {/* ── QUI NOUS SOMMES ────────────────────────────────────────────── */}
-      <TeamSection />
-
-      {/* ── CONTACT ────────────────────────────────────────────────────── */}
-      <section id="contact" className="border-t border-[#444444]">
-        <ContactSection />
-      </section>
+      {sections.map((section) => {
+        const raw = section.content[locale] ?? section.content.fr
+        switch (section.type) {
+          case 'hero': {
+            const p = HeroContentSchema.safeParse(raw)
+            return p.success ? <HeroSection key={section.id} content={p.data} /> : null
+          }
+          case 'value_prop': {
+            const p = ValuePropContentSchema.safeParse(raw)
+            return p.success ? <ValuePropSection key={section.id} content={p.data} /> : null
+          }
+          case 'social_proof': {
+            const p = SocialProofContentSchema.safeParse(raw)
+            return p.success ? <SocialProofSection key={section.id} content={p.data} /> : null
+          }
+          case 'problem_solution': {
+            const p = ProblemSolutionContentSchema.safeParse(raw)
+            return p.success ? <ProblemSolutionSection key={section.id} content={p.data} /> : null
+          }
+          case 'methodology': {
+            const p = MethodologyContentSchema.safeParse(raw)
+            return p.success ? <MethodologySection key={section.id} content={p.data} /> : null
+          }
+          case 'deliverables': {
+            const p = DeliverablesContentSchema.safeParse(raw)
+            return p.success ? <DeliverablesSection key={section.id} content={p.data} /> : null
+          }
+          case 'offers': {
+            const p = OffersContentSchema.safeParse(raw)
+            return p.success ? <OffersSection key={section.id} content={p.data} /> : null
+          }
+          case 'options': {
+            const p = OptionsContentSchema.safeParse(raw)
+            return p.success ? <OptionsSection key={section.id} content={p.data} /> : null
+          }
+          case 'team': {
+            const p = TeamContentSchema.safeParse(raw)
+            return p.success ? <TeamSection key={section.id} content={p.data} /> : null
+          }
+          case 'contact': {
+            const p = ContactContentSchema.safeParse(raw)
+            return p.success ? (
+              <section key={section.id} id="contact" className="border-t border-[#444444]">
+                <ContactSection content={p.data} />
+              </section>
+            ) : null
+          }
+          default:
+            return null
+        }
+      })}
     </main>
   )
 }

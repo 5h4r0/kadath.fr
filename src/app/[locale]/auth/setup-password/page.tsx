@@ -17,9 +17,13 @@ export default async function SetupPasswordPage({ params }: Props) {
 
   if (!user) redirect(`/${locale}/auth/login`)
 
+  const role = user.app_metadata?.role as string | undefined
+  const successRedirect =
+    role === 'admin' || role === 'editor' ? `/${locale}/cms` : `/${locale}/customer/dashboard`
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-tt-bg px-4">
-      <SetupPasswordForm locale={locale} />
+      <SetupPasswordForm successRedirect={successRedirect} />
     </div>
   )
 }

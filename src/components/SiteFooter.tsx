@@ -1,4 +1,4 @@
-import { getTranslations } from 'next-intl/server'
+import { fetchFooterSettings } from '@/lib/settings/fetchFooterSettings'
 import Link from 'next/link'
 
 interface SiteFooterProps {
@@ -6,7 +6,8 @@ interface SiteFooterProps {
 }
 
 export default async function SiteFooter({ locale }: SiteFooterProps) {
-  const t = await getTranslations('footer')
+  const settings = await fetchFooterSettings()
+  const copyright = settings.copyright[locale as 'fr' | 'en'] ?? settings.copyright.fr
 
   return (
     <footer className="border-t border-white/10 bg-tt-bg font-grotesk font-light">
@@ -193,29 +194,25 @@ export default async function SiteFooter({ locale }: SiteFooterProps) {
 
           {/* Copyright + liens légaux */}
           <div className="flex flex-col items-start gap-1 text-sm text-white/50 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-4 sm:gap-y-1 lg:items-end lg:flex-col lg:gap-y-1">
-            <p className="shrink-0">{t('copyright')}</p>
+            <p className="shrink-0">{copyright}</p>
             <nav
               aria-label="Liens légaux"
               className="flex flex-col items-start gap-1 sm:flex-row sm:flex-nowrap sm:gap-x-4 lg:flex-row lg:gap-x-4"
             >
-              <Link
-                href={`/${locale}/mentions-legales`}
-                className="hover:text-tt-accent transition-colors whitespace-nowrap"
-              >
-                {t('legal')}
-              </Link>
-              <Link
-                href={`/${locale}/conditions-utilisation`}
-                className="hover:text-tt-accent transition-colors whitespace-nowrap"
-              >
-                {t('terms')}
-              </Link>
-              <Link
-                href={`/${locale}/politique-confidentialite`}
-                className="hover:text-tt-accent transition-colors whitespace-nowrap"
-              >
-                {t('privacy')}
-              </Link>
+              {settings.legalLinks.map((link) => {
+                const localeKey = locale as 'fr' | 'en'
+                const href = localeKey === 'en' ? link.href_en : link.href_fr
+                const label = localeKey === 'en' ? link.label_en : link.label_fr
+                return (
+                  <Link
+                    key={link.href_fr}
+                    href={href}
+                    className="hover:text-tt-accent transition-colors whitespace-nowrap"
+                  >
+                    {label}
+                  </Link>
+                )
+              })}
             </nav>
           </div>
         </div>

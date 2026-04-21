@@ -3,7 +3,8 @@ import './globals.css'
 
 export const metadata: Metadata = {
   title: { default: 'thinktwice', template: '%s | thinktwice.sokol.fr' },
-  description: 'Développeur web freelance — WordPress, Next.js, TypeScript, Express.js, React',
+  description:
+    'Création et Développement web — WordPress — Apps Next.js, TypeScript, Express.js, ReactJS',
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? 'https://thinktwice.sokol.fr'),
 }
 
