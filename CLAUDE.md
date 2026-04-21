@@ -9,18 +9,18 @@
 
 ### Zones
 
-| Zone | URL | Description |
-|---|---|---|
-| Site vitrine | `kadath.fr` | Portfolio + boutique |
-| Backoffice admin | `manage.kadath.fr` | CMS — pages, utilisateurs, factures |
-| Espace client | `kadath.fr/[locale]/customer/` | Compte client — RUD |
+| Zone             | URL                            | Description                         |
+|------------------|--------------------------------|-------------------------------------|
+| Site vitrine     | `kadath.fr`                    | Portfolio + boutique                |
+| Backoffice admin | `manage.kadath.fr`             | CMS — pages, utilisateurs, factures |
+| Espace client    | `kadath.fr/[locale]/customer/` | Compte client — RUD                 |
 
 ### Documentation complète
 
-| Fichier | Rôle |
-|---|---|
+| Fichier        | Rôle                              |
+|----------------|-----------------------------------|
 | `docs/ARCH.md` | Architecture complète + rationale |
-| `docs/REF.md` | Référence technique courte |
+| `docs/REF.md`  | Référence technique courte        |
 
 ---
 
@@ -137,24 +137,24 @@ Sur : contact, login, inscription, magic link, changement mot de passe.
 
 ### Key Libraries
 
-| Bibliothèque | Rôle |
-|---|---|
-| next-intl | i18n — fr + en |
-| Zod | Validation schémas |
-| Supabase (`@supabase/ssr`) | Auth + DB + Storage |
-| Resend + React Email | Emails transactionnels |
-| Stripe | Checkout + webhook signé |
-| TipTap | Éditeur de contenu riche CMS |
-| isomorphic-dompurify | Sanitisation HTML TipTap |
-| react-pdf | Génération PDF devis/factures |
-| @upstash/ratelimit | Rate limiting Redis |
-| @marsidev/react-turnstile | Widget Cloudflare Turnstile (contact + inscription) |
-| @react-email/render | Rendu HTML emails (requis explicitement pour Firebase build) |
-| Cloudflare Turnstile | Anti-bot inscription + contact |
-| Biome | Lint + format |
-| Vitest + Testing Library | Tests |
-| @vercel/og | OG image dynamique |
-| Umami | Analytics (zone publique uniquement) |
+| Bibliothèque               | Rôle                                                         |
+|----------------------------|--------------------------------------------------------------|
+| next-intl                  | i18n — fr + en                                               |
+| Zod                        | Validation schémas                                           |
+| Supabase (`@supabase/ssr`) | Auth + DB + Storage                                          |
+| Resend + React Email       | Emails transactionnels                                       |
+| Stripe                     | Checkout + webhook signé                                     |
+| TipTap                     | Éditeur de contenu riche CMS                                 |
+| isomorphic-dompurify       | Sanitisation HTML TipTap                                     |
+| react-pdf                  | Génération PDF devis/factures                                |
+| @upstash/ratelimit         | Rate limiting Redis                                          |
+| @marsidev/react-turnstile  | Widget Cloudflare Turnstile (contact + inscription)          |
+| @react-email/render        | Rendu HTML emails (requis explicitement pour Firebase build) |
+| Cloudflare Turnstile       | Anti-bot inscription + contact                               |
+| Biome                      | Lint + format                                                |
+| Vitest + Testing Library   | Tests                                                        |
+| @vercel/og                 | OG image dynamique                                           |
+| Umami                      | Analytics (zone publique uniquement)                         |
 
 ---
 
@@ -191,20 +191,20 @@ Sur : contact, login, inscription, magic link, changement mot de passe.
 
 ## Convention commits
 
-| Type | Emoji | Description |
-|---|---|---|
-| `feat` | ✨ | Nouvelle fonctionnalité |
-| `fix` | 🐛 | Correction de bug |
-| `wip` | 🚧 | Work in progress |
-| `docs` | 📚 | Documentation |
-| `style` | 💎 | Formatage sans impact logique |
-| `refactor` | 📦 | Refactoring |
-| `perf` | 🚀 | Performance |
-| `test` | 🚨 | Tests |
-| `build` | 🛠 | Build / dépendances |
-| `ci` | ⚙️ | CI/CD |
-| `chore` | ♻️ | Tâches diverses |
-| `revert` | 🗑 | Annulation commit |
+| Type       | Emoji | Description                   |
+|------------|-------|-------------------------------|
+| `feat`     | ✨     | Nouvelle fonctionnalité       |
+| `fix`      | 🐛    | Correction de bug             |
+| `wip`      | 🚧    | Work in progress              |
+| `docs`     | 📚    | Documentation                 |
+| `style`    | 💎    | Formatage sans impact logique |
+| `refactor` | 📦    | Refactoring                   |
+| `perf`     | 🚀    | Performance                   |
+| `test`     | 🚨    | Tests                         |
+| `build`    | 🛠    | Build / dépendances           |
+| `ci`       | ⚙️    | CI/CD                         |
+| `chore`    | ♻️    | Tâches diverses               |
+| `revert`   | 🗑    | Annulation commit             |
 
 ---
 
@@ -227,13 +227,13 @@ Variables requises → voir `.env.local` (template avec clés vides versionné).
 
 ### Secrets Firebase App Hosting (Secret Manager)
 
-| Secret | Usage |
-|---|---|
-| `RESEND_API_KEY` | Envoi emails transactionnels |
-| `TURNSTILE_SECRET_KEY` | Vérification Cloudflare Turnstile côté serveur |
-| `SUPABASE_SERVICE_ROLE_KEY` | Insert `contact_messages` (bypass RLS) |
-| `UPSTASH_REDIS_REST_URL` | Rate limiting |
-| `UPSTASH_REDIS_REST_TOKEN` | Rate limiting |
+| Secret                      | Usage                                          |
+|-----------------------------|------------------------------------------------|
+| `RESEND_API_KEY`            | Envoi emails transactionnels                   |
+| `TURNSTILE_SECRET_KEY`      | Vérification Cloudflare Turnstile côté serveur |
+| `SUPABASE_SERVICE_ROLE_KEY` | Insert `contact_messages` (bypass RLS)         |
+| `UPSTASH_REDIS_REST_URL`    | Rate limiting                                  |
+| `UPSTASH_REDIS_REST_TOKEN`  | Rate limiting                                  |
 
 Upstash Redis : DB `kadath.fr` — région `eu-west-1`, free tier — rate limiting uniquement.
 
@@ -394,16 +394,16 @@ rtk init --global       # Add RTK to ~/.claude/CLAUDE.md
 
 ## Token Savings Overview
 
-| Category | Commands | Typical Savings |
-|----------|----------|-----------------|
-| Tests | vitest, playwright, cargo test | 90-99% |
-| Build | next, tsc, lint, prettier | 70-87% |
-| Git | status, log, diff, add, commit | 59-80% |
-| GitHub | gh pr, gh run, gh issue | 26-87% |
-| Package Managers | pnpm, npm, npx | 70-90% |
-| Files | ls, read, grep, find | 60-75% |
-| Infrastructure | docker, kubectl | 85% |
-| Network | curl, wget | 65-70% |
+| Category         | Commands                       | Typical Savings |
+|------------------|--------------------------------|-----------------|
+| Tests            | vitest, playwright, cargo test | 90-99%          |
+| Build            | next, tsc, lint, prettier      | 70-87%          |
+| Git              | status, log, diff, add, commit | 59-80%          |
+| GitHub           | gh pr, gh run, gh issue        | 26-87%          |
+| Package Managers | pnpm, npm, npx                 | 70-90%          |
+| Files            | ls, read, grep, find           | 60-75%          |
+| Infrastructure   | docker, kubectl                | 85%             |
+| Network          | curl, wget                     | 65-70%          |
 
 Overall average: **60-90% token reduction** on common development operations.
 <!-- /rtk-instructions -->

@@ -18,7 +18,8 @@ export default async function LoginPage({ params, searchParams }: Props) {
 
   const host = (await headers()).get('host') ?? ''
   const isAdminDomain = host.startsWith('manage.')
-  const defaultRedirect = isAdminDomain ? `/${locale}/cms` : `/${locale}/customer/dashboard`
+  // const defaultRedirect = isAdminDomain ? `/${locale}/cms` : `/${locale}/customer/dashboard`
+  const defaultRedirect = isAdminDomain ? `/${locale}/cms` : `/${locale}`
 
   if (user) {
     redirect(defaultRedirect)
