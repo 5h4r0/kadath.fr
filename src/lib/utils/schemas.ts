@@ -3,7 +3,7 @@ import { z } from 'zod'
 export const contactSchema = z.object({
   first_name: z.string().min(2).max(100),
   name: z.string().min(2).max(100),
-  email: z.string().email(),
+  email: z.email(),
   subject: z.string().min(2).max(200),
   message: z.string().min(10).max(2000),
   turnstile_token: z.string().min(1),
@@ -21,7 +21,7 @@ export const passwordSchema = z
 export const clientProfileSchema = z.object({
   first_name: z.string().min(1).max(100),
   last_name: z.string().min(1).max(100),
-  email: z.string().email(),
+  email: z.email(),
   phone: z.string().optional(),
   siret: z.string().length(14).optional(),
   address: z.string().max(500).optional(),
@@ -29,19 +29,19 @@ export const clientProfileSchema = z.object({
 })
 
 export const quoteSchema = z.object({
-  client_id: z.string().uuid(),
+  client_id: z.guid(),
   title: z.string().min(1).max(255),
   description: z.string().max(5000).optional(),
   amount: z.number().positive(),
-  valid_until: z.string().datetime().optional(),
+  valid_until: z.iso.datetime().optional(),
 })
 
 export const invoiceSchema = z.object({
-  client_id: z.string().uuid(),
-  quote_id: z.string().uuid().optional(),
+  client_id: z.guid(),
+  quote_id: z.guid().optional(),
   title: z.string().min(1).max(255),
   amount: z.number().positive(),
-  due_date: z.string().datetime().optional(),
+  due_date: z.iso.datetime().optional(),
 })
 
 export const cmsPageSchema = z.object({
