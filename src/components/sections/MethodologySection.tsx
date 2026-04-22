@@ -6,7 +6,7 @@ interface Props {
 
 export function MethodologySection({ content }: Props) {
   return (
-    <section className="mx-auto max-w-[60rem] px-6 pb-24">
+    <section className="mx-auto max-w-240 px-6 pb-24">
       <div className="grid grid-cols-1 gap-16 lg:grid-cols-2">
         {/* Colonne gauche — Méthodologie */}
         <div className="flex flex-col gap-8 font-light text-white text-lg leading-relaxed lg:text-xl">

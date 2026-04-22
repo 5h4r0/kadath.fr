@@ -11,7 +11,7 @@ export default async function SiteFooter({ locale }: SiteFooterProps) {
 
   return (
     <footer className="border-t border-white/10 bg-tt-bg font-grotesk font-light">
-      <div className="mx-auto max-w-[60rem] px-6 py-10">
+      <div className="mx-auto max-w-240 px-6 py-10">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           {/* Logo + réseaux */}
           <div className="flex flex-col gap-4">

@@ -33,7 +33,7 @@ export function ResumeCmsField({ pageId, initialValue }: Props) {
         onBlur={handleBlur}
         rows={3}
         placeholder="Résumé court affiché dans les méta et les listings…"
-        className="w-full rounded border border-[#333333] bg-[#111111] px-3 py-2 text-sm text-white focus:border-tt-accent focus:outline-none"
+        className="w-full rounded-sm border border-[#333333] bg-[#111111] px-3 py-2 text-sm text-white focus:border-tt-accent focus:outline-hidden"
       />
       {isPending && <p className="text-xs text-[#666666]">Sauvegarde…</p>}
       {saved && !isPending && <p className="text-xs text-[#4caf82]">Sauvegardé ✓</p>}

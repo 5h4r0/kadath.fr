@@ -89,7 +89,7 @@ export default async function ClientDetailPage({ params }: Props) {
           />
         </dl>
         {client.notes && (
-          <div className="mt-4 rounded border border-[#333333] p-4">
+          <div className="mt-4 rounded-sm border border-[#333333] p-4">
             <p className="text-xs font-medium uppercase tracking-widest text-[#666666]">Notes</p>
             <p className="mt-2 text-sm text-[#cccccc]">{client.notes}</p>
           </div>
@@ -208,7 +208,7 @@ const STATUS_STYLES: Record<string, string> = {
 function StatusBadge({ status }: { status: string }) {
   return (
     <span
-      className={`inline-block rounded px-2 py-0.5 text-xs font-medium ${STATUS_STYLES[status] ?? 'bg-[#2a2a2a] text-[#aaaaaa]'}`}
+      className={`inline-block rounded-sm px-2 py-0.5 text-xs font-medium ${STATUS_STYLES[status] ?? 'bg-[#2a2a2a] text-[#aaaaaa]'}`}
     >
       {status}
     </span>

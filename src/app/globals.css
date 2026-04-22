@@ -1,125 +1,171 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
-/* ------------------------------------------------------------------ */
-/* Fonts                                                               */
-/* ------------------------------------------------------------------ */
-@font-face {
-  font-family: "Helvetica Condensed";
-  font-weight: 300;
-  font-display: swap;
-  src: url("/fonts/helvetica_condensed_light.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Helvetica Condensed";
-  font-weight: 400;
-  font-display: swap;
-  src: url("/fonts/helvetica_condensed.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Helvetica Condensed";
-  font-weight: 900;
-  font-display: swap;
-  src: url("/fonts/helvetica_condensed_black.woff2") format("woff2");
-}
+@theme inline {
+  --font-grotesk: var(--font-space-grotesk), sans-serif;
+  --font-sans3: var(--font-source-sans-3), sans-serif;
+  --font-ferryman: Ferryman, serif;
+  --font-condensed: Helvetica Condensed, Arial Narrow, sans-serif;
 
-/* ------------------------------------------------------------------ */
-/* Design tokens — theme-light (default)                              */
-/* ------------------------------------------------------------------ */
-
-:root,
-.theme-light {
-  --color-primary: #c5205d;
-  --color-primary-hover: #ad1a17;
-  --color-accent: #53bbad;
-  --color-surface-dark: #425566;
-  --color-surface-light: #7a97aa;
-  --color-bg-light: #f8f8f8;
-  --color-bg-dark: #1a1f2e;
-  --color-text-primary: #1a1f2e;
-  --color-text-secondary: #425566;
-  --color-white: #ffffff;
-
-  /* ThinkTwice vitrine */
-  --color-tt-bg: #333333;
-  --color-tt-accent: #26e1b0;
-}
-
-/* ------------------------------------------------------------------ */
-/* theme-dark                                                          */
-/* ------------------------------------------------------------------ */
-
-.theme-dark {
-  --color-bg-light: #1a1f2e;
-  --color-bg-dark: #0d1117;
-  --color-text-primary: #f8f8f8;
-  --color-text-secondary: #7a97aa;
-  --color-surface-dark: #2a3444;
-  --color-surface-light: #425566;
-}
-
-/* ------------------------------------------------------------------ */
-/* theme-accessible                                                    */
-/* ------------------------------------------------------------------ */
-
-.theme-accessible {
-  --color-primary: #c5205d;
-  --color-primary-hover: #ad1a17;
-  --color-text-primary: #000000;
-  --color-text-secondary: #1a1f2e;
-  --color-bg-light: #ffffff;
-  --color-bg-dark: #f0f0f0;
-}
-
-/* ------------------------------------------------------------------ */
-/* ThinkTwice — motif de points décoratifs                            */
-/* Tile SVG 12×12px, rect 2×2px au coin — background-size identique  */
-/* pour cohérence parfaite entre viewBox et rendu.                    */
-/* ------------------------------------------------------------------ */
-
-.motif-dots {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Crect width='2' height='2' fill='rgba(255%2C255%2C255%2C0.5)'/%3E%3C/svg%3E");
-  background-size: 10px 10px;
-}
-
-/* Motif derrière les boutons CTA — pseudo-élément ::after */
-.btn-cta {
-  position: relative;
-  font-family: "Helvetica Condensed", Arial Narrow, sans-serif;
-}
-
-.btn-cta::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  translate: 20px 20px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Crect width='2' height='2' fill='rgba(255%2C255%2C255%2C0.5)'/%3E%3C/svg%3E");
-  background-size: 10px 10px;
-  opacity: 0.3;
-  z-index: 0;
-  pointer-events: none;
+  --color-primary: var(--color-primary);
+  --color-primary-hover: var(--color-primary-hover);
+  --color-accent: var(--color-accent);
+  --color-surface-dark: var(--color-surface-dark);
+  --color-surface-light: var(--color-surface-light);
+  --color-bg-light: var(--color-bg-light);
+  --color-bg-dark: var(--color-bg-dark);
+  --color-text-primary: var(--color-text-primary);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-tt-bg: var(--color-tt-bg);
+  --color-tt-accent: var(--color-tt-accent);
 }
 
 /*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+@layer utilities {
+  /* ------------------------------------------------------------------ */
+  /* Fonts                                                               */
+  /* ------------------------------------------------------------------ */
+  @font-face {
+    font-family: 'Helvetica Condensed';
+    font-weight: 300;
+    font-display: swap;
+    src: url('/fonts/helvetica_condensed_light.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'Helvetica Condensed';
+    font-weight: 400;
+    font-display: swap;
+    src: url('/fonts/helvetica_condensed.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'Helvetica Condensed';
+    font-weight: 900;
+    font-display: swap;
+    src: url('/fonts/helvetica_condensed_black.woff2') format('woff2');
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Design tokens — theme-light (default)                              */
+  /* ------------------------------------------------------------------ */
+
+  :root,
+  .theme-light {
+    --color-primary: #c5205d;
+    --color-primary-hover: #ad1a17;
+    --color-accent: #53bbad;
+    --color-surface-dark: #425566;
+    --color-surface-light: #7a97aa;
+    --color-bg-light: #f8f8f8;
+    --color-bg-dark: #1a1f2e;
+    --color-text-primary: #1a1f2e;
+    --color-text-secondary: #425566;
+    --color-white: #ffffff;
+
+    /* ThinkTwice vitrine */
+    --color-tt-bg: #333333;
+    --color-tt-accent: #26e1b0;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* theme-dark                                                          */
+  /* ------------------------------------------------------------------ */
+
+  .theme-dark {
+    --color-bg-light: #1a1f2e;
+    --color-bg-dark: #0d1117;
+    --color-text-primary: #f8f8f8;
+    --color-text-secondary: #7a97aa;
+    --color-surface-dark: #2a3444;
+    --color-surface-light: #425566;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* theme-accessible                                                    */
+  /* ------------------------------------------------------------------ */
+
+  .theme-accessible {
+    --color-primary: #c5205d;
+    --color-primary-hover: #ad1a17;
+    --color-text-primary: #000000;
+    --color-text-secondary: #1a1f2e;
+    --color-bg-light: #ffffff;
+    --color-bg-dark: #f0f0f0;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* ThinkTwice — motif de points décoratifs                            */
+  /* Tile SVG 12×12px, rect 2×2px au coin — background-size identique  */
+  /* pour cohérence parfaite entre viewBox et rendu.                    */
+  /* ------------------------------------------------------------------ */
+
+  .motif-dots {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Crect width='2' height='2' fill='rgba(255%2C255%2C255%2C0.5)'/%3E%3C/svg%3E");
+    background-size: 10px 10px;
+  }
+
+  /* Motif derrière les boutons CTA — pseudo-élément ::after */
+  .btn-cta {
+    position: relative;
+    font-family:
+      'Helvetica Condensed',
+      Arial Narrow,
+      sans-serif;
+  }
+
+  .btn-cta::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    translate: 20px 20px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Crect width='2' height='2' fill='rgba(255%2C255%2C255%2C0.5)'/%3E%3C/svg%3E");
+    background-size: 10px 10px;
+    opacity: 0.3;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /*
  * Soulignement style marqueur — gradient transparent / couleur sur la
  * moitié inférieure de la ligne, sans affecter le layout (pas de border).
  */
-.mark-teal {
-  background-image: linear-gradient(transparent 60%, rgba(38, 225, 176, 0.5) 70%);
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-}
+  .mark-teal {
+    background-image: linear-gradient(
+      transparent 60%,
+      rgba(38, 225, 176, 0.5) 70%
+    );
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
 
-.mark-gray {
-  background-image: linear-gradient(transparent 60%, rgba(217, 217, 217, 0.18) 70%);
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-}
+  .mark-gray {
+    background-image: linear-gradient(
+      transparent 60%,
+      rgba(217, 217, 217, 0.18) 70%
+    );
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
 
-/* ------------------------------------------------------------------ */
-/* Base                                                                */
-/* ------------------------------------------------------------------ */
+  /* ------------------------------------------------------------------ */
+  /* Base                                                                */
+  /* ------------------------------------------------------------------ */
+}
 
 @layer base {
   *,
@@ -136,7 +182,7 @@
   body {
     background-color: var(--color-bg-light);
     color: var(--color-text-primary);
-    font-family: theme("fontFamily.grotesk");
+    font-family: var(--font-grotesk);
     line-height: 1.6;
   }
 

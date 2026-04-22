@@ -40,7 +40,7 @@ export default async function ClientsPage({ params }: Props) {
         <h1 className="text-2xl font-light text-white">Clients</h1>
         <a
           href={`/${locale}/clients/new`}
-          className="rounded bg-tt-accent px-3 py-1.5 text-sm font-medium text-white hover:opacity-90"
+          className="rounded-sm bg-tt-accent px-3 py-1.5 text-sm font-medium text-white hover:opacity-90"
         >
           Nouveau client
         </a>
@@ -102,7 +102,7 @@ const STATUS_STYLES: Record<string, string> = {
 function StatusBadge({ status }: { status: string }) {
   return (
     <span
-      className={`inline-block rounded px-2 py-0.5 text-xs font-medium ${STATUS_STYLES[status] ?? STATUS_STYLES.inactive}`}
+      className={`inline-block rounded-sm px-2 py-0.5 text-xs font-medium ${STATUS_STYLES[status] ?? STATUS_STYLES.inactive}`}
     >
       {status}
     </span>

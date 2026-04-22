@@ -6,7 +6,7 @@ interface Props {
 
 export function ProblemSolutionSection({ content }: Props) {
   return (
-    <section className="mx-auto max-w-[60rem] px-6 pb-24">
+    <section className="mx-auto max-w-240 px-6 pb-24">
       <div className="grid grid-cols-1 gap-16 lg:grid-cols-2">
         {/* Colonne gauche — Problème */}
         <div className="flex flex-col gap-6 font-light text-white text-lg leading-relaxed lg:text-xl">

@@ -9,14 +9,14 @@ export function DeliverablesSection({ content }: Props) {
     <section className="relative w-full pb-24 text-center">
       <div
         aria-hidden="true"
-        className="motif-dots pointer-events-none absolute left-0 top-0 bottom-0 opacity-20 [width:calc(max(0px,(100%-40rem)/2))]"
+        className="motif-dots pointer-events-none absolute left-0 top-0 bottom-0 opacity-20 w-[calc(max(0px,(100%-40rem)/2))]"
       />
       <div
         aria-hidden="true"
-        className="motif-dots pointer-events-none absolute right-0 top-0 bottom-0 opacity-20 [width:calc(max(0px,(100%-40rem)/2))]"
+        className="motif-dots pointer-events-none absolute right-0 top-0 bottom-0 opacity-20 w-[calc(max(0px,(100%-40rem)/2))]"
       />
 
-      <div className="relative mx-auto max-w-[40rem] px-6 flex flex-col gap-8 font-light text-white text-lg leading-relaxed lg:text-xl">
+      <div className="relative mx-auto max-w-160 px-6 flex flex-col gap-8 font-light text-white text-lg leading-relaxed lg:text-xl">
         <h2 className="text-2xl font-light text-tt-accent">
           <span className="mark-gray">{content.title}</span>
         </h2>

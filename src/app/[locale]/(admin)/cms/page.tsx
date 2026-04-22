@@ -31,7 +31,7 @@ export default async function CmsPage({
         <h1 className="text-2xl font-light text-white">Pages CMS</h1>
         <Link
           href={`/${locale}/cms/new`}
-          className="rounded bg-tt-accent px-3 py-1.5 text-sm font-medium text-white hover:opacity-90"
+          className="rounded-sm bg-tt-accent px-3 py-1.5 text-sm font-medium text-white hover:opacity-90"
         >
           + Nouvelle page
         </Link>
@@ -42,7 +42,7 @@ export default async function CmsPage({
         {pages?.map((page) => (
           <div
             key={page.id}
-            className="flex items-center justify-between rounded border border-[#333333] px-4 py-3"
+            className="flex items-center justify-between rounded-sm border border-[#333333] px-4 py-3"
           >
             <div className="space-y-0.5">
               <p className="text-sm font-medium text-white">{page.title}</p>

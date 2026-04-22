@@ -19,7 +19,7 @@ export function TipTapEditor({ pageId, initialContent }: Props) {
     editorProps: {
       attributes: {
         class:
-          'min-h-[300px] px-4 py-3 text-white text-sm leading-relaxed focus:outline-none prose prose-invert prose-sm max-w-none',
+          'min-h-[300px] px-4 py-3 text-white text-sm leading-relaxed focus:outline-hidden prose prose-invert prose-sm max-w-none',
       },
     },
     onBlur({ editor: e }) {
@@ -39,7 +39,7 @@ export function TipTapEditor({ pageId, initialContent }: Props) {
   if (!editor) return null
 
   return (
-    <div className="rounded border border-[#333333] bg-tt-bg">
+    <div className="rounded-sm border border-[#333333] bg-tt-bg">
       {/* Toolbar */}
       <div className="flex flex-wrap items-center gap-1 border-b border-[#333333] px-3 py-2">
         <ToolbarBtn

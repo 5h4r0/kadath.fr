@@ -15,14 +15,14 @@ export default function ContactSection({
   return (
     <>
       {/* ── TITRE ────────────────────────────────────────────────────── */}
-      <section className="mx-auto max-w-[60rem] px-6 pt-24 pb-16 text-center">
+      <section className="mx-auto max-w-240 px-6 pt-24 pb-16 text-center">
         <Tag className="text-[1.875rem] font-light tracking-tight text-white">
           <span className="mark-teal">{content.heading}</span>
         </Tag>
       </section>
 
       {/* ── INFO CONTACTS ────────────────────────────────────────────── */}
-      <section className="mx-auto max-w-[60rem] px-6 pb-20">
+      <section className="mx-auto max-w-240 px-6 pb-20">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
           {/* Colonne gauche — Adresses */}
           <div className="flex flex-col gap-4 text-base leading-relaxed">
@@ -62,7 +62,7 @@ export default function ContactSection({
       </section>
 
       {/* ── FORMULAIRE ───────────────────────────────────────────────── */}
-      <section className="mx-auto max-w-[60rem] px-6 pb-32">
+      <section className="mx-auto max-w-240 px-6 pb-32">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
           {/* Colonne gauche — Accroche */}
           <div className="flex flex-col justify-start">

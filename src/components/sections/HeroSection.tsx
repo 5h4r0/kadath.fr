@@ -17,7 +17,7 @@ export function HeroSection({ content }: Props) {
       */}
       <div
         aria-hidden="true"
-        className="motif-dots pointer-events-none absolute left-0 top-0 h-[640px] opacity-30 [width:calc(max(0px,(100vw-72rem)/2)+7.3rem)]"
+        className="motif-dots pointer-events-none absolute left-0 top-0 h-[640px] opacity-30 w-[calc(max(0px,(100vw-72rem)/2)+7.3rem)]"
       />
 
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-12 px-6 pb-8 pt-20 lg:grid-cols-2 lg:items-center">
@@ -29,7 +29,7 @@ export function HeroSection({ content }: Props) {
             alt={content.logo_alt}
             width={528}
             height={91}
-            className="w-[33rem] max-w-full"
+            className="w-132 max-w-full"
           />
           {/* Mobile : aligné à droite, sans marge gauche. Desktop : indenté à 7rem */}
           <div className="flex flex-col font-sans3 font-extralight leading-tight text-tt-accent text-4xl text-right ml-0 lg:ml-28 lg:text-left lg:text-5xl">
@@ -49,7 +49,7 @@ export function HeroSection({ content }: Props) {
           {/* Ombre décalée derrière le cadre */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-0 z-0 translate-x-5 translate-y-5 [filter:drop-shadow(0px_4px_4px_rgba(0,0,0,0.25))]"
+            className="pointer-events-none absolute inset-0 z-0 translate-x-5 translate-y-5 filter-[drop-shadow(0px_4px_4px_rgba(0,0,0,0.25))]"
           />
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={FRAME_SRC} alt="" className="relative z-10 w-full object-cover" />

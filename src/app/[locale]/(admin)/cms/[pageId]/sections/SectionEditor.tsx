@@ -49,7 +49,7 @@ export function SectionEditor({ section }: { section: Section }) {
   }
 
   return (
-    <div className="rounded border border-[#333333] p-4 space-y-3">
+    <div className="rounded-sm border border-[#333333] p-4 space-y-3">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <span className="text-xs font-mono text-[#888888]">#{section.order_index}</span>
@@ -80,7 +80,7 @@ export function SectionEditor({ section }: { section: Section }) {
           setJsonError(null)
         }}
         rows={Math.min(20, json.split('\n').length + 2)}
-        className="w-full rounded border border-[#333333] bg-[#111111] px-3 py-2 font-mono text-xs text-[#cccccc] focus:border-tt-accent focus:outline-none"
+        className="w-full rounded-sm border border-[#333333] bg-[#111111] px-3 py-2 font-mono text-xs text-[#cccccc] focus:border-tt-accent focus:outline-hidden"
         spellCheck={false}
       />
 
@@ -89,7 +89,7 @@ export function SectionEditor({ section }: { section: Section }) {
           type="button"
           onClick={handleSave}
           disabled={isPending}
-          className="rounded bg-tt-accent px-3 py-1.5 text-xs font-medium text-white hover:opacity-90 disabled:opacity-50"
+          className="rounded-sm bg-tt-accent px-3 py-1.5 text-xs font-medium text-white hover:opacity-90 disabled:opacity-50"
         >
           {isPending ? 'Sauvegarde…' : 'Sauvegarder'}
         </button>

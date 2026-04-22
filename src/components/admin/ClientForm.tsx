@@ -23,7 +23,7 @@ interface ClientFormProps {
 }
 
 const INPUT_CLASS =
-  'w-full rounded border border-[#333333] bg-[#111111] px-3 py-2 text-sm text-white focus:border-tt-accent focus:outline-none'
+  'w-full rounded-sm border border-[#333333] bg-[#111111] px-3 py-2 text-sm text-white focus:border-tt-accent focus:outline-hidden'
 
 const LABEL_CLASS = 'text-xs text-[#666666]'
 
@@ -253,14 +253,14 @@ export function ClientForm({ locale, initial }: ClientFormProps) {
             type="button"
             onClick={handleSubmit}
             disabled={isPending}
-            className="rounded bg-tt-accent px-4 py-2 text-sm font-medium text-white hover:opacity-90 disabled:opacity-50"
+            className="rounded-sm bg-tt-accent px-4 py-2 text-sm font-medium text-white hover:opacity-90 disabled:opacity-50"
           >
             {isPending ? 'Enregistrement…' : 'Enregistrer'}
           </button>
           <button
             type="button"
             onClick={() => router.back()}
-            className="rounded border border-[#333333] px-4 py-2 text-sm text-[#cccccc] hover:border-[#555555]"
+            className="rounded-sm border border-[#333333] px-4 py-2 text-sm text-[#cccccc] hover:border-[#555555]"
           >
             Annuler
           </button>
@@ -271,7 +271,7 @@ export function ClientForm({ locale, initial }: ClientFormProps) {
             type="button"
             onClick={handleArchive}
             disabled={isPending}
-            className="rounded border border-red-800 px-4 py-2 text-sm text-red-400 hover:border-red-600 disabled:opacity-50"
+            className="rounded-sm border border-red-800 px-4 py-2 text-sm text-red-400 hover:border-red-600 disabled:opacity-50"
           >
             Archiver
           </button>

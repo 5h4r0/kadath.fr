@@ -91,7 +91,7 @@ const STATUS_STYLES: Record<string, string> = {
 function StatusBadge({ status }: { status: string }) {
   return (
     <span
-      className={`inline-block rounded px-2 py-0.5 text-xs font-medium ${STATUS_STYLES[status] ?? 'bg-[#2a2a2a] text-[#aaaaaa]'}`}
+      className={`inline-block rounded-sm px-2 py-0.5 text-xs font-medium ${STATUS_STYLES[status] ?? 'bg-[#2a2a2a] text-[#aaaaaa]'}`}
     >
       {status}
     </span>

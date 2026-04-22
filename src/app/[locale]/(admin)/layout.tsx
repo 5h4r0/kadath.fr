@@ -24,7 +24,7 @@ export default async function AdminLayout({
   return (
     <div className="flex min-h-screen bg-tt-bg font-grotesk text-white">
       {/* Sidebar */}
-      <aside className="flex w-56 flex-shrink-0 flex-col border-r border-[#333333] px-4 py-8">
+      <aside className="flex w-56 shrink-0 flex-col border-r border-[#333333] px-4 py-8">
         <span className="mb-8 px-2 text-xs font-medium uppercase tracking-widest text-[#666666]">
           Backoffice
         </span>
@@ -33,7 +33,7 @@ export default async function AdminLayout({
             <Link
               key={href}
               href={href}
-              className="rounded px-2 py-2 text-sm text-[#cccccc] transition-colors hover:bg-[#2a2a2a] hover:text-tt-accent"
+              className="rounded-sm px-2 py-2 text-sm text-[#cccccc] transition-colors hover:bg-[#2a2a2a] hover:text-tt-accent"
             >
               {label}
             </Link>

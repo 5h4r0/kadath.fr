@@ -13,12 +13,12 @@ interface Props {
 
 export function TeamSection({ content }: Props) {
   return (
-    <section className="mx-auto max-w-[60rem] px-6 pb-24">
+    <section className="mx-auto max-w-240 px-6 pb-24">
       <h2 className="mb-16 text-center text-3xl font-light text-tt-accent">
         <span className="mark-gray">{content.title}</span>
       </h2>
 
-      <div className="mx-auto max-w-[40rem] grid grid-cols-1 gap-16 lg:grid-cols-2 lg:gap-8">
+      <div className="mx-auto max-w-160 grid grid-cols-1 gap-16 lg:grid-cols-2 lg:gap-8">
         {content.members.map((member) => (
           <div key={member.key} className="flex flex-col gap-6">
             {/* Portrait */}

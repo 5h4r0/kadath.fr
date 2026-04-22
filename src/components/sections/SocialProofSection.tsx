@@ -16,14 +16,14 @@ export function SocialProofSection({ content }: Props) {
     <section className="mx-auto max-w-6xl px-6 pb-24">
       <div className="flex items-stretch gap-8">
         {/* Portrait gauche + motif derrière */}
-        <div className="relative hidden w-36 flex-shrink-0 lg:block">
+        <div className="relative hidden w-36 shrink-0 lg:block">
           <div
             aria-hidden="true"
-            className="motif-dots pointer-events-none absolute left-0 right-0 top-0 h-[88%] translate-x-[1.9rem] -translate-y-[1.3rem] opacity-30 [filter:drop-shadow(0px_4px_4px_rgba(0,0,0,0.25))]"
+            className="motif-dots pointer-events-none absolute left-0 right-0 top-0 h-[88%] translate-x-[1.9rem] translate-y-[-1.3rem] opacity-30 filter-[drop-shadow(0px_4px_4px_rgba(0,0,0,0.25))]"
           />
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-0 translate-x-3 translate-y-3 [filter:drop-shadow(0px_4px_4px_rgba(0,0,0,0.25))]"
+            className="pointer-events-none absolute inset-0 translate-x-3 translate-y-3 filter-[drop-shadow(0px_4px_4px_rgba(0,0,0,0.25))]"
           />
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -51,7 +51,7 @@ export function SocialProofSection({ content }: Props) {
               ))}
             </span>
           </div>
-          <p className="ml-4 max-w-[40rem] font-light text-tt-accent text-lg leading-relaxed lg:ml-24 lg:text-xl">
+          <p className="ml-4 max-w-160 font-light text-tt-accent text-lg leading-relaxed lg:ml-24 lg:text-xl">
             En direction artistique et en développement.
             <br />
             Projets réalisés pour A1 Cloud Tech, Michelin Europe, Nissan, Orsay Avocats, Systran, et
@@ -60,14 +60,14 @@ export function SocialProofSection({ content }: Props) {
         </div>
 
         {/* Portrait droit + motif derrière */}
-        <div className="relative hidden w-36 flex-shrink-0 lg:block">
+        <div className="relative hidden w-36 shrink-0 lg:block">
           <div
             aria-hidden="true"
-            className="motif-dots pointer-events-none absolute left-0 right-0 top-0 h-[88%] -translate-x-[1.8rem] -translate-y-[1.3rem] opacity-30 [filter:drop-shadow(0px_4px_4px_rgba(0,0,0,0.25))]"
+            className="motif-dots pointer-events-none absolute left-0 right-0 top-0 h-[88%] translate-x-[-1.8rem] translate-y-[-1.3rem] opacity-30 filter-[drop-shadow(0px_4px_4px_rgba(0,0,0,0.25))]"
           />
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-0 -translate-x-3 translate-y-3 [filter:drop-shadow(0px_4px_4px_rgba(0,0,0,0.25))]"
+            className="pointer-events-none absolute inset-0 -translate-x-3 translate-y-3 filter-[drop-shadow(0px_4px_4px_rgba(0,0,0,0.25))]"
           />
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
