@@ -14,6 +14,7 @@ export function TipTapEditor({ pageId, initialContent }: Props) {
   const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle')
 
   const editor = useEditor({
+    immediatelyRender: false,
     extensions: [StarterKit],
     content: (initialContent as object | undefined) ?? '',
     editorProps: {
