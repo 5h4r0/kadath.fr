@@ -1,9 +1,9 @@
 'use client'
 
-import { updatePage } from '@/app/actions/cms'
 import { EditorContent, useEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import { useState } from 'react'
+import { updatePage } from '@/app/actions/cms'
 
 interface Props {
   pageId: string

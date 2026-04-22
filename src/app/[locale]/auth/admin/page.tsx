@@ -1,7 +1,7 @@
-import AuthForm from '@/components/auth/AuthForm'
-import { createClient } from '@/lib/supabase/server'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
+import AuthForm from '@/components/auth/AuthForm'
+import { createClient } from '@/lib/supabase/server'
 
 interface Props {
   params: Promise<{ locale: string }>

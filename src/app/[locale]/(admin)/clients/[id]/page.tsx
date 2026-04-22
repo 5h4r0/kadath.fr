@@ -1,3 +1,6 @@
+import { cookies } from 'next/headers'
+import Link from 'next/link'
+import { notFound } from 'next/navigation'
 import {
   Table,
   TableBody,
@@ -7,9 +10,6 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { createClient } from '@/lib/supabase/server'
-import { cookies } from 'next/headers'
-import Link from 'next/link'
-import { notFound } from 'next/navigation'
 
 interface Props {
   params: Promise<{ locale: string; id: string }>

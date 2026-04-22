@@ -1,7 +1,7 @@
-import { ClientForm } from '@/components/admin/ClientForm'
-import { createClient } from '@/lib/supabase/server'
 import { cookies } from 'next/headers'
 import { notFound } from 'next/navigation'
+import { ClientForm } from '@/components/admin/ClientForm'
+import { createClient } from '@/lib/supabase/server'
 
 interface Props {
   params: Promise<{ locale: string; id: string }>

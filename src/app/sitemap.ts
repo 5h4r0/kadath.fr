@@ -1,6 +1,6 @@
-import { createClient } from '@/lib/supabase/server'
 import type { MetadataRoute } from 'next'
 import { cookies } from 'next/headers'
+import { createClient } from '@/lib/supabase/server'
 
 const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://thinktwice.sokol.fr'
 

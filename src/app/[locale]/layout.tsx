@@ -1,8 +1,8 @@
-import { NextIntlClientProvider } from 'next-intl'
-import { getMessages } from 'next-intl/server'
 import { Source_Sans_3, Space_Grotesk } from 'next/font/google'
 import { notFound } from 'next/navigation'
 import Script from 'next/script'
+import { NextIntlClientProvider } from 'next-intl'
+import { getMessages } from 'next-intl/server'
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],

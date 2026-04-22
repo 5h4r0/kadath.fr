@@ -1,7 +1,7 @@
-import { ConfirmPasswordChangeForm } from '@/components/auth/ConfirmPasswordChangeForm'
-import { createClient } from '@/lib/supabase/server'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
+import { ConfirmPasswordChangeForm } from '@/components/auth/ConfirmPasswordChangeForm'
+import { createClient } from '@/lib/supabase/server'
 
 interface Props {
   params: Promise<{ locale: string }>

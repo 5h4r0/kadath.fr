@@ -1,6 +1,6 @@
+import { createClient } from '@supabase/supabase-js'
 import { HOMEPAGE_FALLBACK } from '@/lib/homepage-fallback'
 import type { PageSection } from '@/types/page-sections'
-import { createClient } from '@supabase/supabase-js'
 
 export async function fetchHomepageSections(): Promise<PageSection[]> {
   try {

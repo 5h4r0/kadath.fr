@@ -1,3 +1,4 @@
+import { cookies } from 'next/headers'
 import {
   Table,
   TableBody,
@@ -7,7 +8,6 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { createClient } from '@/lib/supabase/server'
-import { cookies } from 'next/headers'
 
 export const dynamic = 'force-dynamic'
 

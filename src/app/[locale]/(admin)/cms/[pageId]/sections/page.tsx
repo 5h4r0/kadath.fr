@@ -1,7 +1,7 @@
-import { createClient } from '@/lib/supabase/server'
 import { cookies } from 'next/headers'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import { createClient } from '@/lib/supabase/server'
 import { SectionEditor } from './SectionEditor'
 
 interface Props {

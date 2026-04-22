@@ -1,22 +1,14 @@
-import ContactSection from '@/components/contact/ContactSection'
-import { ContactContentSchema } from '@/lib/cms/schemas'
 import { createClient } from '@supabase/supabase-js'
 import { notFound } from 'next/navigation'
+import ContactSection from '@/components/contact/ContactSection'
+import { ContactContentSchema } from '@/lib/cms/schemas'
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>
-}) {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
   return { title: locale === 'en' ? 'Contact' : 'Contact' }
 }
 
-export default async function ContactPage({
-  params,
-}: {
-  params: Promise<{ locale: string }>
-}) {
+export default async function ContactPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
 
   const supabase = createClient(

@@ -26,11 +26,7 @@ import { fetchHomepageSections } from '@/lib/sections/fetch-homepage'
 // Revalidation toutes les 60s (page semi-dynamique, cf. CLAUDE.md)
 export const revalidate = 60
 
-export default async function HomePage({
-  params,
-}: {
-  params: Promise<{ locale: string }>
-}) {
+export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
   const sections = await fetchHomepageSections()
 

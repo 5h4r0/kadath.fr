@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @theme inline {
   --font-grotesk: var(--font-space-grotesk), sans-serif;
@@ -42,22 +42,22 @@
   /* Fonts                                                               */
   /* ------------------------------------------------------------------ */
   @font-face {
-    font-family: 'Helvetica Condensed';
+    font-family: "Helvetica Condensed";
     font-weight: 300;
     font-display: swap;
-    src: url('/fonts/helvetica_condensed_light.woff2') format('woff2');
+    src: url("/fonts/helvetica_condensed_light.woff2") format("woff2");
   }
   @font-face {
-    font-family: 'Helvetica Condensed';
+    font-family: "Helvetica Condensed";
     font-weight: 400;
     font-display: swap;
-    src: url('/fonts/helvetica_condensed.woff2') format('woff2');
+    src: url("/fonts/helvetica_condensed.woff2") format("woff2");
   }
   @font-face {
-    font-family: 'Helvetica Condensed';
+    font-family: "Helvetica Condensed";
     font-weight: 900;
     font-display: swap;
-    src: url('/fonts/helvetica_condensed_black.woff2') format('woff2');
+    src: url("/fonts/helvetica_condensed_black.woff2") format("woff2");
   }
 
   /* ------------------------------------------------------------------ */
@@ -123,13 +123,13 @@
   .btn-cta {
     position: relative;
     font-family:
-      'Helvetica Condensed',
+      "Helvetica Condensed",
       Arial Narrow,
       sans-serif;
   }
 
   .btn-cta::after {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
     translate: 20px 20px;
@@ -145,19 +145,13 @@
  * moitié inférieure de la ligne, sans affecter le layout (pas de border).
  */
   .mark-teal {
-    background-image: linear-gradient(
-      transparent 60%,
-      rgba(38, 225, 176, 0.5) 70%
-    );
+    background-image: linear-gradient(transparent 60%, rgba(38, 225, 176, 0.5) 70%);
     background-repeat: no-repeat;
     background-size: 100% 100%;
   }
 
   .mark-gray {
-    background-image: linear-gradient(
-      transparent 60%,
-      rgba(217, 217, 217, 0.18) 70%
-    );
+    background-image: linear-gradient(transparent 60%, rgba(217, 217, 217, 0.18) 70%);
     background-repeat: no-repeat;
     background-size: 100% 100%;
   }

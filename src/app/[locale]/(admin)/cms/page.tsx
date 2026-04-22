@@ -1,14 +1,10 @@
-import { createClient } from '@/lib/supabase/server'
 import { cookies } from 'next/headers'
 import Link from 'next/link'
+import { createClient } from '@/lib/supabase/server'
 
 export const dynamic = 'force-dynamic'
 
-export default async function CmsPage({
-  params,
-}: {
-  params: Promise<{ locale: string }>
-}) {
+export default async function CmsPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
   const cookieStore = await cookies()
   const supabase = createClient(cookieStore)

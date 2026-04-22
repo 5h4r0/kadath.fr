@@ -1,8 +1,8 @@
 'use client'
 
-import { createPage } from '@/app/actions/cms'
 import { useParams, useRouter } from 'next/navigation'
 import { useState, useTransition } from 'react'
+import { createPage } from '@/app/actions/cms'
 
 function slugify(str: string) {
   return str

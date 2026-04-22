@@ -1,8 +1,8 @@
 'use client'
 
-import { deletePage } from '@/app/actions/cms'
 import { useRouter } from 'next/navigation'
 import { useTransition } from 'react'
+import { deletePage } from '@/app/actions/cms'
 
 export function DeleteButton({ pageId, locale }: { pageId: string; locale: string }) {
   const router = useRouter()

@@ -1,5 +1,5 @@
-import { fetchFooterSettings } from '@/lib/settings/fetchFooterSettings'
 import Link from 'next/link'
+import { fetchFooterSettings } from '@/lib/settings/fetchFooterSettings'
 
 interface SiteFooterProps {
   locale: string

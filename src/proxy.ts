@@ -1,6 +1,6 @@
-import { createClient } from '@/lib/supabase/middleware'
-import createIntlMiddleware from 'next-intl/middleware'
 import { type NextRequest, NextResponse } from 'next/server'
+import createIntlMiddleware from 'next-intl/middleware'
+import { createClient } from '@/lib/supabase/middleware'
 
 const locales = ['fr', 'en'] as const
 const defaultLocale = 'fr'

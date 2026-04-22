@@ -1,8 +1,8 @@
 'use client'
 
-import { updatePage } from '@/app/actions/cms'
 import { useRouter } from 'next/navigation'
 import { useTransition } from 'react'
+import { updatePage } from '@/app/actions/cms'
 
 interface Props {
   pageId: string

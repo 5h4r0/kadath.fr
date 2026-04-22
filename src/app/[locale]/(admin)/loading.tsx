@@ -1,3 +1,3 @@
 export default function AdminLoading() {
-  return <div aria-label="Chargement..." />
+  return <div role="status" aria-label="Chargement..." />
 }

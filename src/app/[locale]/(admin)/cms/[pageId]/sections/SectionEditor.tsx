@@ -1,7 +1,7 @@
 'use client'
 
-import { toggleSectionVisibility, updateSection } from '@/app/actions/sections'
 import { useState, useTransition } from 'react'
+import { toggleSectionVisibility, updateSection } from '@/app/actions/sections'
 
 interface Section {
   id: string

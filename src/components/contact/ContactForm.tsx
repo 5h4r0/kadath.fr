@@ -1,13 +1,13 @@
 'use client'
 
+import { Turnstile } from '@marsidev/react-turnstile'
+import { useLocale, useTranslations } from 'next-intl'
+import { useEffect, useRef, useState } from 'react'
 import { sendContactMessage } from '@/app/actions/contact'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
-import { Turnstile } from '@marsidev/react-turnstile'
-import { useLocale, useTranslations } from 'next-intl'
-import { useEffect, useRef, useState } from 'react'
 
 type Status = 'idle' | 'loading' | 'success' | 'error'
 
@@ -175,7 +175,11 @@ export default function ContactForm({ autoFocus }: ContactFormProps) {
 
       {/* Ligne 5 : Bouton + champs obligatoires */}
       <div className="flex items-center justify-between">
-        <Button type="submit" disabled={status === 'loading' || !turnstileToken}>
+        <Button
+          type="submit"
+          disabled={status === 'loading' || !turnstileToken}
+          suppressHydrationWarning
+        >
           {status === 'loading' ? t('sending') : t('submit')}
         </Button>
       </div>
