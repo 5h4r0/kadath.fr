@@ -23,7 +23,7 @@
     "@marsidev/react-turnstile": "^1.5.0",
     "@radix-ui/react-slot": "^1.2.4",
     "@react-email/render": "^2.0.7",
-    "@stripe/stripe-js": "^5.10.0",
+    "@stripe/stripe-js": "^9.2.0",
     "@supabase/ssr": "^0.9.0",
     "@supabase/supabase-js": "^2.104.0",
     "@tiptap/extension-link": "^3.22.4",
@@ -42,7 +42,7 @@
     "react-dom": "19.2.5",
     "react-email": "^6.0.0",
     "resend": "^6.12.2",
-    "stripe": "^17.7.0",
+    "stripe": "^22.0.2",
     "tailwind-merge": "^3.5.0",
     "zod": "^4.3.6"
   },
