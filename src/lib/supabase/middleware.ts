@@ -16,7 +16,10 @@ export const createClient = (request: NextRequest) => {
         for (const { name, value } of cookiesToSet) request.cookies.set(name, value)
         response = NextResponse.next({ request })
         for (const { name, value, options } of cookiesToSet)
-          response.cookies.set(name, value, options)
+          response.cookies.set(name, value, {
+            ...options,
+            secure: process.env.NODE_ENV === 'production',
+          })
       },
     },
   })

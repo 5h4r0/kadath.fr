@@ -12,7 +12,11 @@ export const createClient = (cookieStore: Awaited<ReturnType<typeof cookies>>) =
       },
       setAll(cookiesToSet: { name: string; value: string; options: CookieOptionsWithName }[]) {
         try {
-          for (const { name, value, options } of cookiesToSet) cookieStore.set(name, value, options)
+          for (const { name, value, options } of cookiesToSet)
+            cookieStore.set(name, value, {
+              ...options,
+              secure: process.env.NODE_ENV === 'production',
+            })
         } catch {}
       },
     },
