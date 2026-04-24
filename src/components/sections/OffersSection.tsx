@@ -21,7 +21,7 @@ export function OffersSection({ content }: Props) {
           <div key={offer.slug} className="relative flex flex-col gap-6 p-6">
             <div
               aria-hidden="true"
-              className="motif-dots pointer-events-none absolute inset-0 opacity-20"
+              className="motif-dots pointer-events-none absolute inset-0 opacity-30"
             />
             <div className="relative flex flex-col gap-4 flex-1">
               <h3 className="font-bold text-2xl text-tt-accent">{offer.name}</h3>

@@ -40,7 +40,10 @@ export function ReferencesSliderSection() {
   return (
     <section className="relative w-full overflow-hidden bg-[#333333]">
       {/* Motif dots */}
-      <div className="motif-dots pointer-events-none absolute inset-0" aria-hidden="true" />
+      <div
+        className="motif-dots pointer-events-none absolute opacity-30 inset-0"
+        aria-hidden="true"
+      />
 
       <div className="relative mx-auto max-w-screen-xl px-6 py-16 md:px-10 lg:px-16">
         {/* Grille 4 colonnes */}

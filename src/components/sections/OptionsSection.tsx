@@ -23,7 +23,7 @@ export function OptionsSection({ content }: Props) {
 
         <div
           aria-hidden="true"
-          className="motif-dots hidden lg:block flex-2 self-stretch opacity-20"
+          className="motif-dots hidden lg:block flex-2 self-stretch opacity-30"
         />
       </div>
 
