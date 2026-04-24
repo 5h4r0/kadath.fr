@@ -27,7 +27,7 @@ export default async function CmsPage({ params }: { params: Promise<{ locale: st
         <h1 className="text-2xl font-light text-white">Pages CMS</h1>
         <Link
           href={`/${locale}/cms/new`}
-          className="rounded-sm bg-tt-accent px-3 py-1.5 text-sm font-medium text-white hover:opacity-90"
+          className="rounded-sm bg-tt-accent px-3 py-1.5 text-sm font-medium text-black hover:opacity-90"
         >
           + Nouvelle page
         </Link>

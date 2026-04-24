@@ -5,6 +5,7 @@ import { MethodologySection } from '@/components/sections/MethodologySection'
 import { OffersSection } from '@/components/sections/OffersSection'
 import { OptionsSection } from '@/components/sections/OptionsSection'
 import { ProblemSolutionSection } from '@/components/sections/ProblemSolutionSection'
+import { ReferencesSliderSection } from '@/components/sections/ReferencesSliderSection'
 import { SocialProofSection } from '@/components/sections/SocialProofSection'
 import { TeamSection } from '@/components/sections/TeamSection'
 import { ValuePropSection } from '@/components/sections/ValuePropSection'
@@ -16,6 +17,7 @@ import {
   OffersContentSchema,
   OptionsContentSchema,
   ProblemSolutionContentSchema,
+  ReferencesSliderContentSchema,
   SocialProofContentSchema,
   TeamContentSchema,
   ValuePropContentSchema,
@@ -71,10 +73,14 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             const p = TeamContentSchema.safeParse(raw)
             return p.success ? <TeamSection key={section.id} content={p.data} /> : null
           }
+          case 'references_slider': {
+            const p = ReferencesSliderContentSchema.safeParse(raw)
+            return p.success ? <ReferencesSliderSection key={section.id} /> : null
+          }
           case 'contact': {
             const p = ContactContentSchema.safeParse(raw)
             return p.success ? (
-              <section key={section.id} id="contact" className="border-t border-[#444444]">
+              <section key={section.id} id="contact">
                 <ContactSection content={p.data} />
               </section>
             ) : null

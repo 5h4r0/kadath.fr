@@ -4,7 +4,7 @@
   --font-grotesk: var(--font-space-grotesk), sans-serif;
   --font-sans3: var(--font-source-sans-3), sans-serif;
   --font-ferryman: Ferryman, serif;
-  --font-condensed: Helvetica Condensed, Arial Narrow, sans-serif;
+  --font-condensed: var(--font-helvetica-condensed), Arial Narrow, sans-serif;
 
   --color-primary: var(--color-primary);
   --color-primary-hover: var(--color-primary-hover);
@@ -38,28 +38,6 @@
 }
 
 @layer utilities {
-  /* ------------------------------------------------------------------ */
-  /* Fonts                                                               */
-  /* ------------------------------------------------------------------ */
-  @font-face {
-    font-family: "Helvetica Condensed";
-    font-weight: 300;
-    font-display: swap;
-    src: url("/fonts/helvetica_condensed_light.woff2") format("woff2");
-  }
-  @font-face {
-    font-family: "Helvetica Condensed";
-    font-weight: 400;
-    font-display: swap;
-    src: url("/fonts/helvetica_condensed.woff2") format("woff2");
-  }
-  @font-face {
-    font-family: "Helvetica Condensed";
-    font-weight: 900;
-    font-display: swap;
-    src: url("/fonts/helvetica_condensed_black.woff2") format("woff2");
-  }
-
   /* ------------------------------------------------------------------ */
   /* Design tokens — theme-light (default)                              */
   /* ------------------------------------------------------------------ */

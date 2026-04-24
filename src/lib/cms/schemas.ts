@@ -107,6 +107,9 @@ export const ContactContentSchema = z.object({
   form_heading_txt: z.string(),
 })
 
+export const ReferencesSliderContentSchema = z.object({})
+export type ReferencesSliderContent = z.infer<typeof ReferencesSliderContentSchema>
+
 export type HeroContent = z.infer<typeof HeroContentSchema>
 export type ValuePropContent = z.infer<typeof ValuePropContentSchema>
 export type SocialProofContent = z.infer<typeof SocialProofContentSchema>

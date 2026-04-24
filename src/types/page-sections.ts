@@ -8,6 +8,7 @@ export type SectionType =
   | 'offers'
   | 'options'
   | 'team'
+  | 'references_slider'
   | 'contact'
   | 'services'
   | 'custom'
@@ -98,6 +99,8 @@ export interface TeamContent {
     bios: string[]
   }[]
 }
+
+export type ReferencesSliderContent = Record<string, never>
 
 export interface ContactContent {
   heading: string

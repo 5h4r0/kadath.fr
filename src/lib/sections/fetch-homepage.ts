@@ -15,13 +15,15 @@ export async function fetchHomepageSections(): Promise<PageSection[]> {
       .eq('slug', 'homepage')
       .single()
 
-    if (error || !data?.page_sections?.length) {
+    const sections = data?.page_sections ?? []
+    const hasHero = sections.some((s) => s.type === 'hero')
+    if (error || !hasHero) {
       return HOMEPAGE_FALLBACK
     }
 
     // Cast manuel : le contenu JSONB n'est pas encore validé par les types générés Supabase.
     // À remplacer par une validation Zod lors de l'implémentation du CMS admin.
-    return (data.page_sections as PageSection[]).sort((a, b) => a.order_index - b.order_index)
+    return (sections as PageSection[]).sort((a, b) => a.order_index - b.order_index)
   } catch (err) {
     // Supabase injoignable OU PGRST116 (pas de row 'homepage') → fallback statique
     console.error('[fetchHomepageSections] fallback activé:', err)

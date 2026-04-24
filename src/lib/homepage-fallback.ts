@@ -431,6 +431,14 @@ export const HOMEPAGE_FALLBACK: PageSection[] = [
     },
   },
   {
+    id: 'fallback-references-slider',
+    page_id: 'homepage',
+    type: 'references_slider',
+    order_index: 9,
+    is_visible: true,
+    content: { fr: {}, en: {} },
+  },
+  {
     id: 'fallback-contact',
     page_id: 'homepage',
     type: 'contact',

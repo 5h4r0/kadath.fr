@@ -147,7 +147,7 @@ export default function NewCmsPage() {
             type="button"
             onClick={handleSubmit}
             disabled={isPending}
-            className="rounded-sm bg-tt-accent px-4 py-2 text-sm font-medium text-white hover:opacity-90 disabled:opacity-50"
+            className="rounded-sm bg-tt-accent px-4 py-2 text-sm font-medium text-black hover:opacity-90 disabled:opacity-50"
           >
             {isPending ? 'Création…' : 'Créer la page'}
           </button>
