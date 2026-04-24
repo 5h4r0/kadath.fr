@@ -3,11 +3,13 @@
 import { LogOut } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 
-export function LogoutButton({ locale }: { locale: string }) {
+export function LogoutButton() {
   async function handleLogout() {
     const supabase = createClient()
     await supabase.auth.signOut()
-    window.location.href = `/${locale}/auth/login`
+    // NEXT_PUBLIC_MANAGE_URL=http://localhost:3000/manage (local)
+    // En prod Firebase : NEXT_PUBLIC_MANAGE_URL=https://manage.kadath.fr
+    window.location.href = process.env.NEXT_PUBLIC_MANAGE_URL ?? '/manage'
   }
 
   return (

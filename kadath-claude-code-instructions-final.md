@@ -529,7 +529,7 @@ UPSTASH_REDIS_REST_TOKEN=
 NEXT_PUBLIC_UMAMI_URL=
 NEXT_PUBLIC_UMAMI_WEBSITE_ID=
 NEXT_PUBLIC_APP_URL=https://kadath.fr
-NEXT_PUBLIC_ADMIN_URL=https://manage.kadath.fr
+NEXT_PUBLIC_MANAGE_URL=https://manage.kadath.fr
 ```
 
 ---

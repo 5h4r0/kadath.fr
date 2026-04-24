@@ -24,7 +24,7 @@ env:
       - BUILD
       - RUNTIME
 
-  - variable: NEXT_PUBLIC_ADMIN_URL
+  - variable: NEXT_PUBLIC_MANAGE_URL
     value: https://manage.kadath.fr
     availability:
       - BUILD

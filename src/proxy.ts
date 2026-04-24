@@ -11,6 +11,7 @@ const ADMIN_ROLES = ['admin', 'editor'] as const
 const CUSTOMER_PATTERN = /^\/(?:fr|en)\/customer(?:\/|$)/
 const AUTH_PATTERN = /^\/(?:fr|en)\/auth(?:\/|$)/
 const ADMIN_PATH_PATTERN = /^\/(?:fr|en)\/(?:cms|clients|invoices|projects)(?:\/|$)/
+const MANAGE_PROTECTED = /^\/manage\/.+/
 
 function extractLocale(pathname: string): string {
   const match = pathname.match(/^\/(fr|en)(?:\/|$)/)
@@ -19,9 +20,10 @@ function extractLocale(pathname: string): string {
 
 export async function proxy(request: NextRequest) {
   const hostname = request.headers.get('host') ?? ''
-  const isManageDomain = hostname.startsWith('manage.')
-  const isAdminDomain = isManageDomain || process.env.FORCE_ADMIN_HOST === 'true'
   const pathname = request.nextUrl.pathname
+  const isManageDomain = hostname.startsWith('manage.')
+  const isAdminDomain =
+    isManageDomain || process.env.FORCE_ADMIN_HOST === 'true' || pathname.startsWith('/manage')
 
   // 1. Init Supabase client (refreshes session via cookie setAll)
   const { supabase, response: supabaseResponse } = createClient(request)
@@ -35,6 +37,21 @@ export async function proxy(request: NextRequest) {
       res.cookies.set(name, value)
     }
     return res
+  }
+
+  // 3a. Handle /manage segment — bypass intl, admin-only
+  if (pathname.startsWith('/manage')) {
+    if (MANAGE_PROTECTED.test(pathname)) {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser()
+      const role = user?.app_metadata?.role as string | undefined
+      const isAuthorized = !!user && ADMIN_ROLES.includes(role as (typeof ADMIN_ROLES)[number])
+      if (!isAuthorized) {
+        return withCookies(NextResponse.redirect(new URL('/manage', request.url)))
+      }
+    }
+    return withCookies(NextResponse.next())
   }
 
   // 3. Block admin paths on non-manage hostnames
@@ -55,10 +72,7 @@ export async function proxy(request: NextRequest) {
       const isAuthorized = !!user && ADMIN_ROLES.includes(role as (typeof ADMIN_ROLES)[number])
 
       if (!isAuthorized) {
-        const locale = extractLocale(pathname)
-        const loginUrl = new URL(`/${locale}/auth/admin`, request.url)
-        loginUrl.searchParams.set('redirect', pathname)
-        return NextResponse.redirect(loginUrl)
+        return withCookies(NextResponse.redirect(new URL('/manage', request.url)))
       }
     }
 

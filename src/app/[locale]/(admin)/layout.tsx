@@ -43,7 +43,7 @@ export default async function AdminLayout({
           </nav>
         </div>
         <div className="pb-2">
-          <LogoutButton locale={locale} />
+          <LogoutButton />
         </div>
       </aside>
 
