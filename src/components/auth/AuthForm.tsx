@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -14,18 +14,8 @@ interface AuthFormProps {
 
 export default function AuthForm({ redirectTo, error: propError }: AuthFormProps) {
   const router = useRouter()
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
-
-  const emailRef = useRef<HTMLInputElement>(null)
-  const passwordRef = useRef<HTMLInputElement>(null)
-
-  useEffect(() => {
-    if (emailRef.current?.value) setEmail(emailRef.current.value)
-    if (passwordRef.current?.value) setPassword(passwordRef.current.value)
-  }, [])
 
   const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -56,14 +46,12 @@ export default function AuthForm({ redirectTo, error: propError }: AuthFormProps
             Email
           </Label>
           <Input
-            ref={emailRef}
             id="email"
             type="email"
             name="email"
             autoComplete="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
             placeholder="vous@example.com"
+            defaultValue=""
           />
         </div>
 
@@ -72,14 +60,12 @@ export default function AuthForm({ redirectTo, error: propError }: AuthFormProps
             Mot de passe
           </Label>
           <Input
-            ref={passwordRef}
             id="password"
             type="password"
             name="password"
             autoComplete="current-password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
             placeholder="••••••••"
+            defaultValue=""
           />
         </div>
 
