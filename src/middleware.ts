@@ -5,4 +5,6 @@ export function middleware(request: NextRequest) {
   return proxy(request)
 }
 
-export { config } from '@/proxy'
+export const config = {
+  matcher: ['/((?!_next|_vercel|api|.*\\..*).*)'],
+}
