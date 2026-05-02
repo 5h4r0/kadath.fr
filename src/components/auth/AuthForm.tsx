@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -18,6 +18,14 @@ export default function AuthForm({ redirectTo, error: propError }: AuthFormProps
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
+
+  const emailRef = useRef<HTMLInputElement>(null)
+  const passwordRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    if (emailRef.current?.value) setEmail(emailRef.current.value)
+    if (passwordRef.current?.value) setPassword(passwordRef.current.value)
+  }, [])
 
   const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -48,6 +56,7 @@ export default function AuthForm({ redirectTo, error: propError }: AuthFormProps
             Email
           </Label>
           <Input
+            ref={emailRef}
             id="email"
             type="email"
             name="email"
@@ -63,6 +72,7 @@ export default function AuthForm({ redirectTo, error: propError }: AuthFormProps
             Mot de passe
           </Label>
           <Input
+            ref={passwordRef}
             id="password"
             type="password"
             name="password"
