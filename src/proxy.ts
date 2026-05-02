@@ -40,6 +40,10 @@ export async function proxy(request: NextRequest) {
   }
 
   // 3a. Handle /manage segment — bypass intl, admin-only
+  if (isManageDomain && pathname === '/') {
+    return withCookies(NextResponse.redirect(new URL('/manage', request.url)))
+  }
+
   if (pathname.startsWith('/manage')) {
     if (MANAGE_PROTECTED.test(pathname)) {
       const {
