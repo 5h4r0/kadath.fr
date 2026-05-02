@@ -21,12 +21,15 @@ export default function AuthForm({ redirectTo, error: propError }: AuthFormProps
 
   const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    const form = e.currentTarget
+    const emailVal = (form.elements.namedItem('email') as HTMLInputElement).value
+    const passwordVal = (form.elements.namedItem('password') as HTMLInputElement).value
+    console.log('[AuthForm] submit — email:', emailVal, 'password length:', passwordVal.length)
     setError(null)
     setLoading(true)
-    console.log('[AuthForm] submit — email:', email, 'password length:', passwordVal.length)
     const supabase = createClient()
     const { error: signInError } = await supabase.auth.signInWithPassword({
-      email,
+      email: emailVal,
       password: passwordVal,
     })
 
@@ -72,12 +75,7 @@ export default function AuthForm({ redirectTo, error: propError }: AuthFormProps
           />
         </div>
 
-        <Button
-          type="submit"
-          className="w-full"
-          size="lg"
-          disabled={loading || !email || !passwordVal}
-        >
+        <Button type="submit" className="w-full" size="lg" disabled={loading}>
           {loading ? 'Connexion…' : 'Se connecter'}
         </Button>
 

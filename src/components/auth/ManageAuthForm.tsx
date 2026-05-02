@@ -18,10 +18,16 @@ export function ManageAuthForm({ error: propError }: Props) {
 
   const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    const form = e.currentTarget
+    const emailVal = (form.elements.namedItem('email') as HTMLInputElement).value
+    const passwordVal = (form.elements.namedItem('password') as HTMLInputElement).value
     setError(null)
     setLoading(true)
     const supabase = createClient()
-    const { error: signInError } = await supabase.auth.signInWithPassword({ email, password })
+    const { error: signInError } = await supabase.auth.signInWithPassword({
+      email: emailVal,
+      password: passwordVal,
+    })
 
     if (signInError) {
       setError('Email ou mot de passe incorrect.')
@@ -66,7 +72,7 @@ export function ManageAuthForm({ error: propError }: Props) {
         />
       </div>
 
-      <Button type="submit" className="w-full" size="sm" disabled={loading || !email || !password}>
+      <Button type="submit" className="w-full" size="sm" disabled={loading}>
         {loading ? 'Connexion…' : 'Se connecter'}
       </Button>
 
