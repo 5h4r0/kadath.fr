@@ -23,6 +23,7 @@ export default function AuthForm({ redirectTo, error: propError }: AuthFormProps
     setLoading(true)
     const emailVal = (e.currentTarget.elements.namedItem('email') as HTMLInputElement).value
     const passwordVal = (e.currentTarget.elements.namedItem('password') as HTMLInputElement).value
+    console.log('[AuthForm] submit — email:', emailVal, 'password length:', passwordVal.length)
     const supabase = createClient()
     const { error: signInError } = await supabase.auth.signInWithPassword({
       email: emailVal,
