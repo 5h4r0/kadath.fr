@@ -72,7 +72,12 @@ export default function AuthForm({ redirectTo, error: propError }: AuthFormProps
           />
         </div>
 
-        <Button type="submit" className="w-full" size="lg" disabled={loading}>
+        <Button
+          type="submit"
+          className="w-full"
+          size="lg"
+          disabled={loading || !email || !passwordVal}
+        >
           {loading ? 'Connexion…' : 'Se connecter'}
         </Button>
 

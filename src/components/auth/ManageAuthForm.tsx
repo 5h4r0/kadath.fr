@@ -66,7 +66,7 @@ export function ManageAuthForm({ error: propError }: Props) {
         />
       </div>
 
-      <Button type="submit" className="w-full" size="sm" disabled={loading}>
+      <Button type="submit" className="w-full" size="sm" disabled={loading || !email || !password}>
         {loading ? 'Connexion…' : 'Se connecter'}
       </Button>
 
