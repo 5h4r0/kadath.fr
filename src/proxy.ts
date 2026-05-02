@@ -18,7 +18,7 @@ function extractLocale(pathname: string): string {
   return match ? match[1] : defaultLocale
 }
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const hostname = request.headers.get('host') ?? ''
   const pathname = request.nextUrl.pathname
   const isManageDomain = hostname.startsWith('manage.')
