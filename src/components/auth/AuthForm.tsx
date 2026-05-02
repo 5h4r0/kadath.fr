@@ -19,11 +19,24 @@ export default function AuthForm({ redirectTo, error: propError }: AuthFormProps
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
 
+  const handleAutoFill = (e: React.AnimationEvent<HTMLInputElement>) => {
+    if (e.animationName === 'onAutoFillStart') {
+      const input = e.currentTarget
+      if (input.name === 'email') setEmail(input.value)
+      if (input.name === 'password') setPasswordVal(input.value)
+    }
+  }
+
   const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const form = e.currentTarget
     const emailVal = (form.elements.namedItem('email') as HTMLInputElement).value
     const passwordVal = (form.elements.namedItem('password') as HTMLInputElement).value
+    if (!emailVal || !passwordVal) {
+      setError('Veuillez remplir tous les champs.')
+      setLoading(false)
+      return
+    }
     console.log('[AuthForm] submit — email:', emailVal, 'password length:', passwordVal.length)
     setError(null)
     setLoading(true)
@@ -57,6 +70,7 @@ export default function AuthForm({ redirectTo, error: propError }: AuthFormProps
             placeholder="vous@example.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            onAnimationStart={handleAutoFill}
           />
         </div>
 
@@ -72,6 +86,7 @@ export default function AuthForm({ redirectTo, error: propError }: AuthFormProps
             placeholder="••••••••"
             value={passwordVal}
             onChange={(e) => setPasswordVal(e.target.value)}
+            onAnimationStart={handleAutoFill}
           />
         </div>
 

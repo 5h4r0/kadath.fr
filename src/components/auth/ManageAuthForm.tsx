@@ -16,11 +16,24 @@ export function ManageAuthForm({ error: propError }: Props) {
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
 
+  const handleAutoFill = (e: React.AnimationEvent<HTMLInputElement>) => {
+    if (e.animationName === 'onAutoFillStart') {
+      const input = e.currentTarget
+      if (input.name === 'email') setEmail(input.value)
+      if (input.name === 'password') setPassword(input.value)
+    }
+  }
+
   const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const form = e.currentTarget
     const emailVal = (form.elements.namedItem('email') as HTMLInputElement).value
     const passwordVal = (form.elements.namedItem('password') as HTMLInputElement).value
+    if (!emailVal || !passwordVal) {
+      setError('Veuillez remplir tous les champs.')
+      setLoading(false)
+      return
+    }
     setError(null)
     setLoading(true)
     const supabase = createClient()
@@ -53,6 +66,7 @@ export function ManageAuthForm({ error: propError }: Props) {
           autoComplete="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          onAnimationStart={handleAutoFill}
           placeholder="vous@example.com"
         />
       </div>
@@ -68,6 +82,7 @@ export function ManageAuthForm({ error: propError }: Props) {
           autoComplete="current-password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          onAnimationStart={handleAutoFill}
           placeholder="••••••••"
         />
       </div>

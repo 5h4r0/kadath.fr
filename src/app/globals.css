@@ -221,3 +221,8 @@
   color: #fff !important;
   background-color: transparent !important;
 }
+
+@keyframes onAutoFillStart { from {} to {} }
+@keyframes onAutoFillCancel { from {} to {} }
+input:-webkit-autofill { animation-name: onAutoFillStart; animation-duration: 1ms; }
+input:not(:-webkit-autofill) { animation-name: onAutoFillCancel; animation-duration: 1ms; }
