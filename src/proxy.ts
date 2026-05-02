@@ -62,6 +62,8 @@ export async function proxy(request: NextRequest) {
 
   // 4. Admin domain guard — require admin or editor role
   if (isAdminDomain && (isManageDomain || ADMIN_PATH_PATTERN.test(pathname))) {
+    if (pathname.startsWith('/manage')) return withCookies(NextResponse.next())
+
     // Auth routes on admin domain are always public
     if (!AUTH_PATTERN.test(pathname)) {
       const {
