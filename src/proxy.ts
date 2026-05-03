@@ -22,6 +22,7 @@ export async function proxy(request: NextRequest) {
   const hostname = request.headers.get('host') ?? ''
   const pathname = request.nextUrl.pathname
   const isManageDomain = hostname.startsWith('manage.')
+  console.log('[proxy] host:', hostname, 'isManage:', isManageDomain, 'path:', pathname)
   const isAdminDomain =
     isManageDomain || process.env.FORCE_ADMIN_HOST === 'true' || pathname.startsWith('/manage')
 
