@@ -19,12 +19,8 @@ function extractLocale(pathname: string): string {
 }
 
 export async function proxy(request: NextRequest) {
-  const hostname = request.headers.get('host') ?? ''
   const pathname = request.nextUrl.pathname
-  const isManageDomain = hostname.startsWith('manage.')
-  console.log('[proxy] host:', hostname, 'isManage:', isManageDomain, 'path:', pathname)
-  const isAdminDomain =
-    isManageDomain || process.env.FORCE_ADMIN_HOST === 'true' || pathname.startsWith('/manage')
+  const isAdminDomain = process.env.FORCE_ADMIN_HOST === 'true' || pathname.startsWith('/manage')
 
   // 1. Init Supabase client (refreshes session via cookie setAll)
   const { supabase, response: supabaseResponse } = createClient(request)
@@ -41,10 +37,6 @@ export async function proxy(request: NextRequest) {
   }
 
   // 3a. Handle /manage segment — bypass intl, admin-only
-  if (isManageDomain && pathname === '/') {
-    return withCookies(NextResponse.redirect(new URL('/manage', request.url)))
-  }
-
   if (pathname.startsWith('/manage')) {
     if (MANAGE_PROTECTED.test(pathname)) {
       const {
@@ -66,7 +58,7 @@ export async function proxy(request: NextRequest) {
   }
 
   // 4. Admin domain guard — require admin or editor role
-  if (isAdminDomain && (isManageDomain || ADMIN_PATH_PATTERN.test(pathname))) {
+  if (isAdminDomain && ADMIN_PATH_PATTERN.test(pathname)) {
     if (pathname.startsWith('/manage')) return withCookies(NextResponse.next())
 
     // Auth routes on admin domain are always public
