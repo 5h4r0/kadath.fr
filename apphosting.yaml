@@ -3,7 +3,8 @@
 
 runConfig:
   minInstances: 0
-
+  cpu: 1
+  memoryMiB: 512
 env:
   # Public variables — safe to commit
   - variable: NEXT_PUBLIC_SUPABASE_URL
