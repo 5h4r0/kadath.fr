@@ -11,7 +11,7 @@ const ADMIN_ROLES = ['admin', 'editor'] as const
 const CUSTOMER_PATTERN = /^\/(?:fr|en)\/customer(?:\/|$)/
 const AUTH_PATTERN = /^\/(?:fr|en)\/auth(?:\/|$)/
 const ADMIN_PATH_PATTERN = /^\/(?:fr|en)\/(?:cms|clients|invoices|projects)(?:\/|$)/
-const MANAGE_PROTECTED = /^\/manage\/.+/
+const MANAGE_PROTECTED = /^\/manage\/(?!login).+/
 
 function extractLocale(pathname: string): string {
   const match = pathname.match(/^\/(fr|en)(?:\/|$)/)
