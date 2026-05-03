@@ -25,9 +25,6 @@ export async function proxy(request: NextRequest) {
   // 1. Init Supabase client (refreshes session via cookie setAll)
   const { supabase, response: supabaseResponse } = createClient(request)
 
-  // 2. Apply next-intl locale routing
-  const intlResponse = intlMiddleware(request)
-
   // Helper: merge Supabase session cookies into a response
   const withCookies = (res: NextResponse) => {
     for (const { name, value } of supabaseResponse.cookies.getAll()) {
@@ -50,6 +47,9 @@ export async function proxy(request: NextRequest) {
     }
     return withCookies(NextResponse.next())
   }
+
+  // 2. Apply next-intl locale routing (only for non-/manage routes)
+  const intlResponse = intlMiddleware(request)
 
   // 3. Block admin paths on non-manage hostnames
   if (!isAdminDomain && ADMIN_PATH_PATTERN.test(pathname)) {
