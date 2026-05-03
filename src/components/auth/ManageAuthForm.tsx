@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { createClient } from '@/lib/supabase/client'
 
 interface Props {
   error?: string
@@ -36,14 +35,16 @@ export function ManageAuthForm({ error: propError }: Props) {
     }
     setError(null)
     setLoading(true)
-    const supabase = createClient()
-    const { error: signInError } = await supabase.auth.signInWithPassword({
-      email: emailVal,
-      password: passwordVal,
+
+    const res = await fetch('/manage/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: emailVal, password: passwordVal }),
     })
 
-    if (signInError) {
-      setError('Email ou mot de passe incorrect.')
+    if (!res.ok) {
+      const { error: msg } = await res.json()
+      setError(msg)
       setLoading(false)
       return
     }
