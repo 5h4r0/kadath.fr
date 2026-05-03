@@ -127,7 +127,7 @@ Vérifier visuellement :
 - [ ] Composants shadcn/ui (boutons, formulaires, modales)
 - [ ] Page contact (formulaire Turnstile)
 - [ ] Espace client `/customer/`
-- [ ] Backoffice `manage.kadath.fr`
+- [ ] Backoffice `kadath.fr/manage`
 
 ---
 

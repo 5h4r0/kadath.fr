@@ -3,14 +3,14 @@
 ## Contexte
 
 Projet Next.js 15 / Supabase / Firebase App Hosting. Le backoffice admin est
-actuellement accessible via `manage.kadath.fr` en prod (détection par host dans
+actuellement accessible via `kadath.fr/manage` en prod (détection par host dans
 le middleware). En local, il n'existe pas de sous-domaine : tout tourne sur
 `localhost:3000`. Ce sprint crée un segment de route `/manage` dédié au
 backoffice, sans locale (FR uniquement), et supprime les anciennes routes admin
 sous `[locale]`.
 
 **Environnements :**
-- PROD : `https://manage.kadath.fr/` → auth, `https://manage.kadath.fr/cms` → CMS
+- PROD : `https://kadath.fr/manage/` → auth, `https://kadath.fr/manage/cms` → CMS
 - LOCAL : `http://localhost:3000/manage` → auth, `http://localhost:3000/manage/cms` → CMS
 
 ---
@@ -26,11 +26,11 @@ valeur prod. Mettre à jour pour le local.
 
 ```dotenv
 # Avant
-NEXT_PUBLIC_MANAGE_URL=https://manage.kadath.fr
+NEXT_PUBLIC_MANAGE_URL=https://kadath.fr/manage
 
 # Après
 NEXT_PUBLIC_MANAGE_URL=http://localhost:3000/manage
-# En prod Firebase Secret Manager : NEXT_PUBLIC_MANAGE_URL=https://manage.kadath.fr
+# En prod Firebase Secret Manager : NEXT_PUBLIC_MANAGE_URL=https://kadath.fr/manage
 ```
 
 Cette variable est utilisée pour les redirects post-logout et post-auth depuis

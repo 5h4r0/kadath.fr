@@ -1,6 +1,6 @@
 # Migrations — thinktwice
 
-Schéma PostgreSQL / Supabase pour le backoffice `manage.kadath.fr`.
+Schéma PostgreSQL / Supabase pour le backoffice `kadath.fr/manage`.
 
 ## Ordre d'exécution
 

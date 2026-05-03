@@ -8,7 +8,7 @@ export function LogoutButton() {
     const supabase = createClient()
     await supabase.auth.signOut()
     // NEXT_PUBLIC_MANAGE_URL=http://localhost:3000/manage (local)
-    // En prod Firebase : NEXT_PUBLIC_MANAGE_URL=https://manage.kadath.fr
+    // En prod Firebase : NEXT_PUBLIC_MANAGE_URL=https://kadath.fr/manage
     window.location.href = process.env.NEXT_PUBLIC_MANAGE_URL ?? '/manage'
   }
 

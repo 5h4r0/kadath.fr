@@ -158,7 +158,7 @@ Points à tester manuellement :
 - [ ] `cookies()` / `headers()` dans les Server Components (async)
 - [ ] `params` dans les pages dynamiques (async)
 - [ ] Les routes `/contact` et homepage (formulaire Turnstile)
-- [ ] Espace client `/customer/` et backoffice `manage.kadath.fr`
+- [ ] Espace client `/customer/` et backoffice `kadath.fr/manage`
 
 ---
 

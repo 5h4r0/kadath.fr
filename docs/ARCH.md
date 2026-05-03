@@ -17,7 +17,7 @@
 9. [Modèle de données — 21 tables](#9-modèle-de-données--21-tables)
 10. [Full-text search](#10-full-text-search)
 11. [Storage Supabase](#11-storage-supabase)
-12. [Backoffice manage.kadath.fr](#12-backoffice-managekadathfr)
+12. [Backoffice kadath.fr/manage](#12-backoffice-managekadathfr)
 13. [Espace client](#13-espace-client)
 14. [Formulaire de contact](#14-formulaire-de-contact)
 15. [Paiement Stripe](#15-paiement-stripe)
@@ -41,7 +41,7 @@
 ### Fonctionnalités
 
 - Site vitrine / portfolio (one-page + pages CMS)
-- Backoffice admin `manage.kadath.fr` — CMS pages, gestion clients, devis, factures
+- Backoffice admin `kadath.fr/manage` — CMS pages, gestion clients, devis, factures
 - Espace client `kadath.fr/[locale]/customer/` — projets, devis, factures, messagerie
 
 ### Principe de soft delete
@@ -57,12 +57,12 @@ S'applique à : `clients`, `projects`, `quotes`, `invoices`.
 https://thinktwice.sokol.fr    → PROD / site vitrine
 https://kadath.fr              → preprod site vitrine + PROD espace client
 https://www.kadath.fr          → redirect → kadath.fr
-https://manage.kadath.fr       → PROD backoffice admin
+https://kadath.fr/manage       → PROD backoffice admin
 ```
 
 ### Choix architecture domaines
 
-- `manage.kadath.fr` — sous-domaine dédié : isolation sécurité, cookies httpOnly scopés séparément, `noindex` sur toutes les pages.
+- `kadath.fr/manage` — sous-domaine dédié : isolation sécurité, cookies httpOnly scopés séparément, `noindex` sur toutes les pages.
 - `kadath.fr/[locale]/customer/` — sous-dossier : UX intégrée au site principal, `noindex` via metadata.
 
 ### SSL
@@ -306,14 +306,14 @@ Middleware refresh session à chaque requête (`src/lib/supabase/middleware.ts`)
 
 | Rôle | Table | Accès |
 |---|---|---|
-| `admin` | `admin_users.role` | Tout — manage.kadath.fr complet |
+| `admin` | `admin_users.role` | Tout — kadath.fr/manage complet |
 | `editor` | `admin_users.role` | CMS uniquement (pages, médias) |
 | `client` | Supabase Auth | /[locale]/customer/ uniquement |
 
 ### Routing par domaine (middleware)
 
 ```
-manage.kadath.fr      → vérifie admin_users (admin | editor)
+kadath.fr/manage      → vérifie admin_users (admin | editor)
 kadath.fr/[locale]/customer/* → vérifie auth client
 kadath.fr/(public)    → pas de protection
 ```
@@ -461,7 +461,7 @@ const { data } = await supabase.storage
 
 ---
 
-## 12. Backoffice manage.kadath.fr
+## 12. Backoffice kadath.fr/manage
 
 ### Accès
 

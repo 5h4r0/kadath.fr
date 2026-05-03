@@ -175,7 +175,7 @@ export const createClient = (request: NextRequest) => {
 // 1. next-intl middleware (locale routing /fr/, /en/)
 // 2. Refresh session Supabase via lib/supabase/middleware.ts
 // 3. Routing par domaine :
-//    - manage.kadath.fr → vérifier rôle admin_users (admin | editor)
+//    - kadath.fr/manage → vérifier rôle admin_users (admin | editor)
 //      sinon redirect /[locale]/auth/login
 //    - kadath.fr/[locale]/customer/* → vérifier auth client
 //      sinon redirect /[locale]/auth/login
@@ -328,7 +328,7 @@ pnpm lint-staged
 
 | Rôle | Accès |
 |---|---|
-| `admin` | Tout — manage.kadath.fr complet |
+| `admin` | Tout — kadath.fr/manage complet |
 | `editor` | CMS uniquement |
 | `client` | /customer/ uniquement |
 
@@ -529,7 +529,7 @@ UPSTASH_REDIS_REST_TOKEN=
 NEXT_PUBLIC_UMAMI_URL=
 NEXT_PUBLIC_UMAMI_WEBSITE_ID=
 NEXT_PUBLIC_APP_URL=https://kadath.fr
-NEXT_PUBLIC_MANAGE_URL=https://manage.kadath.fr
+NEXT_PUBLIC_MANAGE_URL=https://kadath.fr/manage
 ```
 
 ---

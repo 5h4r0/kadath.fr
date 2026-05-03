@@ -12,7 +12,7 @@
 | Zone             | URL                            | Description                         |
 |------------------|--------------------------------|-------------------------------------|
 | Site vitrine     | `kadath.fr`                    | Portfolio + boutique                |
-| Backoffice admin | `manage.kadath.fr`             | CMS — pages, utilisateurs, factures |
+| Backoffice admin | `kadath.fr/manage`             | CMS — pages, utilisateurs, factures |
 | Espace client    | `kadath.fr/[locale]/customer/` | Compte client — RUD                 |
 
 ### Documentation complète

@@ -67,7 +67,7 @@ Pour kadath.fr :
 A     @        151.101.x.x   (IP Firebase Hosting)
 A     www      151.101.x.x
 
-Pour manage.kadath.fr :
+Pour kadath.fr/manage :
 A     manage   151.101.x.x   (même IP Firebase Hosting)
 
 Les IPs exactes te sont données par Firebase quand tu ajoutes un domaine personnalisé.
@@ -77,7 +77,7 @@ Hosting → Add custom domain :
 
 Ajouter kadath.fr
 Ajouter www.kadath.fr → redirect vers kadath.fr
-Ajouter manage.kadath.fr
+Ajouter kadath.fr/manage
 
 Firebase génère automatiquement les certificats SSL Let's Encrypt pour chaque domaine — rien à acheter, rien à configurer manuellement. Il faut juste attendre la propagation DNS (quelques minutes à 48h).
 
