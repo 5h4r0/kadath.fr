@@ -11,7 +11,7 @@ const ADMIN_ROLES = ['admin', 'editor'] as const
 const CUSTOMER_PATTERN = /^\/(?:fr|en)\/customer(?:\/|$)/
 const AUTH_PATTERN = /^\/(?:fr|en)\/auth(?:\/|$)/
 const ADMIN_PATH_PATTERN = /^\/(?:fr|en)\/(?:cms|clients|invoices|projects)(?:\/|$)/
-const MANAGE_PROTECTED = /^\/manage\/(?!login).+/
+const MANAGE_PROTECTED = /^\/manage\/.+/
 
 function extractLocale(pathname: string): string {
   const match = pathname.match(/^\/(fr|en)(?:\/|$)/)
@@ -39,6 +39,9 @@ export async function proxy(request: NextRequest) {
       const {
         data: { user },
       } = await supabase.auth.getUser()
+
+      console.log('user:', user?.id, 'role:', user?.app_metadata?.role) // ← ici
+
       const role = user?.app_metadata?.role as string | undefined
       const isAuthorized = !!user && ADMIN_ROLES.includes(role as (typeof ADMIN_ROLES)[number])
       if (!isAuthorized) {
