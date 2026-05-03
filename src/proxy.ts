@@ -40,8 +40,6 @@ export async function proxy(request: NextRequest) {
         data: { user },
       } = await supabase.auth.getUser()
 
-      console.log('user:', user?.id, 'role:', user?.app_metadata?.role) // ← ici
-
       const role = user?.app_metadata?.role as string | undefined
       const isAuthorized = !!user && ADMIN_ROLES.includes(role as (typeof ADMIN_ROLES)[number])
       if (!isAuthorized) {
