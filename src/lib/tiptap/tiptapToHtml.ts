@@ -42,9 +42,7 @@ function renderNode(node: Node): string {
   }
 }
 
-import DOMPurify from 'isomorphic-dompurify'
-
 export function tiptapToHtml(doc: unknown): string {
   if (!doc || typeof doc !== 'object') return ''
-  return DOMPurify.sanitize(renderNode(doc as Node))
+  return renderNode(doc as Node)
 }

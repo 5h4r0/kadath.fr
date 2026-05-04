@@ -1,5 +1,7 @@
 # Sprint — Auth flows : setup-password, confirm-password-change, login redirect
 
+> Mis à jour : 2026-05-04
+
 ## Contexte
 
 Projet Next.js 15 / Supabase / `@supabase/ssr`. Les pages `setup-password` et
@@ -11,6 +13,11 @@ n'existe pas. Le `defaultRedirect` dans les pages login est hardcodé `/fr/`.
 ## 1. Créer la route callback Supabase
 
 **Fichier :** `src/app/[locale]/auth/confirm/route.ts`
+
+> ⚠️ Ce dossier contient déjà `src/app/[locale]/auth/confirm/page.tsx` (Client
+> Component gérant le flux `inviteUserByEmail` via hash fragment). Les deux
+> fichiers coexistent sans conflit — Next.js autorise `route.ts` + `page.tsx`
+> dans le même segment. Ne pas supprimer `page.tsx`.
 
 Route GET qui échange le `token_hash` Supabase, puis redirige selon le `type` :
 
@@ -27,7 +34,6 @@ export async function GET(
   const { searchParams } = request.nextUrl
   const token_hash = searchParams.get('token_hash')
   const type = searchParams.get('type') // 'invite' | 'recovery' | 'email'
-  const next = searchParams.get('next') // optionnel, ignoré ici
 
   if (!token_hash || !type) {
     return NextResponse.redirect(new URL(`/${locale}/auth/login`, request.url))
@@ -39,13 +45,11 @@ export async function GET(
   const { error } = await supabase.auth.verifyOtp({ token_hash, type: type as any })
 
   if (error) {
-    // Lien expiré ou invalide → login avec message d'erreur
     const url = new URL(`/${locale}/auth/login`, request.url)
     url.searchParams.set('error', 'link_expired')
     return NextResponse.redirect(url)
   }
 
-  // Rediriger selon le type de token
   if (type === 'invite') {
     return NextResponse.redirect(new URL(`/${locale}/auth/setup-password`, request.url))
   }
@@ -68,7 +72,6 @@ Page Server Component qui vérifie qu'une session active existe (sinon redirect
 login), puis rend un Client Component `SetupPasswordForm`.
 
 ```ts
-// page.tsx — Server Component
 import { SetupPasswordForm } from '@/components/auth/SetupPasswordForm'
 import { createClient } from '@/lib/supabase/server'
 import { cookies } from 'next/headers'
@@ -104,8 +107,7 @@ Client Component. Règles :
 - Erreur → message inline en rouge
 - Style cohérent avec `AuthForm.tsx` : `bg-tt-bg`, `text-white`, `Label` +
   `Input` + `Button` de shadcn/ui, `w-full max-w-sm space-y-6`
-- Titre au-dessus du formulaire : `"Créer votre mot de passe"` (h1 ou p selon
-  ce qui est cohérent avec l'existant)
+- Titre : `"Créer votre mot de passe"` (h1 ou p selon ce qui est cohérent avec l'existant)
 
 ---
 
@@ -133,10 +135,10 @@ export default async function ConfirmPasswordChangePage({ params }: Props) {
 
   if (!user) redirect(`/${locale}/auth/login`)
 
-  // Déterminer la destination post-changement selon le rôle
+  // Destination post-changement selon le rôle
   const role = user.app_metadata?.role as string | undefined
   const isAdmin = role === 'admin' || role === 'editor'
-  const successRedirect = isAdmin ? `/${locale}/cms` : `/${locale}/customer/dashboard`
+  const successRedirect = isAdmin ? '/manage' : `/${locale}/customer/dashboard`
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-tt-bg px-4">
@@ -174,19 +176,19 @@ export default async function LoginPage({ params, searchParams }: Props) {
   const { locale } = await params
   // ...
   const isAdminDomain = host.startsWith('manage.')
-  const defaultRedirect = isAdminDomain ? `/${locale}/cms` : `/${locale}/customer/dashboard`
+  const defaultRedirect = isAdminDomain ? '/manage' : `/${locale}/customer/dashboard`
   // ...
   const { redirect: redirectTo, error } = await searchParams
   return <AuthForm redirectTo={redirectTo ?? defaultRedirect} error={error} />
 }
 ```
 
-Même correction dans `admin/page.tsx` : `redirect(`/${locale}/cms`)` et
-`redirectTo ?? `/${locale}/cms``.
+Même correction dans `admin/page.tsx` : `redirect('/manage')` et
+`redirectTo ?? '/manage'`.
 
 Également : passer `error?: string` à `AuthForm` pour afficher un message
-si `?error=link_expired` est présent dans l'URL (cas lien expiré depuis la
-route callback). Dans `AuthForm`, si `error === 'link_expired'`, afficher :
+si `?error=link_expired` est présent dans l'URL. Dans `AuthForm`, si
+`error === 'link_expired'`, afficher :
 `"Ce lien a expiré. Contactez votre administrateur."` en rouge sous le
 formulaire, sans interaction requise.
 
@@ -195,7 +197,7 @@ formulaire, sans interaction requise.
 ## Contraintes
 
 - `tsc --noEmit` doit passer sans erreur
-- Ne pas modifier `src/lib/supabase/server.ts`, `client.ts`, ni `middleware.ts`
+- Ne pas modifier `src/proxy.ts`, `src/lib/supabase/client.ts`, ni `src/middleware.ts`
 - Ne pas installer de nouvelles dépendances
 - Utiliser uniquement les composants shadcn/ui déjà présents :
   `button`, `input`, `label`

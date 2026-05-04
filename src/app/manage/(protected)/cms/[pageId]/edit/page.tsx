@@ -3,18 +3,19 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { DeleteButton } from './DeleteButton'
+import { PageMetaFields } from './PageMetaFields'
 import { PublishButton } from './PublishButton'
 import { ResumeCmsField } from './ResumeCmsField'
 import { TipTapEditor } from './TipTapEditor'
 
 interface Props {
-  params: Promise<{ locale: string; pageId: string }>
+  params: Promise<{ pageId: string }>
 }
 
 export const dynamic = 'force-dynamic'
 
 export default async function EditCmsPage({ params }: Props) {
-  const { locale, pageId } = await params
+  const { pageId } = await params
   const cookieStore = await cookies()
   const supabase = createClient(cookieStore)
 
@@ -32,16 +33,13 @@ export default async function EditCmsPage({ params }: Props) {
       {/* Header */}
       <div className="flex items-start justify-between">
         <div className="space-y-1">
-          <Link href={`/${locale}/cms`} className="text-sm text-[#666666] hover:text-tt-accent">
+          <Link href="/manage/cms" className="text-sm text-[#666666] hover:text-tt-accent">
             ← Pages CMS
           </Link>
-          <h1 className="text-2xl font-light text-white">{page.title}</h1>
           <div className="flex items-center gap-3">
-            <span className="text-xs text-[#666666]">
-              /{page.slug} · {page.template} · {page.lang}
-            </span>
+            <span className="text-xs text-[#666666]">{page.lang}</span>
             <a
-              href={`/${locale}/${page.slug}`}
+              href={`/${page.lang}/${page.slug}`}
               target="_blank"
               rel="noopener noreferrer"
               className="text-xs text-[#666666] hover:text-tt-accent"
@@ -59,6 +57,19 @@ export default async function EditCmsPage({ params }: Props) {
         </span>
       </div>
 
+      {/* Informations */}
+      <section className="space-y-2">
+        <h2 className="text-xs font-medium uppercase tracking-widest text-[#666666]">
+          Informations
+        </h2>
+        <PageMetaFields
+          pageId={pageId}
+          initialTitle={page.title}
+          initialSlug={page.slug}
+          initialTemplate={page.template}
+        />
+      </section>
+
       {/* Résumé */}
       <section className="space-y-2">
         <h2 className="text-xs font-medium uppercase tracking-widest text-[#666666]">Résumé</h2>
@@ -74,7 +85,7 @@ export default async function EditCmsPage({ params }: Props) {
       {/* Actions */}
       <section className="flex items-center gap-3 border-t border-[#333333] pt-6">
         <PublishButton pageId={pageId} published={page.published} />
-        <DeleteButton pageId={pageId} locale={locale} />
+        <DeleteButton pageId={pageId} />
       </section>
     </div>
   )

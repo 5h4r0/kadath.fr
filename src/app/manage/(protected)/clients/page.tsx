@@ -11,12 +11,7 @@ import { createClient } from '@/lib/supabase/server'
 
 export const dynamic = 'force-dynamic'
 
-interface Props {
-  params: Promise<{ locale: string }>
-}
-
-export default async function ClientsPage({ params }: Props) {
-  const { locale } = await params
+export default async function ClientsPage() {
   const cookieStore = await cookies()
   const supabase = createClient(cookieStore)
 
@@ -39,7 +34,7 @@ export default async function ClientsPage({ params }: Props) {
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-light text-white">Clients</h1>
         <a
-          href={`/${locale}/clients/new`}
+          href="/manage/clients/new"
           className="rounded-sm bg-tt-accent px-3 py-1.5 text-sm font-medium text-black hover:opacity-90"
         >
           Nouveau client
@@ -78,7 +73,7 @@ export default async function ClientsPage({ params }: Props) {
               </TableCell>
               <TableCell className="text-right">
                 <a
-                  href={`/${locale}/clients/${client.id}/edit`}
+                  href={`/manage/clients/${client.id}/edit`}
                   className="text-xs text-[#666666] hover:text-tt-accent"
                 >
                   Éditer

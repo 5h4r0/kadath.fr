@@ -16,8 +16,8 @@ export async function updateSection(id: string, content: Record<string, unknown>
 
   if (error) return { error: error.message }
 
-  revalidatePath('/[locale]/(admin)/cms', 'page')
-  revalidatePath('/[locale]/(public)', 'layout')
+  revalidatePath('/manage/cms', 'page')
+  revalidatePath('/', 'layout')
   return { error: null }
 }
 
@@ -33,7 +33,7 @@ export async function toggleSectionVisibility(id: string, visible: boolean) {
 
   if (error) return { error: error.message }
 
-  revalidatePath('/[locale]/(admin)/cms', 'page')
-  revalidatePath('/[locale]/(public)', 'layout')
+  revalidatePath('/manage/cms', 'page')
+  revalidatePath('/', 'layout')
   return { error: null }
 }

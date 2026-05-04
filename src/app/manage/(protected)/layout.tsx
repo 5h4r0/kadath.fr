@@ -1,30 +1,27 @@
-import type { Metadata } from 'next'
+import { cookies } from 'next/headers'
 import Link from 'next/link'
+import { redirect } from 'next/navigation'
 import { LogoutButton } from '@/components/admin/LogoutButton'
+import { createClient } from '@/lib/supabase/server'
 
-export const metadata: Metadata = {
-  robots: 'noindex, nofollow',
-}
+const NAV = [
+  { label: 'CMS', href: '/manage/cms' },
+  { label: 'Clients', href: '/manage/clients' },
+  { label: 'Projets', href: '/manage/projects' },
+  { label: 'Factures', href: '/manage/invoices' },
+]
 
-export default async function AdminLayout({
-  children,
-  params,
-}: {
-  children: React.ReactNode
-  params: Promise<{ locale: string }>
-}) {
-  const { locale } = await params
+export default async function ProtectedLayout({ children }: { children: React.ReactNode }) {
+  const cookieStore = await cookies()
+  const supabase = createClient(cookieStore)
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
 
-  const NAV = [
-    { label: 'CMS', href: `/${locale}/cms` },
-    { label: 'Clients', href: `/${locale}/clients` },
-    { label: 'Projets', href: `/${locale}/projects` },
-    { label: 'Factures', href: `/${locale}/invoices` },
-  ]
+  if (!user) redirect('/manage')
 
   return (
     <div className="flex min-h-screen bg-tt-bg font-grotesk text-white">
-      {/* Sidebar */}
       <aside className="sticky top-0 flex h-screen w-56 shrink-0 flex-col justify-between border-r border-[#333333] px-4 py-8">
         <div>
           <span className="mb-8 px-2 text-xs font-medium uppercase tracking-widest text-[#666666]">
@@ -46,8 +43,6 @@ export default async function AdminLayout({
           <LogoutButton />
         </div>
       </aside>
-
-      {/* Main content */}
       <main className="flex-1 overflow-y-auto px-8 py-8">{children}</main>
     </div>
   )

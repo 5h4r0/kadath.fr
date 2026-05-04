@@ -5,7 +5,6 @@ import { useState, useTransition } from 'react'
 import { archiveClientAction, createClientAction, updateClientAction } from '@/lib/actions/clients'
 
 interface ClientFormProps {
-  locale: string
   initial?: {
     id: string
     first_name: string | null
@@ -27,7 +26,7 @@ const INPUT_CLASS =
 
 const LABEL_CLASS = 'text-xs text-[#666666]'
 
-export function ClientForm({ locale, initial }: ClientFormProps) {
+export function ClientForm({ initial }: ClientFormProps) {
   const router = useRouter()
   const [isPending, startTransition] = useTransition()
   const [error, setError] = useState<string | null>(null)
@@ -57,7 +56,6 @@ export function ClientForm({ locale, initial }: ClientFormProps) {
       notes,
       source,
       status,
-      locale,
     }
   }
 
@@ -75,7 +73,7 @@ export function ClientForm({ locale, initial }: ClientFormProps) {
     setError(null)
     startTransition(async () => {
       if (!initial) return
-      const result = await archiveClientAction(initial.id, locale)
+      const result = await archiveClientAction(initial.id)
       if (result?.error) setError(result.error)
     })
   }

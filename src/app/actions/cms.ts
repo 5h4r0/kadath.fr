@@ -11,7 +11,6 @@ export async function createPage(data: {
   template: string
   lang: string
   robots: string
-  locale: string
 }) {
   const cookieStore = await cookies()
   const supabase = createClient(cookieStore)
@@ -38,8 +37,8 @@ export async function createPage(data: {
 
   if (error) return { error: error.message }
 
-  revalidatePath('/[locale]/(admin)/cms', 'page')
-  redirect(`/${data.locale}/cms/${page.id}/edit`)
+  revalidatePath('/manage/cms', 'page')
+  redirect(`/manage/cms/${page.id}/edit`)
 }
 
 export async function updatePage(
@@ -47,6 +46,7 @@ export async function updatePage(
   data: {
     title?: string
     slug?: string
+    template?: string
     sections?: unknown
     published?: boolean
     robots?: string
@@ -60,7 +60,7 @@ export async function updatePage(
 
   if (error) return { error: error.message }
 
-  revalidatePath('/[locale]/(admin)/cms', 'page')
+  revalidatePath('/manage/cms', 'page')
   return { error: null }
 }
 
@@ -75,6 +75,6 @@ export async function deletePage(id: string) {
 
   if (error) return { error: error.message }
 
-  revalidatePath('/[locale]/(admin)/cms', 'page')
+  revalidatePath('/manage/cms', 'page')
   return { error: null }
 }

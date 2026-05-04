@@ -12,17 +12,16 @@ import {
 import { createClient } from '@/lib/supabase/server'
 
 interface Props {
-  params: Promise<{ locale: string; id: string }>
+  params: Promise<{ id: string }>
 }
 
 export const dynamic = 'force-dynamic'
 
 export default async function ClientDetailPage({ params }: Props) {
-  const { locale, id } = await params
+  const { id } = await params
   const cookieStore = await cookies()
   const supabase = createClient(cookieStore)
 
-  // Client + projects en parallèle
   const [clientResult, projectsResult] = await Promise.all([
     supabase
       .from('clients')
@@ -44,7 +43,6 @@ export default async function ClientDetailPage({ params }: Props) {
   const client = clientResult.data
   const projects = projectsResult.data ?? []
 
-  // Factures via project_id (invoices n'ont pas de client_id direct)
   const projectIds = projects.map((p) => p.id)
   const { data: invoices } =
     projectIds.length > 0
@@ -63,7 +61,7 @@ export default async function ClientDetailPage({ params }: Props) {
       {/* Header */}
       <div className="flex items-start justify-between">
         <div className="space-y-1">
-          <Link href={`/${locale}/clients`} className="text-sm text-[#666666] hover:text-tt-accent">
+          <Link href="/manage/clients" className="text-sm text-[#666666] hover:text-tt-accent">
             ← Clients
           </Link>
           <h1 className="text-2xl font-light text-white">{fullName}</h1>
@@ -73,9 +71,17 @@ export default async function ClientDetailPage({ params }: Props) {
 
       {/* Informations */}
       <section className="space-y-4">
-        <h2 className="text-sm font-medium uppercase tracking-widest text-[#666666]">
-          Informations
-        </h2>
+        <div className="flex items-center justify-between">
+          <h2 className="text-sm font-medium uppercase tracking-widest text-[#666666]">
+            Informations
+          </h2>
+          <a
+            href={`/manage/clients/${id}/edit`}
+            className="text-xs text-[#666666] hover:text-tt-accent"
+          >
+            Éditer →
+          </a>
+        </div>
         <dl className="grid grid-cols-1 gap-x-8 gap-y-3 sm:grid-cols-2">
           <InfoRow label="Email" value={client.email} />
           <InfoRow label="Téléphone" value={client.phone} />
@@ -188,17 +194,14 @@ function InfoRow({ label, value }: { label: string; value: string | null | undef
 }
 
 const STATUS_STYLES: Record<string, string> = {
-  // clients
   prospect: 'bg-[#2a2a2a] text-[#aaaaaa]',
   active: 'bg-[#1a3a2a] text-[#4caf82]',
   inactive: 'bg-[#2a2a2a] text-[#666666]',
   archived: 'bg-[#1a1a1a] text-[#555555]',
-  // projects
   draft: 'bg-[#2a2a2a] text-[#aaaaaa]',
   on_hold: 'bg-[#2a2010] text-[#c89030]',
   completed: 'bg-[#1a3a2a] text-[#4caf82]',
   cancelled: 'bg-[#1a1a1a] text-[#555555]',
-  // invoices
   sent: 'bg-[#1a2a3a] text-[#4a9fcf]',
   partial: 'bg-[#2a2010] text-[#c89030]',
   paid: 'bg-[#1a3a2a] text-[#4caf82]',

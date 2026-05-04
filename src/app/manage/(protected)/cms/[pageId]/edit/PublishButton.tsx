@@ -26,7 +26,7 @@ export function PublishButton({ pageId, published }: Props) {
       onClick={handleToggle}
       disabled={isPending}
       className={`rounded px-4 py-2 text-sm font-medium transition-opacity hover:opacity-90 disabled:opacity-50 ${
-        published ? 'border border-[#555555] text-[#cccccc]' : 'bg-tt-accent text-white'
+        published ? 'border border-[#555555] text-[#cccccc]' : 'bg-tt-accent text-black'
       }`}
     >
       {isPending ? '…' : published ? 'Dépublier' : 'Publier'}

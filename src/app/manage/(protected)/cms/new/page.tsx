@@ -1,6 +1,6 @@
 'use client'
 
-import { useParams, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { useState, useTransition } from 'react'
 import { createPage } from '@/app/actions/cms'
 
@@ -8,21 +8,19 @@ function slugify(str: string) {
   return str
     .toLowerCase()
     .normalize('NFD')
-    .replace(/\p{M}/gu, '') // Utilise la propriété Unicode pour les accents
+    .replace(/\p{M}/gu, '')
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '')
 }
 
 export default function NewCmsPage() {
-  const params = useParams()
-  const locale = (params.locale as string) ?? 'fr'
   const router = useRouter()
 
   const [title, setTitle] = useState('')
   const [slug, setSlug] = useState('')
   const [slugTouched, setSlugTouched] = useState(false)
   const [template, setTemplate] = useState('default')
-  const [lang, setLang] = useState(locale === 'en' ? 'en' : 'fr')
+  const [lang, setLang] = useState('fr')
   const [robots, setRobots] = useState('index,follow')
   const [error, setError] = useState<string | null>(null)
   const [isPending, startTransition] = useTransition()
@@ -39,17 +37,17 @@ export default function NewCmsPage() {
     }
     setError(null)
     startTransition(async () => {
-      const result = await createPage({ title, slug, template, lang, robots, locale })
+      const result = await createPage({ title, slug, template, lang, robots })
       if (result?.error) setError(result.error)
     })
   }
 
   return (
-    <div className="space-y-8 max-w-2xl">
+    <div className="max-w-2xl space-y-8">
       <div className="space-y-1">
         <button
           type="button"
-          onClick={() => router.back()}
+          onClick={() => router.push('/manage/cms')}
           className="text-sm text-[#666666] hover:text-tt-accent"
         >
           ← Pages CMS
@@ -153,7 +151,7 @@ export default function NewCmsPage() {
           </button>
           <button
             type="button"
-            onClick={() => router.back()}
+            onClick={() => router.push('/manage/cms')}
             className="rounded-sm border border-[#333333] px-4 py-2 text-sm text-[#cccccc] hover:border-[#555555]"
           >
             Annuler

@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation'
 import { useTransition } from 'react'
 import { deletePage } from '@/app/actions/cms'
 
-export function DeleteButton({ pageId, locale }: { pageId: string; locale: string }) {
+export function DeleteButton({ pageId }: { pageId: string }) {
   const router = useRouter()
   const [isPending, startTransition] = useTransition()
 
@@ -12,7 +12,7 @@ export function DeleteButton({ pageId, locale }: { pageId: string; locale: strin
     if (!confirm('Supprimer cette page ? Cette action est irréversible.')) return
     startTransition(async () => {
       await deletePage(pageId)
-      router.push(`/${locale}/cms`)
+      router.push('/manage/cms')
     })
   }
 

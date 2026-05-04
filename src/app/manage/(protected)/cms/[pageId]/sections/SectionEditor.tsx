@@ -49,10 +49,10 @@ export function SectionEditor({ section }: { section: Section }) {
   }
 
   return (
-    <div className="rounded-sm border border-[#333333] p-4 space-y-3">
+    <div className="space-y-3 rounded-sm border border-[#333333] p-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <span className="text-xs font-mono text-[#888888]">#{section.order_index}</span>
+          <span className="font-mono text-xs text-[#888888]">#{section.order_index}</span>
           <span className="text-sm font-medium text-white">{section.type}</span>
           <span
             className={`inline-block rounded px-2 py-0.5 text-xs font-medium ${

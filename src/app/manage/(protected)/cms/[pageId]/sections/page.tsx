@@ -5,13 +5,13 @@ import { createClient } from '@/lib/supabase/server'
 import { SectionEditor } from './SectionEditor'
 
 interface Props {
-  params: Promise<{ locale: string; pageId: string }>
+  params: Promise<{ pageId: string }>
 }
 
 export const dynamic = 'force-dynamic'
 
 export default async function SectionsPage({ params }: Props) {
-  const { locale, pageId } = await params
+  const { pageId } = await params
   const cookieStore = await cookies()
   const supabase = createClient(cookieStore)
 
@@ -33,7 +33,7 @@ export default async function SectionsPage({ params }: Props) {
   return (
     <div className="space-y-8">
       <div className="space-y-1">
-        <Link href={`/${locale}/cms`} className="text-sm text-[#666666] hover:text-tt-accent">
+        <Link href="/manage/cms" className="text-sm text-[#666666] hover:text-tt-accent">
           ← Pages CMS
         </Link>
         <h1 className="text-2xl font-light text-white">{page.title}</h1>

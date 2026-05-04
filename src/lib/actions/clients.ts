@@ -17,7 +17,6 @@ interface ClientPayload {
   notes: string
   source: string
   status: string
-  locale: string
 }
 
 function toDb(payload: ClientPayload) {
@@ -48,8 +47,8 @@ export async function createClientAction(
 
   if (error) return { error: error.message }
 
-  revalidatePath(`/${payload.locale}/clients`)
-  redirect(`/${payload.locale}/clients`)
+  revalidatePath('/manage/clients')
+  redirect('/manage/clients')
 }
 
 export async function updateClientAction(
@@ -65,15 +64,12 @@ export async function updateClientAction(
 
   if (error) return { error: error.message }
 
-  revalidatePath(`/${payload.locale}/clients`)
-  revalidatePath(`/${payload.locale}/clients/${id}`)
-  redirect(`/${payload.locale}/clients/${id}`)
+  revalidatePath('/manage/clients')
+  revalidatePath(`/manage/clients/${id}`)
+  redirect(`/manage/clients/${id}`)
 }
 
-export async function archiveClientAction(
-  id: string,
-  locale: string,
-): Promise<{ error: string } | undefined> {
+export async function archiveClientAction(id: string): Promise<{ error: string } | undefined> {
   const cookieStore = await cookies()
   const supabase = createClient(cookieStore)
 
@@ -84,6 +80,6 @@ export async function archiveClientAction(
 
   if (error) return { error: error.message }
 
-  revalidatePath(`/${locale}/clients`)
-  redirect(`/${locale}/clients`)
+  revalidatePath('/manage/clients')
+  redirect('/manage/clients')
 }

@@ -4,13 +4,13 @@ import { ClientForm } from '@/components/admin/ClientForm'
 import { createClient } from '@/lib/supabase/server'
 
 interface Props {
-  params: Promise<{ locale: string; id: string }>
+  params: Promise<{ id: string }>
 }
 
 export const dynamic = 'force-dynamic'
 
 export default async function EditClientPage({ params }: Props) {
-  const { locale, id } = await params
+  const { id } = await params
   const cookieStore = await cookies()
   const supabase = createClient(cookieStore)
 
@@ -27,15 +27,12 @@ export default async function EditClientPage({ params }: Props) {
   return (
     <div className="max-w-2xl space-y-8">
       <div className="space-y-1">
-        <a
-          href={`/${locale}/clients/${id}`}
-          className="text-sm text-[#666666] hover:text-tt-accent"
-        >
+        <a href={`/manage/clients/${id}`} className="text-sm text-[#666666] hover:text-tt-accent">
           ← Fiche client
         </a>
         <h1 className="text-2xl font-light text-white">Modifier le client</h1>
       </div>
-      <ClientForm locale={locale} initial={data} />
+      <ClientForm initial={data} />
     </div>
   )
 }

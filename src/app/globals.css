@@ -17,6 +17,7 @@
   --color-text-secondary: var(--color-text-secondary);
   --color-tt-bg: var(--color-tt-bg);
   --color-tt-accent: var(--color-tt-accent);
+  --color-tt-info: var(--color-tt-info);
 }
 
 /*
@@ -58,6 +59,7 @@
     /* ThinkTwice vitrine */
     --color-tt-bg: #333333;
     --color-tt-accent: #26e1b0;
+    --color-tt-info: #ff7f00;
   }
 
   /* ------------------------------------------------------------------ */
