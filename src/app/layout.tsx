@@ -38,6 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="fr"
+      data-scroll-behavior="smooth"
       className={`${spaceGrotesk.variable} ${sourceSans3.variable} ${helveticaCondensed.variable}`}
     >
       <body>{children}</body>

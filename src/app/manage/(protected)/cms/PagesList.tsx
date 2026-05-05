@@ -94,7 +94,7 @@ export function PagesList({ pages }: Props) {
                 /{page.slug}
               </a>
               {' · '}
-              <span className="text-[color:var(--color-tt-info)]">{page.template}</span>
+              <span className="text-tt-info">{page.template}</span>
             </p>
           </div>
           <div className="flex items-center gap-4">
@@ -106,10 +106,10 @@ export function PagesList({ pages }: Props) {
               {page.published ? 'publié' : 'brouillon'}
             </span>
             <div className="flex gap-0.5 px-4 text-xs">
-              <span className="px-2 py-0.5 text-[color:var(--color-tt-info)]">
+              <span className="px-2 py-0.5 font-light text-white">
                 {new Date(page.updated_at).toLocaleDateString('fr-FR')}
               </span>
-              <span className="px-2 py-0.5 text-[#666666]">
+              <span className="px-2 py-0.5 font-light text-[#666666]">
                 {new Date(page.created_at).toLocaleDateString('fr-FR')}
               </span>
             </div>

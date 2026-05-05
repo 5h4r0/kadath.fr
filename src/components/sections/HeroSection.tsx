@@ -17,7 +17,7 @@ export function HeroSection({ content }: Props) {
       */}
       <div
         aria-hidden="true"
-        className="motif-dots pointer-events-none absolute left-0 top-0 h-[640px] opacity-30 w-[calc(max(0px,(100vw-72rem)/2)+7.3rem)]"
+        className="motif-dots pointer-events-none absolute left-0 top-0 h-160 opacity-30 w-[calc(max(0,(100vw-72rem)/2)+7.3rem)]"
       />
 
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-12 px-6 pb-8 pt-20 lg:grid-cols-2 lg:items-center">
