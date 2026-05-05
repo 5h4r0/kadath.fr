@@ -6,6 +6,7 @@ import { createClient } from '@/lib/supabase/server'
 
 const NAV = [
   { label: 'CMS', href: '/manage/cms' },
+  { label: 'Footer', href: '/manage/cms/footer' },
   { label: 'Clients', href: '/manage/clients' },
   { label: 'Projets', href: '/manage/projects' },
   { label: 'Factures', href: '/manage/invoices' },

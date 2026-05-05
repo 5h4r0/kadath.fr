@@ -123,7 +123,7 @@ INSERT INTO cms_pages (
 (
   '00000020-0000-0000-0000-000000000006',
   '501f1bd9-127e-4515-9434-269ce3ae8bb7',
-  'about',
+  'thinktwice',
   'À propos',
   'ThinkTwice — direction artistique et développement web sur mesure depuis 20 ans.',
   'default',

@@ -192,27 +192,12 @@ export default async function SiteFooter({ locale }: SiteFooterProps) {
             </div>
           </div>
 
-          {/* Copyright + liens légaux */}
+          {/* Liens footer */}
           <div className="flex flex-col items-start gap-1 text-sm text-white/50 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-4 sm:gap-y-1 lg:items-end lg:flex-col lg:gap-y-1">
-            <p className="shrink-0">{copyright}</p>
-            <nav
-              aria-label="Liens légaux"
-              className="flex flex-col items-start gap-1 sm:flex-row sm:flex-nowrap sm:gap-x-4 lg:flex-row lg:gap-x-4"
-            >
-              {settings.legalLinks.map((link) => (
-                <Link
-                  key={link.id}
-                  href={`/${locale}/${link.slug}`}
-                  className="hover:text-tt-accent transition-colors whitespace-nowrap"
-                >
-                  {link.title}
-                </Link>
-              ))}
-            </nav>
             {settings.navLinks.length > 0 && (
               <nav
                 aria-label="Navigation footer"
-                className="flex flex-col items-start gap-1 sm:flex-row sm:flex-nowrap sm:gap-x-4 lg:flex-row lg:gap-x-4"
+                className="flex flex-col items-start gap-1 sm:flex-row sm:flex-nowrap sm:gap-x-4 lg:flex-row lg:gap-x-4 py-2"
               >
                 {settings.navLinks.map((link) => (
                   <Link
@@ -225,6 +210,24 @@ export default async function SiteFooter({ locale }: SiteFooterProps) {
                 ))}
               </nav>
             )}
+            {/* Copyright + liens légaux */}
+            <nav
+              aria-label="Liens légaux"
+              className="flex flex-col items-start gap-1 sm:flex-row sm:flex-nowrap sm:gap-x-4 lg:flex-row lg:gap-x-4 py-2"
+            >
+              <Link href={`/`} className="hover:text-tt-accent transition-colors whitespace-nowrap">
+                {copyright}
+              </Link>
+              {settings.legalLinks.map((link) => (
+                <Link
+                  key={link.id}
+                  href={`/${locale}/${link.slug}`}
+                  className="hover:text-tt-accent transition-colors whitespace-nowrap"
+                >
+                  {link.title}
+                </Link>
+              ))}
+            </nav>
           </div>
         </div>
       </div>
