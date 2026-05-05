@@ -199,21 +199,32 @@ export default async function SiteFooter({ locale }: SiteFooterProps) {
               aria-label="Liens légaux"
               className="flex flex-col items-start gap-1 sm:flex-row sm:flex-nowrap sm:gap-x-4 lg:flex-row lg:gap-x-4"
             >
-              {settings.legalLinks.map((link) => {
-                const localeKey = locale as 'fr' | 'en'
-                const href = localeKey === 'en' ? link.href_en : link.href_fr
-                const label = localeKey === 'en' ? link.label_en : link.label_fr
-                return (
+              {settings.legalLinks.map((link) => (
+                <Link
+                  key={link.id}
+                  href={`/${locale}/${link.slug}`}
+                  className="hover:text-tt-accent transition-colors whitespace-nowrap"
+                >
+                  {link.title}
+                </Link>
+              ))}
+            </nav>
+            {settings.navLinks.length > 0 && (
+              <nav
+                aria-label="Navigation footer"
+                className="flex flex-col items-start gap-1 sm:flex-row sm:flex-nowrap sm:gap-x-4 lg:flex-row lg:gap-x-4"
+              >
+                {settings.navLinks.map((link) => (
                   <Link
-                    key={link.href_fr}
-                    href={href}
+                    key={link.id}
+                    href={`/${locale}/${link.slug}`}
                     className="hover:text-tt-accent transition-colors whitespace-nowrap"
                   >
-                    {label}
+                    {link.title}
                   </Link>
-                )
-              })}
-            </nav>
+                ))}
+              </nav>
+            )}
           </div>
         </div>
       </div>

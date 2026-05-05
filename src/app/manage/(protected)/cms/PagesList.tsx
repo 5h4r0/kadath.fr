@@ -80,7 +80,7 @@ export function PagesList({ pages }: Props) {
           <div className="space-y-0.5">
             <Link
               href={`/manage/cms/${page.id}/edit`}
-              className="text-sm font-medium text-white transition-colors hover:text-tt-accentrounded-sm px-2 py-2 text-sm text-[#cccccc] transition-colors hover:bg-[#2a2a2a] hover:text-tt-accent"
+              className="text-sm font-medium text-white transition-colors hover:text-tt-accentrounded-sm px-2 py-2 hover:bg-[#2a2a2a] hover:text-tt-accent"
             >
               {page.title}
             </Link>
