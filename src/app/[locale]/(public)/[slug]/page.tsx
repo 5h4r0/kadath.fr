@@ -25,7 +25,7 @@ async function fetchPage(slug: string) {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
   const page = await fetchPage(slug)
-  if (!page?.published) notFound()
+  if (!page?.published) return { title: 'Page introuvable' }
   return { title: page.title }
 }
 
