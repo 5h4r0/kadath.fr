@@ -77,9 +77,7 @@ INSERT INTO settings (key, value) VALUES
   ('footer_copyright_fr', '"© 2026 ThinkTwice. Tous droits réservés."') ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value;
 INSERT INTO settings (key, value) VALUES
   ('footer_copyright_en', '"© 2026 ThinkTwice. All rights reserved."')  ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value;
-INSERT INTO settings (key, value) VALUES
-  ('footer_legal_links', '[{"label_fr":"Mentions légales","label_en":"Legal notice","href_fr":"/fr/mentions-legales","href_en":"/en/legal-notices"},{"label_fr":"Politique de confidentialité","label_en":"Privacy policy","href_fr":"/fr/confidentialite","href_en":"/en/privacy"}]')
-  ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value;
+-- footer_legal_links migré vers table dédiée (voir seed footer_legal_links ci-dessous)
 
 -- ─── Admin users ─────────────────────────────────────────────────────────
 INSERT INTO admin_users (id, role, first_name, last_name, email) VALUES
@@ -413,3 +411,12 @@ INSERT INTO numbering_counters (doc_type, year, counter) VALUES
   ('quote',   2026, 3),
   ('invoice', 2026, 3)
 ON CONFLICT (doc_type, year) DO UPDATE SET counter = EXCLUDED.counter;
+
+-- ─── Footer legal links ───────────────────────────────────────────────────
+INSERT INTO public.footer_legal_links (cms_page_id, zone, order_index)
+SELECT id, 'legal', 0 FROM public.cms_pages WHERE slug = 'mentions-legales'
+ON CONFLICT DO NOTHING;
+
+INSERT INTO public.footer_legal_links (cms_page_id, zone, order_index)
+SELECT id, 'legal', 1 FROM public.cms_pages WHERE slug = 'politique-confidentialite'
+ON CONFLICT DO NOTHING;
