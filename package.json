@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "dev:wx": "next dev --no-turbopack",
     "build": "next build",
     "start": "next start",
     "type-check": "tsc --noEmit",
