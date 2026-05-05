@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import { cookies } from 'next/headers'
 import { notFound } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
@@ -9,20 +10,29 @@ interface Props {
 
 export const revalidate = 60
 
-export default async function CmsPublicPage({ params }: Props) {
-  const { slug } = await params
+async function fetchPage(slug: string) {
   const cookieStore = await cookies()
   const supabase = createClient(cookieStore)
-
-  const { data: page, error } = await supabase
+  const { data } = await supabase
     .from('cms_pages')
     .select('id, title, resume, sections, robots, published')
     .eq('slug', slug)
-    .eq('published', true)
     .is('deleted_at', null)
     .single()
+  return data
+}
 
-  if (error || !page) notFound()
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params
+  const page = await fetchPage(slug)
+  if (!page?.published) notFound()
+  return { title: page.title }
+}
+
+export default async function CmsPublicPage({ params }: Props) {
+  const { slug } = await params
+  const page = await fetchPage(slug)
+  if (!page?.published) notFound()
 
   return (
     <main className="bg-tt-bg min-h-screen font-grotesk text-white">
