@@ -1,13 +1,20 @@
 import { type CookieOptions, createServerClient } from '@supabase/ssr'
 import { type NextRequest, NextResponse } from 'next/server'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL
+const supabaseKey =
+  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY ||
+  process.env.SUPABASE_PUBLISHABLE_DEFAULT_KEY
 
 export const createClient = (request: NextRequest) => {
   let supabaseResponse = NextResponse.next({ request: { headers: request.headers } })
 
-  const _supabase = createServerClient(supabaseUrl ?? '', supabaseKey ?? '', {
+  // Sécurité anti-crash WSL / Hot-reload
+  if (!supabaseUrl || !supabaseKey) {
+    return supabaseResponse
+  }
+
+  const _supabase = createServerClient(supabaseUrl, supabaseKey, {
     cookies: {
       getAll() {
         return request.cookies.getAll()
