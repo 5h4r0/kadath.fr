@@ -18,6 +18,9 @@ const ADMIN_PATH_PATTERN = /^\/(?:fr|en)\/(?:cms|clients|invoices|projects)(?:\/
 // domaine canonique thinktwice.sokol.fr) est renvoyée en 301 vers elle.
 const BACKOFFICE_DOMAINE = 'kadath.fr'
 const BACKOFFICE_BASE = '/manage'
+// Domaines dont les chemins de backoffice sont renvoyés vers BACKOFFICE_DOMAINE.
+// Liste explicite, à compléter si un nouveau domaine sert la même application.
+const DOMAINES_RENVOYES = ['thinktwice.sokol.fr', 'www.thinktwice.sokol.fr']
 const BACKOFFICE_CHEMIN = /^\/(?:(?:fr|en)\/)?manage(?:\/|$)/
 // Cible POST du formulaire de connexion : jamais redirigée, une 301 sur un POST
 // le transformerait en GET et la connexion échouerait silencieusement.
@@ -49,14 +52,21 @@ export async function proxy(request: NextRequest) {
 
     // '' pour la racine du backoffice, '/cms', '/clients/42'… ensuite.
     const suffixe = pathname.replace(/^\/(?:(?:fr|en)\/)?manage/, '')
-    const hote = request.headers.get('host') ?? ''
-    const surLeBonDomaine =
-      hote === BACKOFFICE_DOMAINE ||
-      hote === `www.${BACKOFFICE_DOMAINE}` ||
-      hote.startsWith('localhost') ||
-      hote.startsWith('127.0.0.1')
 
-    if (!surLeBonDomaine) {
+    // Derrière Firebase App Hosting (Cloud Run), l'en-tête `host` porte le nom
+    // interne du service, pas le domaine public : c'est `x-forwarded-host`
+    // qu'il faut lire. Une erreur ici a fait boucler /manage sur lui-même en
+    // production, d'où la règle inverse ci-dessous.
+    const hote = (request.headers.get('x-forwarded-host') ?? request.headers.get('host') ?? '')
+      .split(',')[0]
+      .trim()
+      .toLowerCase()
+      .replace(/:\d+$/, '')
+
+    // On ne renvoie que les domaines explicitement listés, au lieu d'exiger de
+    // reconnaître le bon : si la détection échoue, le backoffice reste joignable
+    // sur un domaine de trop — jamais inatteignable.
+    if (DOMAINES_RENVOYES.includes(hote)) {
       return NextResponse.redirect(`https://${BACKOFFICE_DOMAINE}${BACKOFFICE_BASE}${suffixe}`, 301)
     }
 
