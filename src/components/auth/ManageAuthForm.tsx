@@ -49,7 +49,7 @@ export function ManageAuthForm({ error: propError }: Props) {
       return
     }
 
-    window.location.href = '/manage/cms'
+    window.location.href = '/fr/manage/cms'
   }
 
   return (

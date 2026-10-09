@@ -11,7 +11,18 @@ const ADMIN_ROLES = ['admin', 'editor'] as const
 const CUSTOMER_PATTERN = /^\/(?:fr|en)\/customer(?:\/|$)/
 const AUTH_PATTERN = /^\/(?:fr|en)\/auth(?:\/|$)/
 const ADMIN_PATH_PATTERN = /^\/(?:fr|en)\/(?:cms|clients|invoices|projects)(?:\/|$)/
-const MANAGE_PROTECTED = /^\/manage\/(?!login).+/
+
+// Le backoffice n'a qu'une seule adresse publique : https://kadath.fr/fr/manage.
+// Les pages vivent toujours dans src/app/manage/ (hors du segment [locale]) :
+// /fr/manage y est réécrit sans que l'URL change, ce qui évite de déplacer tout
+// l'arbre de routes. Toute autre forme — sans langue, en /en, ou sur le domaine
+// canonique thinktwice.sokol.fr — est renvoyée en 301 vers l'adresse unique.
+const BACKOFFICE_DOMAINE = 'kadath.fr'
+const BACKOFFICE_BASE = '/fr/manage'
+const BACKOFFICE_CHEMIN = /^\/(?:(?:fr|en)\/)?manage(?:\/|$)/
+// Cible POST du formulaire de connexion : jamais redirigée, une 301 sur un POST
+// le transformerait en GET et la connexion échouerait silencieusement.
+const BACKOFFICE_ENDPOINT_LOGIN = '/manage/login'
 
 function extractLocale(pathname: string): string {
   const match = pathname.match(/^\/(fr|en)(?:\/|$)/)
@@ -33,9 +44,31 @@ export async function proxy(request: NextRequest) {
     return res
   }
 
-  // 3a. Handle /manage segment — bypass intl, admin-only
-  if (pathname.startsWith('/manage')) {
-    if (MANAGE_PROTECTED.test(pathname)) {
+  // 3a. Backoffice — adresse unique, hors internationalisation, admin seulement
+  if (BACKOFFICE_CHEMIN.test(pathname)) {
+    if (pathname === BACKOFFICE_ENDPOINT_LOGIN) return withCookies(NextResponse.next())
+
+    // '' pour la racine du backoffice, '/cms', '/clients/42'… ensuite.
+    const suffixe = pathname.replace(/^\/(?:(?:fr|en)\/)?manage/, '')
+    const hote = request.headers.get('host') ?? ''
+    const surLeBonDomaine =
+      hote === BACKOFFICE_DOMAINE ||
+      hote === `www.${BACKOFFICE_DOMAINE}` ||
+      hote.startsWith('localhost') ||
+      hote.startsWith('127.0.0.1')
+
+    if (!surLeBonDomaine) {
+      return NextResponse.redirect(`https://${BACKOFFICE_DOMAINE}${BACKOFFICE_BASE}${suffixe}`, 301)
+    }
+
+    if (pathname !== BACKOFFICE_BASE && !pathname.startsWith(`${BACKOFFICE_BASE}/`)) {
+      const cible = request.nextUrl.clone()
+      cible.pathname = `${BACKOFFICE_BASE}${suffixe}`
+      return NextResponse.redirect(cible, 301)
+    }
+
+    // Tout sauf la racine exige un rôle : la racine porte le formulaire.
+    if (suffixe !== '') {
       const {
         data: { user },
       } = await supabase.auth.getUser()
@@ -43,10 +76,13 @@ export async function proxy(request: NextRequest) {
       const role = user?.app_metadata?.role as string | undefined
       const isAuthorized = !!user && ADMIN_ROLES.includes(role as (typeof ADMIN_ROLES)[number])
       if (!isAuthorized) {
-        return withCookies(NextResponse.redirect(new URL('/manage', request.url)))
+        return withCookies(NextResponse.redirect(new URL(BACKOFFICE_BASE, request.url)))
       }
     }
-    return withCookies(NextResponse.next())
+
+    const reecriture = request.nextUrl.clone()
+    reecriture.pathname = `/manage${suffixe}`
+    return withCookies(NextResponse.rewrite(reecriture))
   }
 
   // 2. Apply next-intl locale routing (only for non-/manage routes)
