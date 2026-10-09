@@ -12,13 +12,12 @@ const CUSTOMER_PATTERN = /^\/(?:fr|en)\/customer(?:\/|$)/
 const AUTH_PATTERN = /^\/(?:fr|en)\/auth(?:\/|$)/
 const ADMIN_PATH_PATTERN = /^\/(?:fr|en)\/(?:cms|clients|invoices|projects)(?:\/|$)/
 
-// Le backoffice n'a qu'une seule adresse publique : https://kadath.fr/fr/manage.
-// Les pages vivent toujours dans src/app/manage/ (hors du segment [locale]) :
-// /fr/manage y est réécrit sans que l'URL change, ce qui évite de déplacer tout
-// l'arbre de routes. Toute autre forme — sans langue, en /en, ou sur le domaine
-// canonique thinktwice.sokol.fr — est renvoyée en 301 vers l'adresse unique.
+// Le backoffice n'a qu'une seule adresse publique : https://kadath.fr/manage.
+// Il vit hors du segment [locale] — c'est un outil, pas une page traduite —
+// donc pas de préfixe de langue. Toute autre forme (avec /fr ou /en, ou sur le
+// domaine canonique thinktwice.sokol.fr) est renvoyée en 301 vers elle.
 const BACKOFFICE_DOMAINE = 'kadath.fr'
-const BACKOFFICE_BASE = '/fr/manage'
+const BACKOFFICE_BASE = '/manage'
 const BACKOFFICE_CHEMIN = /^\/(?:(?:fr|en)\/)?manage(?:\/|$)/
 // Cible POST du formulaire de connexion : jamais redirigée, une 301 sur un POST
 // le transformerait en GET et la connexion échouerait silencieusement.
@@ -80,9 +79,8 @@ export async function proxy(request: NextRequest) {
       }
     }
 
-    const reecriture = request.nextUrl.clone()
-    reecriture.pathname = `/manage${suffixe}`
-    return withCookies(NextResponse.rewrite(reecriture))
+    // Ici l'URL est déjà la bonne : /manage… sur kadath.fr. Rien à réécrire.
+    return withCookies(NextResponse.next())
   }
 
   // 2. Apply next-intl locale routing (only for non-/manage routes)
