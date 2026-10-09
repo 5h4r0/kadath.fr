@@ -174,6 +174,13 @@ Les cinq secrets Firebase App Hosting et la config Upstash sont listés dans
 
 ### Pending / horizon
 
+- **CookieYes — identifiant à confirmer à la reprise du projet.** Le code
+  utilise `ef1fc7682b16315dca7139faf311fc93` (repris de l'ancien code en dur,
+  désormais dans `NEXT_PUBLIC_COOKIEYES_ID`). Un autre identifiant circule :
+  `ca075d3de3f57eedb013bec0e6988855`. Vérifier dans le tableau de bord
+  CookieYes lequel correspond à kadath.fr avant la prochaine mise en ligne de
+  la bannière — avec le mauvais, elle chargera les réglages d'un autre site.
+
 > Dernière revue : 2026-04-21. **À réviser** : six mois d'écart avec la date du jour.
 
 - Customer space — zéro route implémentée (prochain sprint)
