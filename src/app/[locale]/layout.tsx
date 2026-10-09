@@ -25,13 +25,14 @@ export default async function LocaleLayout({
 
   return (
     <NextIntlClientProvider messages={messages}>
-      {process.env.NEXT_PUBLIC_COOKIEYES_ENABLED === 'true' && (
-        <Script
-          id="cookieyes"
-          src="https://cdn-cookieyes.com/client_data/ef1fc7682b16315dca7139faf311fc93/script.js"
-          strategy="afterInteractive"
-        />
-      )}
+      {process.env.NEXT_PUBLIC_COOKIEYES_ENABLED === 'true' &&
+        process.env.NEXT_PUBLIC_COOKIEYES_ID && (
+          <Script
+            id="cookieyes"
+            src={`https://cdn-cookieyes.com/client_data/${process.env.NEXT_PUBLIC_COOKIEYES_ID}/script.js`}
+            strategy="afterInteractive"
+          />
+        )}
       {children}
     </NextIntlClientProvider>
   )

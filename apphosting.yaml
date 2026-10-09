@@ -54,5 +54,17 @@ env:
   - variable: UPSTASH_REDIS_REST_TOKEN
     secret: UPSTASH_REDIS_REST_TOKEN
 
+  # CookieYes : rien de confidentiel ici. Une variable NEXT_PUBLIC_* est
+  # inlinée dans le bundle envoyé au navigateur, et l'identifiant de
+  # configuration est de toute façon visible dans l'URL du script.
   - variable: NEXT_PUBLIC_COOKIEYES_ENABLED
-    secret: NEXT_PUBLIC_COOKIEYES_ENABLED
+    value: "true"
+    availability:
+      - BUILD
+      - RUNTIME
+
+  - variable: NEXT_PUBLIC_COOKIEYES_ID
+    value: ef1fc7682b16315dca7139faf311fc93
+    availability:
+      - BUILD
+      - RUNTIME
