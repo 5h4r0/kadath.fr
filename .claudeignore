@@ -1,0 +1,10 @@
+# Déjà dans .gitignore mais explicite pour CC
+.pnpm-store/
+.husky/
+
+# Binaires — CC n'a rien à y lire
+public/fonts/
+
+# Garder le template lisible
+.env*
+!.env.local.template

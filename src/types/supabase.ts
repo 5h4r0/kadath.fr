@@ -209,6 +209,7 @@ export type Database = {
           author_id: string | null
           canonical_url: string | null
           created_at: string
+          deleted_at: string | null
           excerpt: string | null
           fts_en: unknown
           fts_fr: unknown
@@ -239,6 +240,7 @@ export type Database = {
           author_id?: string | null
           canonical_url?: string | null
           created_at?: string
+          deleted_at?: string | null
           excerpt?: string | null
           fts_en?: unknown
           fts_fr?: unknown
@@ -269,6 +271,7 @@ export type Database = {
           author_id?: string | null
           canonical_url?: string | null
           created_at?: string
+          deleted_at?: string | null
           excerpt?: string | null
           fts_en?: unknown
           fts_fr?: unknown
@@ -348,6 +351,77 @@ export type Database = {
           version?: string
         }
         Relationships: []
+      }
+      contact_messages: {
+        Row: {
+          email: string
+          first_name: string
+          id: string
+          ip_address: string | null
+          message: string
+          name: string
+          read_at: string | null
+          sent_at: string | null
+          subject: string
+          turnstile_verified: boolean | null
+        }
+        Insert: {
+          email: string
+          first_name?: string
+          id?: string
+          ip_address?: string | null
+          message: string
+          name: string
+          read_at?: string | null
+          sent_at?: string | null
+          subject: string
+          turnstile_verified?: boolean | null
+        }
+        Update: {
+          email?: string
+          first_name?: string
+          id?: string
+          ip_address?: string | null
+          message?: string
+          name?: string
+          read_at?: string | null
+          sent_at?: string | null
+          subject?: string
+          turnstile_verified?: boolean | null
+        }
+        Relationships: []
+      }
+      footer_legal_links: {
+        Row: {
+          cms_page_id: string
+          created_at: string | null
+          id: string
+          order_index: number
+          zone: string
+        }
+        Insert: {
+          cms_page_id: string
+          created_at?: string | null
+          id?: string
+          order_index?: number
+          zone: string
+        }
+        Update: {
+          cms_page_id?: string
+          created_at?: string | null
+          id?: string
+          order_index?: number
+          zone?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'footer_legal_links_cms_page_id_fkey'
+            columns: ['cms_page_id']
+            isOneToOne: false
+            referencedRelation: 'cms_pages'
+            referencedColumns: ['id']
+          },
+        ]
       }
       invoice_lines: {
         Row: {
@@ -534,6 +608,50 @@ export type Database = {
           year?: number
         }
         Relationships: []
+      }
+      page_sections: {
+        Row: {
+          content: Json
+          created_at: string
+          deleted_at: string | null
+          id: string
+          is_visible: boolean
+          order_index: number
+          page_id: string
+          type: string
+          updated_at: string
+        }
+        Insert: {
+          content?: Json
+          created_at?: string
+          deleted_at?: string | null
+          id?: string
+          is_visible?: boolean
+          order_index?: number
+          page_id: string
+          type: string
+          updated_at?: string
+        }
+        Update: {
+          content?: Json
+          created_at?: string
+          deleted_at?: string | null
+          id?: string
+          is_visible?: boolean
+          order_index?: number
+          page_id?: string
+          type?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'page_sections_page_id_fkey'
+            columns: ['page_id']
+            isOneToOne: false
+            referencedRelation: 'cms_pages'
+            referencedColumns: ['id']
+          },
+        ]
       }
       pages_linked: {
         Row: {
@@ -893,6 +1011,7 @@ export type Database = {
           author_id: string | null
           canonical_url: string | null
           created_at: string
+          deleted_at: string | null
           excerpt: string | null
           fts_en: unknown
           fts_fr: unknown

@@ -1,36 +1,55 @@
 -- ============================================================
--- seed.sql — Données de test kadath.fr
+-- seed.sql — Données de test thinktwice
 -- ============================================================
 -- UUIDs de référence
--- admin@kadath.fr     → 501f1bd9-127e-4515-9434-269ce3ae8bb7
--- editor@kadath.fr    → d859c080-d0b3-407d-8efd-22ac5528beed
--- client1@test.fr     → 9472471e-bc06-4992-93c3-b31065347fdb
--- client2@test.fr     → c09430c1-c1e8-4676-b1d7-e6b6c7c850a2
--- client3@test.fr     → (pas de compte auth)
+-- thinktwice@kadath.fr   → 501f1bd9-127e-4515-9434-269ce3ae8bb7
+-- thinktwice@sokol.fr    → d859c080-d0b3-407d-8efd-22ac5528beed
+-- client1@test.fr        → 9472471e-bc06-4992-93c3-b31065347fdb
+-- client2@test.fr        → c09430c1-c1e8-4676-b1d7-e6b6c7c850a2
+-- client3@test.fr        → (pas de compte auth)
 -- ============================================================
 
 -- ─── Auth users (requis avant admin_users et clients — FK auth.users) ─────
 -- Inséré directement ici car supabase start exécute seed.sql avant
 -- que scripts/seed-auth.ts ait pu créer les utilisateurs via l'API.
 -- Mots de passe en clair dans scripts/seed-auth.ts — même valeurs.
+-- GoTrue requires several string columns to be '' (not NULL) and instance_id
+-- to be the default '00000000-0000-0000-0000-000000000000'. Use cost factor 10
+-- for bcrypt (gen_salt default is 6, which GoTrue local rejects).
+
 INSERT INTO auth.users (
-  id, aud, role, email, encrypted_password,
-  email_confirmed_at, created_at, updated_at,
+  id, instance_id, aud, role, email, encrypted_password,
+  email_confirmed_at, confirmation_token, recovery_token,
+  email_change, email_change_token_new, email_change_token_current,
+  phone_change, phone_change_token, reauthentication_token,
+  created_at, updated_at,
   raw_app_meta_data, raw_user_meta_data,
   is_super_admin, is_sso_user, is_anonymous
 ) VALUES
-  ('501f1bd9-127e-4515-9434-269ce3ae8bb7', 'authenticated', 'authenticated',
-   'admin@kadath.fr', crypt('Admin0000!', gen_salt('bf')),
-   now(), now(), now(), '{}', '{}', false, false, false),
-  ('d859c080-d0b3-407d-8efd-22ac5528beed', 'authenticated', 'authenticated',
-   'editor@kadath.fr', crypt('Editor1111!', gen_salt('bf')),
-   now(), now(), now(), '{}', '{}', false, false, false),
-  ('9472471e-bc06-4992-93c3-b31065347fdb', 'authenticated', 'authenticated',
-   'client1@test.fr', crypt('Client3333!', gen_salt('bf')),
-   now(), now(), now(), '{}', '{}', false, false, false),
-  ('c09430c1-c1e8-4676-b1d7-e6b6c7c850a2', 'authenticated', 'authenticated',
-   'client2@test.fr', crypt('Client4444!', gen_salt('bf')),
-   now(), now(), now(), '{}', '{}', false, false, false)
+  ('501f1bd9-127e-4515-9434-269ce3ae8bb7',
+   '00000000-0000-0000-0000-000000000000',
+   'authenticated', 'authenticated',
+   'admin@kadath.fr', crypt('Admin0000!', gen_salt('bf', 10)),
+   now(), '', '', '', '', '', '', '', '',
+   now(), now(), '{}', '{}', false, false, false),
+  ('d859c080-d0b3-407d-8efd-22ac5528beed',
+   '00000000-0000-0000-0000-000000000000',
+   'authenticated', 'authenticated',
+   'editor@kadath.fr', crypt('Editor1111!', gen_salt('bf', 10)),
+   now(), '', '', '', '', '', '', '', '',
+   now(), now(), '{}', '{}', false, false, false),
+  ('9472471e-bc06-4992-93c3-b31065347fdb',
+   '00000000-0000-0000-0000-000000000000',
+   'authenticated', 'authenticated',
+   'client1@test.fr', crypt('Client3333!', gen_salt('bf', 10)),
+   now(), '', '', '', '', '', '', '', '',
+   now(), now(), '{}', '{}', false, false, false),
+  ('c09430c1-c1e8-4676-b1d7-e6b6c7c850a2',
+   '00000000-0000-0000-0000-000000000000',
+   'authenticated', 'authenticated',
+   'client2@test.fr', crypt('Client4444!', gen_salt('bf', 10)),
+   now(), '', '', '', '', '', '', '', '',
+   now(), now(), '{}', '{}', false, false, false)
 ON CONFLICT (id) DO NOTHING;
 
 -- ─── Settings globaux ────────────────────────────────────────────────────
@@ -53,11 +72,24 @@ INSERT INTO settings (key, value) VALUES
 INSERT INTO settings (key, value) VALUES
   ('legal_vat',          'FR00000000000')       ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value;
 
+-- ─── Settings footer ─────────────────────────────────────────────────────
+INSERT INTO settings (key, value) VALUES
+  ('footer_copyright_fr', '"© 2026 ThinkTwice. Tous droits réservés."') ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value;
+INSERT INTO settings (key, value) VALUES
+  ('footer_copyright_en', '"© 2026 ThinkTwice. All rights reserved."')  ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value;
+-- footer_legal_links migré vers table dédiée (voir seed footer_legal_links ci-dessous)
+
 -- ─── Admin users ─────────────────────────────────────────────────────────
 INSERT INTO admin_users (id, role, first_name, last_name, email) VALUES
   ('501f1bd9-127e-4515-9434-269ce3ae8bb7', 'admin',  'Steph',   'Dev',     'admin@kadath.fr'),
   ('d859c080-d0b3-407d-8efd-22ac5528beed', 'editor', 'Éditeur', 'Test',    'editor@kadath.fr')
 ON CONFLICT (id) DO NOTHING;
+
+-- ─── Sync app_metadata role → auth.users ─────────────────────────────────
+UPDATE auth.users
+SET raw_app_meta_data = jsonb_build_object('role', au.role)
+FROM public.admin_users au
+WHERE auth.users.id = au.id;
 
 -- ─── Tags CMS ────────────────────────────────────────────────────────────
 INSERT INTO tags (id, name, slug) VALUES
@@ -73,10 +105,244 @@ INSERT INTO cms_pages (
   sections, galerie, published, published_at,
   show_in_menu, menu_order, robots
 ) VALUES
-  ('00000020-0000-0000-0000-000000000001','501f1bd9-127e-4515-9434-269ce3ae8bb7','accueil','Accueil','Développeur freelance Next.js & Supabase','landing','fr','[]','[]',true,now(),true,1,'index,follow'),
+  ('00000020-0000-0000-0000-000000000001','501f1bd9-127e-4515-9434-269ce3ae8bb7','homepage','Accueil','Développeur freelance Next.js & Supabase','landing','fr','[]','[]',true,now(),true,1,'index,follow'),
   ('00000020-0000-0000-0000-000000000002','501f1bd9-127e-4515-9434-269ce3ae8bb7','services','Services','Mes prestations de développement web','default','fr','[]','[]',true,now(),true,2,'index,follow'),
   ('00000020-0000-0000-0000-000000000003','501f1bd9-127e-4515-9434-269ce3ae8bb7','contact','Contact','Parlons de votre projet','contact','fr','[]','[]',true,now(),true,3,'index,follow'),
   ('00000020-0000-0000-0000-000000000004','501f1bd9-127e-4515-9434-269ce3ae8bb7','mentions-legales','Mentions légales',null,'default','fr','[]','[]',true,now(),false,0,'noindex,nofollow')
+ON CONFLICT (slug) DO NOTHING;
+
+INSERT INTO cms_pages (
+  id, author_id, slug, title, resume, template, lang,
+  sections, galerie,
+  meta_description,
+  published, published_at,
+  show_in_menu, menu_order, robots
+) VALUES
+
+-- ── À PROPOS ────────────────────────────────────────────────────────────────
+(
+  '00000020-0000-0000-0000-000000000006',
+  '501f1bd9-127e-4515-9434-269ce3ae8bb7',
+  'thinktwice',
+  'À propos',
+  'ThinkTwice — direction artistique et développement web sur mesure depuis 20 ans.',
+  'default',
+  'fr',
+  '{
+    "type": "doc",
+    "content": [
+      {
+        "type": "heading",
+        "attrs": { "level": 2 },
+        "content": [{ "type": "text", "text": "À propos de ThinkTwice" }]
+      },
+      {
+        "type": "paragraph",
+        "content": [{ "type": "text", "text": "ThinkTwice est une agence digitale à deux têtes : direction artistique et développement web, ensemble depuis le début." }]
+      },
+      {
+        "type": "heading",
+        "attrs": { "level": 2 },
+        "content": [{ "type": "text", "text": "Notre approche" }]
+      },
+      {
+        "type": "bulletList",
+        "content": [
+          { "type": "listItem", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "Un interlocuteur unique du brief au déploiement." }] }] },
+          { "type": "listItem", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "Code livré propre, testé, documenté." }] }] },
+          { "type": "listItem", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "Itérations courtes avec feedback régulier." }] }] },
+          { "type": "listItem", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "Pas de dépendances inutiles. Pas de complexité gratuite." }] }] }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [{ "type": "text", "text": "Page en cours de rédaction." }]
+      }
+    ]
+  }',
+  '[]',
+  'ThinkTwice — agence digitale. Direction artistique et développement web sur mesure.',
+  true,
+  now(),
+  false,
+  0,
+  'index,follow'
+)
+ON CONFLICT (slug) DO NOTHING;
+
+INSERT INTO cms_pages (
+  id, author_id, slug, title, resume, template, lang,
+  sections, galerie,
+  meta_description,
+  published, published_at,
+  show_in_menu, menu_order, robots
+) VALUES
+
+-- ── MENTIONS LÉGALES ────────────────────────────────────────────────────────
+(
+  '00000020-0000-0000-0000-000000000007',
+  '501f1bd9-127e-4515-9434-269ce3ae8bb7',
+  'mentions-legales',
+  'Mentions légales',
+  NULL,
+  'default',
+  'fr',
+  '{
+    "type": "doc",
+    "content": [
+      {
+        "type": "heading",
+        "attrs": { "level": 2 },
+        "content": [{ "type": "text", "text": "Éditeur" }]
+      },
+      {
+        "type": "paragraph",
+        "content": [{ "type": "text", "text": "Steph Dev — Entrepreneur individuel" }]
+      },
+      {
+        "type": "paragraph",
+        "content": [{ "type": "text", "text": "SIRET : 000 000 000 00000" }]
+      },
+      {
+        "type": "paragraph",
+        "content": [{ "type": "text", "text": "75000 Paris, France" }]
+      },
+      {
+        "type": "paragraph",
+        "content": [{ "type": "text", "text": "E-mail : thinktwice@kadath.fr" }]
+      },
+      {
+        "type": "heading",
+        "attrs": { "level": 2 },
+        "content": [{ "type": "text", "text": "Hébergement" }]
+      },
+      {
+        "type": "paragraph",
+        "content": [{ "type": "text", "text": "Google Cloud / Firebase App Hosting" }]
+      },
+      {
+        "type": "paragraph",
+        "content": [{ "type": "text", "text": "8 rue de Londres, 75009 Paris" }]
+      },
+      {
+        "type": "heading",
+        "attrs": { "level": 2 },
+        "content": [{ "type": "text", "text": "Données personnelles" }]
+      },
+      {
+        "type": "paragraph",
+        "content": [{ "type": "text", "text": "Les données collectées via le formulaire de contact (nom, email, message) sont utilisées uniquement pour répondre à votre demande. Elles ne sont ni vendues, ni cédées à des tiers. Conformément au RGPD, vous disposez d''un droit d''accès, de rectification et de suppression. Pour l''exercer : thinktwice@kadath.fr" }]
+      },
+      {
+        "type": "heading",
+        "attrs": { "level": 2 },
+        "content": [{ "type": "text", "text": "Cookies" }]
+      },
+      {
+        "type": "paragraph",
+        "content": [{ "type": "text", "text": "Ce site utilise Umami, une solution d''analyse d''audience respectueuse de la vie privée, sans cookie de traçage tiers." }]
+      }
+    ]
+  }',
+  '[]',
+  'Mentions légales de kadath.fr — éditeur, hébergement, données personnelles.',
+  true,
+  now(),
+  false,
+  0,
+  'noindex,nofollow'
+)
+ON CONFLICT (slug) DO UPDATE SET sections = EXCLUDED.sections, meta_description = EXCLUDED.meta_description;
+
+INSERT INTO cms_pages (
+  id, author_id, slug, title, resume, template, lang,
+  sections, galerie,
+  meta_description,
+  published, published_at,
+  show_in_menu, menu_order, robots
+) VALUES
+
+-- ── POLITIQUE DE CONFIDENTIALITÉ ────────────────────────────────────────────
+(
+  '00000020-0000-0000-0000-000000000009',
+  '501f1bd9-127e-4515-9434-269ce3ae8bb7',
+  'politique-confidentialite',
+  'Politique de confidentialité',
+  NULL,
+  'default',
+  'fr',
+  '{
+    "type": "doc",
+    "content": [
+      {
+        "type": "heading",
+        "attrs": { "level": 2 },
+        "content": [{ "type": "text", "text": "Responsable du traitement" }]
+      },
+      {
+        "type": "paragraph",
+        "content": [{ "type": "text", "text": "ThinkTwice — thinktwice@kadath.fr" }]
+      },
+      {
+        "type": "heading",
+        "attrs": { "level": 2 },
+        "content": [{ "type": "text", "text": "Données collectées" }]
+      },
+      {
+        "type": "paragraph",
+        "content": [{ "type": "text", "text": "Via le formulaire de contact : prénom, nom, email, sujet, message." }]
+      },
+      {
+        "type": "paragraph",
+        "content": [{ "type": "text", "text": "Finalité : répondre à vos demandes. Base légale : intérêt légitime." }]
+      },
+      {
+        "type": "heading",
+        "attrs": { "level": 2 },
+        "content": [{ "type": "text", "text": "Durée de conservation" }]
+      },
+      {
+        "type": "paragraph",
+        "content": [{ "type": "text", "text": "Les messages sont conservés 3 ans à compter de la dernière interaction." }]
+      },
+      {
+        "type": "heading",
+        "attrs": { "level": 2 },
+        "content": [{ "type": "text", "text": "Vos droits" }]
+      },
+      {
+        "type": "paragraph",
+        "content": [{ "type": "text", "text": "Conformément au RGPD, vous disposez d''un droit d''accès, de rectification, de suppression et d''opposition. Pour l''exercer : thinktwice@kadath.fr" }]
+      },
+      {
+        "type": "heading",
+        "attrs": { "level": 2 },
+        "content": [{ "type": "text", "text": "Cookies et analytics" }]
+      },
+      {
+        "type": "paragraph",
+        "content": [{ "type": "text", "text": "Ce site utilise Umami Analytics en mode sans cookie (aucun identifiant persistant, aucune donnée personnelle transmise à des tiers)." }]
+      },
+      {
+        "type": "heading",
+        "attrs": { "level": 2 },
+        "content": [{ "type": "text", "text": "Hébergement des données" }]
+      },
+      {
+        "type": "paragraph",
+        "content": [{ "type": "text", "text": "Les données sont hébergées sur Google Cloud Platform (Firebase App Hosting) et Supabase (PostgreSQL), avec stockage en Europe." }]
+      }
+    ]
+  }',
+  '[]',
+  'Politique de confidentialité de kadath.fr — RGPD, données collectées, droits.',
+  true,
+  now(),
+  false,
+  0,
+  'noindex,nofollow'
+)
+
 ON CONFLICT (slug) DO NOTHING;
 
 -- ─── Clients ─────────────────────────────────────────────────────────────
@@ -145,3 +411,12 @@ INSERT INTO numbering_counters (doc_type, year, counter) VALUES
   ('quote',   2026, 3),
   ('invoice', 2026, 3)
 ON CONFLICT (doc_type, year) DO UPDATE SET counter = EXCLUDED.counter;
+
+-- ─── Footer legal links ───────────────────────────────────────────────────
+INSERT INTO public.footer_legal_links (cms_page_id, zone, order_index)
+SELECT id, 'legal', 0 FROM public.cms_pages WHERE slug = 'mentions-legales'
+ON CONFLICT DO NOTHING;
+
+INSERT INTO public.footer_legal_links (cms_page_id, zone, order_index)
+SELECT id, 'legal', 1 FROM public.cms_pages WHERE slug = 'politique-confidentialite'
+ON CONFLICT DO NOTHING;

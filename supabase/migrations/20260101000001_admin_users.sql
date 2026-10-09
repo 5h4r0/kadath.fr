@@ -14,7 +14,7 @@ CREATE TABLE admin_users (
   deleted_at TIMESTAMPTZ
 );
 
-COMMENT ON TABLE admin_users IS 'Utilisateurs du backoffice manage.kadath.fr. id = auth.users.id.';
+COMMENT ON TABLE admin_users IS 'Utilisateurs du backoffice kadath.fr/manage. id = auth.users.id.';
 COMMENT ON COLUMN admin_users.role IS 'admin : accès total. editor : lecture + édition CMS, pas de gestion clients/facturation.';
 
 -- Updated_at automatique

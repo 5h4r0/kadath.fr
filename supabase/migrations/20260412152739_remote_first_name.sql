@@ -1,0 +1,1 @@
+-- migration vide intentionnelle (appliquée directement sur le distant via MCP)

@@ -1,4 +1,11 @@
 allowBuilds:
   '@biomejs/biome': true
+  '@parcel/watcher': true
+  '@swc/core': true
   esbuild: true
   sharp: true
+
+# Déplacé de package.json : pnpm 11 ne lit plus le champ "pnpm".
+overrides:
+  '@types/react': 19.2.14
+  '@types/react-dom': 19.2.3

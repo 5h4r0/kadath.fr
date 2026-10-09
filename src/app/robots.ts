@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next'
 
-const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://kadath.fr'
+const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://thinktwice.sokol.fr'
 
 const protectedPaths = ['/.env', '/.git', '/api/', '/customer/', '/manage/']
 

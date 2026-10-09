@@ -1,4 +1,4 @@
-# REF.md — Référence technique kadath.fr
+# REF.md — Référence technique kadath.fr | thinktwice
 > Patterns, snippets et conventions à réutiliser systématiquement
 
 ---
@@ -186,7 +186,7 @@ export async function contactAction(formData: FormData) {
 import { resend } from '@/lib/resend'
 
 await resend.emails.send({
-  from: 'kadath.fr <no-reply@kadath.fr>',
+  from: 'thinktwice <thinktwice@thinktwice.sokol.fr>',
   to: [client.email],
   subject: 'Nouvelle facture disponible',
   react: InvoiceEmail({ invoice, url: signedUrl }),
@@ -380,3 +380,67 @@ pnpm dlx tsx --env-file=.env.local scripts/seed-auth.ts
 # Deploy
 pnpm build && firebase deploy --only hosting
 ```
+
+---
+
+## Inventaires (déplacés de CLAUDE.md le 09/10/2026)
+
+Ces tableaux étaient chargés à chaque session alors qu'on les consulte
+rarement. Ils vivent ici désormais.
+
+### Key Libraries
+
+| Bibliothèque               | Rôle                                                         |
+|----------------------------|--------------------------------------------------------------|
+| next-intl                  | i18n — fr + en                                               |
+| Zod                        | Validation schémas                                           |
+| Supabase (`@supabase/ssr`) | Auth + DB + Storage                                          |
+| Resend + React Email       | Emails transactionnels                                       |
+| Stripe                     | Checkout + webhook signé                                     |
+| TipTap                     | Éditeur de contenu riche CMS                                 |
+| isomorphic-dompurify       | Sanitisation HTML TipTap                                     |
+| react-pdf                  | Génération PDF devis/factures                                |
+| @upstash/ratelimit         | Rate limiting Redis                                          |
+| @marsidev/react-turnstile  | Widget Cloudflare Turnstile (contact + inscription)          |
+| @react-email/render        | Rendu HTML emails (requis explicitement pour Firebase build) |
+| Cloudflare Turnstile       | Anti-bot inscription + contact                               |
+| Biome                      | Lint + format                                                |
+| Vitest + Testing Library   | Tests                                                        |
+| @vercel/og                 | OG image dynamique                                           |
+| Umami                      | Analytics (zone publique uniquement)                         |
+
+### Secrets Firebase App Hosting (Secret Manager)
+
+| Secret                      | Usage                                          |
+|-----------------------------|------------------------------------------------|
+| `RESEND_API_KEY`            | Envoi emails transactionnels                   |
+| `TURNSTILE_SECRET_KEY`      | Vérification Cloudflare Turnstile côté serveur |
+| `SUPABASE_SERVICE_ROLE_KEY` | Insert `contact_messages` (bypass RLS)         |
+| `UPSTASH_REDIS_REST_URL`    | Rate limiting                                  |
+| `UPSTASH_REDIS_REST_TOKEN`  | Rate limiting                                  |
+
+Upstash Redis : DB `kadath.fr` — région `eu-west-1`, free tier — rate limiting uniquement.
+
+### Formulaire de contact — pipeline en place
+
+- Migration : `supabase/migrations/20260101000019_contact_messages.sql`
+  (`contact_messages`, RLS activé, accès service role uniquement)
+- Lib Turnstile : `src/lib/turnstile/index.ts`
+- Server Action : `src/app/actions/contact.ts` (Zod → rate-limit → Turnstile → insert DB → emails)
+- Composant : `src/components/contact/ContactForm.tsx` (CC, `@marsidev/react-turnstile`)
+- Page : `src/app/[locale]/(public)/contact/page.tsx`
+- Section `#contact` intégrée en bas de la homepage
+- Emails : `src/emails/ContactNotification.tsx` + `ContactConfirmation.tsx` (bilingue fr/en)
+- CSP : `challenges.cloudflare.com` ajouté dans `script-src` et `frame-src` (`next.config.ts`)
+
+### Historique livré (état au 2026-04-21)
+
+**Sprints livrés :**
+- Contact form (2026-04-07)
+- Sprint 2 — Auth guard middleware + CMS homepage pipeline (2026-04-09)
+- Sprint auth flows — setup-password, confirm-password-change, route callback verifyOtp (2026-04-17)
+- Sprint B — i18n → CMS, 19 fichiers, 6 interfaces, 6 schémas Zod, page.tsx câblé (2026-04-18)
+
+**Bugs corrigés :** BUG-1 à BUG-7 (isomorphic-dompurify, useState, AdminLayout,
+manifest tokens, sokol redirect, sitemap, opengraph). `robots.ts` : disallow des
+bots agressifs et des chemins d'attaque (`/.env`, `/.git`, `/api/`) en place.

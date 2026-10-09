@@ -1,18 +1,21 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.0/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.4.12/schema.json",
   "files": {
-    "ignore": ["tsconfig.tsbuildinfo", "*.tsbuildinfo", "pnpm-lock.yaml"]
+    "includes": ["**", "!**/tsconfig.tsbuildinfo", "!**/*.tsbuildinfo", "!**/pnpm-lock.yaml"]
   },
-  "organizeImports": { "enabled": true },
+  "assist": { "actions": { "source": { "organizeImports": "on" } } },
   "linter": {
     "enabled": true,
     "rules": {
       "recommended": true,
       "correctness": { "noUnusedVariables": "error" },
-      "suspicious": { "noExplicitAny": "error" }
+      "suspicious": { "noExplicitAny": "error" },
+      "performance": { "noImgElement": "off" },
+      "style": { "noHeadElement": "off" }
     }
   },
   "css": {
+    "parser": { "cssModules": false, "tailwindDirectives": true },
     "linter": { "enabled": false }
   },
   "formatter": {

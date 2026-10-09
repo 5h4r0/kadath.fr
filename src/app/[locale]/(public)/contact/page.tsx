@@ -1,31 +1,36 @@
-import ContactForm from '@/components/contact/ContactForm'
-import { getTranslations } from 'next-intl/server'
+import { createClient } from '@supabase/supabase-js'
+import { notFound } from 'next/navigation'
+import ContactSection from '@/components/contact/ContactSection'
+import { ContactContentSchema } from '@/lib/cms/schemas'
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>
-}) {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
-  const t = await getTranslations({ locale, namespace: 'contact' })
-  return { title: t('title') }
+  return { title: locale === 'en' ? 'Contact' : 'Contact' }
 }
 
-export default async function ContactPage({
-  params,
-}: {
-  params: Promise<{ locale: string }>
-}) {
+export default async function ContactPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
-  const t = await getTranslations({ locale, namespace: 'contact' })
+
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL ?? '',
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY ?? '',
+  )
+
+  const { data } = await supabase
+    .from('page_sections')
+    .select('content')
+    .eq('type', 'contact')
+    .is('deleted_at', null)
+    .single()
+
+  const rawContent = data?.content?.[locale] ?? data?.content?.fr
+  const parsed = ContactContentSchema.safeParse(rawContent)
+
+  if (!parsed.success) notFound()
 
   return (
-    <main className="min-h-screen bg-tt-bg">
-      <section className="mx-auto max-w-2xl px-6 py-24">
-        <h1 className="mb-3 font-bold text-3xl text-tt-accent tracking-tight">{t('title')}</h1>
-        <p className="mb-10 text-[#cccccc]">{t('subtitle')}</p>
-        <ContactForm />
-      </section>
+    <main className="min-h-screen bg-tt-bg font-grotesk text-white">
+      <ContactSection content={parsed.data} headingLevel="h1" autoFocus />
     </main>
   )
 }

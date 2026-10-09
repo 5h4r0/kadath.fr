@@ -7,26 +7,24 @@ const supabaseKey =
   process.env.SUPABASE_PUBLISHABLE_DEFAULT_KEY
 
 export const createClient = (request: NextRequest) => {
-  let supabaseResponse = NextResponse.next({ request: { headers: request.headers } })
+  let response = NextResponse.next({ request: { headers: request.headers } })
 
-  // Sécurité anti-crash WSL / Hot-reload
-  if (!supabaseUrl || !supabaseKey) {
-    return supabaseResponse
-  }
-
-  const _supabase = createServerClient(supabaseUrl, supabaseKey, {
+  const supabase = createServerClient(supabaseUrl ?? '', supabaseKey ?? '', {
     cookies: {
       getAll() {
         return request.cookies.getAll()
       },
       setAll(cookiesToSet: { name: string; value: string; options: CookieOptions }[]) {
         for (const { name, value } of cookiesToSet) request.cookies.set(name, value)
-        supabaseResponse = NextResponse.next({ request })
+        response = NextResponse.next({ request })
         for (const { name, value, options } of cookiesToSet)
-          supabaseResponse.cookies.set(name, value, options)
+          response.cookies.set(name, value, {
+            ...options,
+            secure: process.env.NODE_ENV === 'production',
+          })
       },
     },
   })
 
-  return supabaseResponse
+  return { supabase, response }
 }

@@ -2,13 +2,13 @@ import type { MetadataRoute } from 'next'
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'kadath.fr',
+    name: 'thinktwice.sokol.fr',
     short_name: 'kadath',
     description: 'Développeur web freelance',
     start_url: '/',
     display: 'standalone',
-    background_color: '#1A1F2E',
-    theme_color: '#C5205D',
+    background_color: '#333333',
+    theme_color: '#26e1b0',
     icons: [{ src: '/favicon.ico', sizes: '48x48', type: 'image/x-icon' }],
   }
 }
