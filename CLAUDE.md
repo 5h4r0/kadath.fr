@@ -174,6 +174,21 @@ Les cinq secrets Firebase App Hosting et la config Upstash sont listés dans
 
 ### Pending / horizon
 
+- **Migration prévue vers le VPS Ionos (`sharo.fr`) — décision de Steph du 12/10/2026.**
+  Firebase App Hosting et Supabase sortent du projet. D'ici là, ne plus investir
+  dans du spécifique à ces deux plateformes. Ce que la migration implique :
+  - hébergement → VPS, voir le skill `/deploy-vps-sharo` (Docker, nginx, certbot) ;
+  - Supabase Auth → authentification maison par cookie `httpOnly` + `secure`,
+    comme z0mbiez0ne, ce qui rejoint la convention d'authentification globale ;
+  - Supabase PostgreSQL → PostgreSQL sur le VPS. **Le RLS disparaît** : les 20
+    tables s'appuient dessus aujourd'hui, les règles d'accès devront remonter
+    dans le code ;
+  - Supabase Storage (4 buckets, URL signées) → volume disque + service de
+    signature à écrire ;
+  - Secret Manager → fichiers `.env` sur le VPS, hors du dépôt ;
+  - disparaissent : `apphosting.yaml`, les cinq secrets Secret Manager, le build
+    Cloud Run, et le déploiement au push sur `main`.
+
 - **CookieYes — identifiant à confirmer à la reprise du projet.** Le code
   utilise `ef1fc7682b16315dca7139faf311fc93` (repris de l'ancien code en dur,
   désormais dans `NEXT_PUBLIC_COOKIEYES_ID`). Un autre identifiant circule :
